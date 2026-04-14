@@ -3,113 +3,318 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SIGINT — Device Subsidy War: TMUS vs VZ vs AT&T</title>
+<title>SIGINT — The Promotion Game: Carrier Subsidy Economics</title>
 <style>
-  body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#1a1a2e;
-       max-width:1100px;margin:0 auto;padding:40px 20px;line-height:1.6}
-  h1{font-size:2em;font-weight:800;margin-bottom:4px;letter-spacing:-0.5px}
-  h2{font-size:1.2em;font-weight:700;border-left:4px solid #1a1a2e;padding-left:12px;
-      margin-top:40px;margin-bottom:12px}
-  .subtitle{color:#718096;font-size:0.9em;margin-bottom:20px}
-  .verdict{background:#1a1a2e;color:#fff;border-radius:8px;padding:16px 24px;
-            font-size:1.05em;line-height:1.8;margin:20px 0}
-  .verdict span{color:#90cdf4}
-  table{width:100%;border-collapse:collapse;font-size:0.82em;margin:20px 0}
-  th{background:#1a1a2e;color:#fff;text-align:left;padding:10px 12px;font-weight:600}
-  td{padding:9px 12px;border-bottom:1px solid #e2e8f0;vertical-align:top}
-  tr:nth-child(even) td{background:#f8fafc}
-  td:nth-child(2){color:#E20074;font-weight:600}
-  td:nth-child(3){color:#CD040B;font-weight:600}
-  td:nth-child(4){color:#009FDB;font-weight:600}
-  .tag{display:inline-block;border-radius:4px;padding:2px 8px;font-size:0.78em;
-        font-weight:700;margin-left:6px}
-  .tag-tmus{background:#fce8f3;color:#E20074}
-  .tag-vz{background:#fceaea;color:#CD040B}
-  .tag-t{background:#e6f5fc;color:#009FDB}
-  .scorecard{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:24px 0}
-  .score-item{border:1.5px solid #e2e8f0;border-radius:8px;padding:14px;text-align:center}
-  .score-val{font-size:1.6em;font-weight:800;margin:6px 0}
-  .score-lbl{font-size:0.72em;color:#718096;text-transform:uppercase;letter-spacing:0.5px}
-  .score-winner{font-size:0.78em;color:#718096;margin-top:4px;font-style:italic}
-  .dialogue{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;
-             padding:28px;font-size:0.88em;line-height:2.0;margin:20px 0}
-  .note{color:#a0aec0;font-size:0.78em;margin-top:24px;padding-top:12px;
-         border-top:1px solid #e2e8f0}
-  footer{margin-top:40px;padding-top:16px;border-top:1px solid #e2e8f0;
-          color:#a0aec0;font-size:0.78em;text-align:center}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #fff;
+    color: #1a1a2e;
+    line-height: 1.65;
+    font-size: 15px;
+  }
+
+  /* ── HEADER ── */
+  .report-header {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 28px 48px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .report-header h1 {
+    font-size: 1.55em;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+    max-width: 680px;
+  }
+  .report-header .meta {
+    font-size: 0.78em;
+    color: #a0aec0;
+    margin-top: 6px;
+  }
+  .carrier-badges {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .badge {
+    padding: 6px 18px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.82em;
+    color: #fff;
+  }
+
+  /* ── VERDICT ── */
+  .verdict {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 18px 48px;
+    border-left: 5px solid #E20074;
+    font-size: 0.95em;
+    line-height: 1.8;
+  }
+  .verdict strong { color: #90cdf4; }
+
+  /* ── SECTION ── */
+  .section {
+    padding: 36px 48px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .section-title {
+    font-size: 1.1em;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #1a1a2e;
+    border-left: 4px solid #1a1a2e;
+    padding-left: 12px;
+    margin-bottom: 20px;
+  }
+
+  /* ── METRICS TABLE ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.83em;
+  }
+  th {
+    background: #1a1a2e;
+    color: #fff;
+    text-align: left;
+    padding: 10px 14px;
+    font-weight: 700;
+    font-size: 0.85em;
+  }
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f8fafc; }
+  td.tmus { color: #E20074; font-weight: 700; }
+  td.vz   { color: #CD040B;   font-weight: 700; }
+  td.att  { color: #009FDB;    font-weight: 700; }
+  td.metric { color: #2d3748; font-weight: 600; }
+  td.take  { color: #4a5568; font-size: 0.9em; }
+  .note { color: #a0aec0; font-size: 0.78em; margin-top: 14px; }
+
+  /* ── SCORECARD ── */
+  .scorecard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .score-card {
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+  .score-label { font-size: 0.72em; color: #718096; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .score-val   { font-size: 1.7em; font-weight: 800; margin-bottom: 4px; }
+  .score-sub   { font-size: 0.75em; color: #a0aec0; font-style: italic; }
+
+  /* ── ATT CALLOUT ── */
+  .att-callout {
+    background: #e6f5fc;
+    border: 1.5px solid #009FDB;
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+  .att-callout h3 { color: #009FDB; font-size: 0.9em; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+  .att-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+  .att-item .label { font-size: 0.72em; color: #4a5568; font-weight: 700; }
+  .att-item .val   { font-size: 1.3em; font-weight: 800; color: #009FDB; margin: 4px 0; }
+  .att-item .note  { font-size: 0.68em; color: #718096; font-style: italic; }
+
+  /* ── DIALOGUE ── */
+  .dialogue-wrap {
+    padding: 36px 48px;
+    background: #fff;
+  }
+  .dlg-head {
+    font-size: 1.05em;
+    font-weight: 800;
+    color: #1a1a2e;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin: 24px 0 6px;
+  }
+  .dlg-participant {
+    font-style: italic;
+    color: #718096;
+    font-size: 0.88em;
+    padding-left: 16px;
+    margin: 3px 0;
+  }
+  .dlg-turn {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 0 20px;
+    margin: 14px 0;
+    align-items: start;
+  }
+  .spkr {
+    font-weight: 800;
+    font-size: 0.88em;
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-align: center;
+    color: #fff;
+    margin-top: 2px;
+    display: block;
+  }
+  .spkr.rollins { background: #E20074; }
+  .spkr.ng      { background: #CD040B;   }
+  .spkr.max   { background: #2d7a6b;   }
+  .dlg-text  {
+    font-size: 0.90em;
+    line-height: 1.8;
+    color: #1a1a2e;
+    padding-top: 2px;
+  }
+  .dlg-body {
+    font-size: 0.88em;
+    color: #4a5568;
+    margin: 6px 0 6px 130px;
+    font-style: italic;
+  }
+  hr { border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #f8fafc;
+    padding: 16px 48px;
+    border-top: 1px solid #e2e8f0;
+    color: #a0aec0;
+    font-size: 0.75em;
+    text-align: center;
+  }
 </style>
 </head>
 <body>
 
-<h1>DEVICE SUBSIDY WAR: ARMS RACE OR ARMS TRADE?</h1>
-<div class="subtitle">
-  Comparative Analysis: T-Mobile · Verizon · AT&T &nbsp;|&nbsp; FY2023–FY2025
-  &nbsp;|&nbsp; SIGINT Intelligence Platform &nbsp;|&nbsp; April 2026
+<div class="report-header">
+  <div>
+    <h1>THE PROMOTION GAME: Carrier Device Subsidy Economics in U.S. Wireless</h1>
+    <div class="meta">T-Mobile &nbsp;·&nbsp; Verizon &nbsp;·&nbsp; AT&T &nbsp;|&nbsp; FY2023–FY2025 &nbsp;|&nbsp; SIGINT Intelligence Platform &nbsp;|&nbsp; April 2026</div>
+  </div>
+  <div class="carrier-badges">
+    <span class="badge" style="background:#E20074">T-Mobile</span>
+    <span class="badge" style="background:#CD040B">Verizon</span>
+    <span class="badge" style="background:#009FDB">AT&T</span>
+  </div>
 </div>
 
 <div class="verdict">
-  <strong>SIGINT VERDICT:</strong> T-Mobile is winning the subsidy war —
-  not by outspending rivals, but by converting each dollar of equipment loss
-  into <span>4–6× more net subscribers than Verizon</span>.
-  At $1,611 per net phone add vs. Verizon's $9,685, T-Mobile's promotional
-  machine is the most capital-efficient in U.S. wireless. Meanwhile Verizon's
-  balance sheet — stretched to 2.78× EBITDA after the Frontier acquisition —
-  limits its ability to respond. AT&T quietly runs the tightest churn and
-  the most balanced subsidy posture of the three.
+  <strong>SIGINT VERDICT:</strong> T-Mobile converts each dollar of equipment loss into 4–6× more subscribers than Verizon
+  ($1,611 vs. $9,685 per net phone add). But net leverage alone does not determine who can keep playing —
+  when operating lease obligations, pension commitments, and dividend burdens are included,
+  AT&T's adjusted leverage of 3.08× is the best of the three, and Verizon's 57% FCF dividend commitment
+  is the binding constraint on its promotional flexibility.
 </div>
 
-<h2>KEY METRICS SUMMARY</h2>
-<table>
-  <thead><tr><th>Metric</th><th>T-Mobile</th><th>Verizon</th><th>AT&amp;T</th><th>SIGINT Take</th></tr></thead>
-  <tbody>
-  <tr><td>Equipment Gross Loss (FY2025)</td><td>$5.3B ↑$0.9B</td><td>$3.5B ↑$0.6B</td><td>~$4.0B ↑$0.8B ¹</td><td>All 3 escalated; TMUS absolute leader</td></tr><tr><td>Equipment Loss as % of Service Rev</td><td>7.4%</td><td>4.2%</td><td>~5.9% ¹</td><td>TMUS most intense subsidizer vs. svc rev</td></tr><tr><td>Postpaid Phone Net Adds (FY2025, annual)</td><td>3,294K  #1</td><td>362K  #3 ²</td><td>1,551K  #2</td><td>TMUS: 9.1x more subs per $1B spent vs VZ</td></tr><tr><td>VZ Quarterly Breakdown (2025)</td><td>—</td><td>Q1–Q3: −414K  Q4: +616K</td><td>—</td><td>VZ lost phones 9 months; rescued by Q4 promo surge</td></tr><tr><td>Subsidy Cost per Net Phone Add</td><td>$1,611  BEST</td><td>$9,685  WORST</td><td>~$2,580</td><td>VZ spends 6x more per net add — upgrades, not growth</td></tr><tr><td>Service EBITDA Margin ² (FY2025)</td><td>55.0%</td><td>63.9%  BEST</td><td>51.3%</td><td>VZ: best underlying wireless service economics</td></tr><tr><td>Net Leverage (Net Debt/EBITDA)</td><td>2.38x  BEST</td><td>2.78x  WORST</td><td>2.46x</td><td>TMUS cleanest; VZ stretched post-Frontier ($28.5B)</td></tr><tr><td>Adj. Free Cash Flow (FY2025)</td><td>$18.0B ↑32%</td><td>$20.1B steady</td><td>~$19.4B ↓5%</td><td>TMUS FCF trajectory is strongest in the group</td></tr><tr><td>Bad Debt / Credit Loss
-Provision (FY2025)</td><td>$1.4B  (1.9% of svc rev)
-▲ 53% since FY2023</td><td>$2.3B  (2.8% of svc rev)
-→ flat 3 years</td><td>$2.3B  (3.4% of svc rev)
-▲ 15% since FY2023</td><td>Hidden cost of EIP financing. AT&amp;T highest ratio; TMUS rising fastest.</td></tr><tr><td>Bad Debt / Credit Loss Provision (FY2025)</td><td>$1.4B (1.9% svc rev) ↑53% since FY23</td><td>$2.3B (2.8% svc rev) flat</td><td>$2.3B (3.4% svc rev) ↑15%</td><td>Hidden EIP cost — AT&amp;T highest ratio; TMUS rising fastest</td></tr><tr><td>Postpaid Phone Churn (FY2025)</td><td>0.93%</td><td>0.92%</td><td>0.90%  BEST</td><td>AT&amp;T best retention — subsidy locks subs in</td></tr>
-  </tbody>
-</table>
-<p class="note">
-  ¹ AT&T does not separately disclose cost of equipment; estimated at ~15% gross loss on equipment revenue.
-  ² Service EBITDA Margin = (Adj. EBITDA + Equipment Gross Loss) / Wireless Service Revenue.
-</p>
+<div class="section">
+  <div class="section-title">Key Metrics Summary</div>
+  <table>
+    <thead><tr><th>Metric</th><th>T-Mobile</th><th>Verizon</th><th>AT&amp;T</th><th>SIGINT Take</th></tr></thead>
+    <tbody>
+    <tr><td class="metric">Equipment Gross Loss (FY2025)</td><td class="tmus">$5.3B  +$0.9B YoY</td><td class="vz">$3.5B  +$0.6B YoY</td><td class="att">~$4.0B  +$0.8B [e]</td><td class="take">All 3 escalated. TMUS highest absolute.</td></tr><tr><td class="metric">Equipment Loss as % of Service Rev</td><td class="tmus">7.4%</td><td class="vz">4.2%</td><td class="att">~5.9% [e]</td><td class="take">TMUS subsidizes most intensely vs its service base.</td></tr><tr><td class="metric">Postpaid Phone Net Adds (FY2025)</td><td class="tmus">3,294K  #1</td><td class="vz">362K  #3 *</td><td class="att">1,551K  #2</td><td class="take">TMUS adds 9x more subscribers per $1B of equipment loss.</td></tr><tr><td class="metric">VZ Quarterly Breakdown (FY2025)</td><td class="tmus">—</td><td class="vz">Q1–Q3: −414K  |  Q4: +616K</td><td class="att">—</td><td class="take">Annual VZ figure hides 9-month bleed; Q4 rescue via promo surge.</td></tr><tr><td class="metric">Subsidy Cost per Net Phone Add</td><td class="tmus">$1,611  BEST</td><td class="vz">$9,685  WORST</td><td class="att">~$2,580</td><td class="take">VZ spends 6x more per add — primarily for retention/upgrades.</td></tr><tr><td class="metric">Service EBITDA Margin [1]</td><td class="tmus">55.0%</td><td class="vz">63.9%  BEST</td><td class="att">51.3%</td><td class="take">VZ: best underlying service economics.</td></tr><tr><td class="metric">Subsidy Burn Rate [3]</td><td class="tmus">29%  BEST</td><td class="vz">41%  WORST</td><td class="att">~36%</td><td class="take">VZ burns 41¢ of every post-dividend FCF dollar on promos yielding only 362K adds.</td></tr><tr><td class="metric">Net Leverage (reported only)</td><td class="tmus">2.38x  BEST</td><td class="vz">2.78x  WORST</td><td class="att">2.46x</td><td class="take">Reported figure. Excludes leases, pension, dividend commitments.</td></tr><tr><td class="metric">Adjusted Leverage [2]</td><td class="tmus">3.44x</td><td class="vz">3.25x</td><td class="att">3.08x</td><td class="take">Moody&#x27;s full adj. (incl. AT&amp;T preferred interests at subs) puts AT&amp;T at ~3.7x — WORST.</td></tr><tr><td class="metric">Interest Coverage</td><td class="tmus">9.0x  BEST</td><td class="vz">7.5x</td><td class="att">7.0x  LOWEST</td><td class="take">All three healthy; AT&amp;T least buffer on interest service.</td></tr><tr><td class="metric">Dividend as % of FCF (FY2025)</td><td class="tmus">0%  BEST</td><td class="vz">57%  HIGHEST</td><td class="att">42%</td><td class="take">VZ: majority of FCF locked before incremental promo decisions.</td></tr><tr><td class="metric">FCF Deleveraging Rate</td><td class="tmus">22.3%/yr  BEST</td><td class="vz">14.5%/yr  SLOWEST</td><td class="att">16.5%/yr</td><td class="take">TMUS can reduce net debt fastest relative to its scale.</td></tr>
+    </tbody>
+  </table>
+  <p class="note">
+    [e] AT&T equipment cost estimated (~15% gross loss); not separately disclosed in 10-K filings.<br>
+    [1] Service EBITDA Margin = (Adj.EBITDA + Equipment Gross Loss) / Wireless Service Revenue.<br>
+    [2] Adjusted Leverage = (Net Debt + Operating Lease Liabilities + Pension Underfunding) / EBITDA. Moody's full adjustment including AT&T preferred interests at subsidiaries (~$15B) lifts AT&T to ~3.7x — the highest of the three. Source: Morgan Stanley Telecom Accounting Handbook, May 2025.<br>
+    [3] Subsidy Burn Rate = Equipment Gross Loss / (FCF − Dividends). Measures promotional spend as a share of truly discretionary cash after all capital commitments.<br>
+    * VZ annual adds of 362K mask severe intra-year volatility. Source: FY2025 10-K + Q3 2025 10-Q cross-reference.
+  </p>
+</div>
 
-<h2>BALANCE SHEET RANKING: WHO CAN KEEP PLAYING?</h2>
-<div class="scorecard">
-  <div class="score-item" style="border-color:#E20074">
-    <div class="score-lbl">Net Leverage</div>
-    <div class="score-val" style="color:#E20074">2.38×</div>
-    <div class="score-winner">#1 T-Mobile — most headroom</div>
+<div class="section">
+  <div class="section-title">Financial Resilience — Who Can Keep Playing?</div>
+
+  <div class="scorecard">
+    <div class="score-card" style="border-color:#E20074">
+      <div class="score-label">Best Reported Leverage</div>
+      <div class="score-val" style="color:#E20074">2.38×</div>
+      <div class="score-sub">T-Mobile — cleanest headline</div>
+    </div>
+    <div class="score-card" style="border-color:#E20074">
+      <div class="score-label">Best Subsidy Burn Rate</div>
+      <div class="score-val" style="color:#E20074">29%</div>
+      <div class="score-sub">T-Mobile — 29¢ per post-div FCF dollar; VZ burns 41¢</div>
+    </div>
+    <div class="score-card" style="border-color:#E20074">
+      <div class="score-label">Best Interest Coverage</div>
+      <div class="score-val" style="color:#E20074">9.0×</div>
+      <div class="score-sub">T-Mobile — most buffer on debt service</div>
+    </div>
+    <div class="score-card" style="border-color:#CD040B">
+      <div class="score-label">Dividend as % of FCF</div>
+      <div class="score-val" style="color:#CD040B">57%</div>
+      <div class="score-sub">Verizon — majority of FCF pre-committed before promos</div>
+    </div>
   </div>
-  <div class="score-item" style="border-color:#009FDB">
-    <div class="score-lbl">Net Leverage</div>
-    <div class="score-val" style="color:#009FDB">2.46×</div>
-    <div class="score-winner">#2 AT&T — steady improvement</div>
-  </div>
-  <div class="score-item" style="border-color:#CD040B">
-    <div class="score-lbl">Net Leverage</div>
-    <div class="score-val" style="color:#CD040B">2.78×</div>
-    <div class="score-winner">#3 Verizon — Frontier overhang</div>
-  </div>
-  <div class="score-item">
-    <div class="score-lbl">Subsidy as % of FCF</div>
-    <div class="score-val">17–29%</div>
-    <div class="score-winner">VZ 17% · AT&T 21% · TMUS 29%</div>
+
+  <div class="att-callout">
+    <h3>AT&T Hidden Obligation Detail — Why 2.46× Understates the True Picture</h3>
+    <div class="att-grid">
+      <div class="att-item">
+        <div class="label">Reported Net Debt</div>
+        <div class="val">$117.9B</div>
+        <div class="note">2.46× EBITDA (reported)</div>
+      </div>
+      <div class="att-item">
+        <div class="label">+ Operating Leases</div>
+        <div class="val">+$23.9B</div>
+        <div class="note">Tower, network & real estate</div>
+      </div>
+      <div class="att-item">
+        <div class="label">+ Pension Gap</div>
+        <div class="val">+$2.1B</div>
+        <div class="note">Defined benefit + post-retirement</div>
+      </div>
+      <div class="att-item">
+        <div class="label">+ Spectrum / Tax Obligations</div>
+        <div class="val">+$10.3B</div>
+        <div class="note">Unrecognized tax benefits</div>
+      </div>
+      <div class="att-item">
+        <div class="label">Adjusted Total</div>
+        <div class="val">~$154B</div>
+        <div class="note">~3.2× adj. EBITDA &nbsp;|&nbsp; FCF covers at 12.6%/yr</div>
+      </div>
+    </div>
   </div>
 </div>
 
-<h2>THE ANALYST ROUNDTABLE</h2>
-<div class="subtitle">
-  <em>The Verge × Deutsche Bank × Goldman Sachs — Simulated Roundtable, April 2026</em>
+<div class="dialogue-wrap">
+  <div class="section-title" style="padding:0 0 20px">The Verge Roundtable: The Promotion Game — Who Can Keep Playing?</div>
+  <div style="color:#718096;font-size:0.82em;margin-bottom:24px;font-style:italic">
+    The Verge &times; Deutsche Bank &times; Goldman Sachs &nbsp;|&nbsp; Simulated roundtable, April 2026
+  </div>
+  <p class="dlg-head">THE VERGE ROUNDTABLE — &quot;THE PROMOTION GAME: WHO CAN KEEP PLAYING?&quot;</p><p class="dlg-head">Published April 2026 | The Verge Technology &amp; Business Desk</p><br><hr><p class="dlg-head">PARTICIPANTS</p><hr><br><p class="dlg-body">MODERATOR  Max Verstappen — Senior Technology Reporter, The Verge</p><p class="dlg-body">ANALYST 1  Michael Rollins — Managing Director, Telecom Equity Research, Citi  [T-Mobile thesis]</p><p class="dlg-body">ANALYST 2  Michael Ng — Managing Director, TMT Research, Goldman Sachs  [Verizon / quality thesis]</p><br><hr><p class="dlg-head">PART I — SETTING THE STAGE</p><hr><br><div class="dlg-turn"><span class="spkr max">MAX:</span><span class="dlg-text">  Every carrier is dangling a free phone at you right now. I want to know</span></div><p class="dlg-body">who is actually winning this spending contest, and who is writing checks</p><p class="dlg-body">they cannot cash. Michael, make the case for T-Mobile.</p><br><div class="dlg-turn"><span class="spkr rollins">ROLLINS:</span><span class="dlg-text"> Simply: in 2025, T-Mobile&#x27;s equipment gross loss was $5.3 billion.</span></div><p class="dlg-body">For that, they acquired 3.3 million net new postpaid phone subscribers.</p><p class="dlg-body">The math is $1,611 per net new customer. Now ask Michael Ng what Verizon paid per net add.</p><br><div class="dlg-turn"><span class="spkr ng">NG:</span><span class="dlg-text"> I&#x27;ll answer that, because the framing is wrong. Verizon&#x27;s net phone</span></div><p class="dlg-body">additions were 362,000 in 2025, and their equipment loss was $3.5 billion —</p><p class="dlg-body">which Rollins&#x27;s math calls $9,685 per add. But Verizon&#x27;s spend is primarily</p><p class="dlg-body">targeted at existing postpaid accounts paying $147 per month in ARPA. Verizon</p><p class="dlg-body">is protecting the most lucrative customer base in U.S. wireless, not</p><p class="dlg-body">chasing entry-level switchers.</p><br><div class="dlg-turn"><span class="spkr rollins">ROLLINS:</span><span class="dlg-text"> With respect — that distinction has been the Verizon investor talking</span></div><p class="dlg-body">point for five years. And I want to add a number that exposes it. Verizon&#x27;s</p><p class="dlg-body">Consumer segment lost 414,000 postpaid phone subscribers in Q1 through Q3</p><p class="dlg-body">of 2025. That is not premium retention. That is a bleed. They then spent</p><p class="dlg-body">heavily in Q4 to produce 616,000 net adds in one quarter — Black Friday,</p><p class="dlg-body">iPhone deals — and rescued the annual number to a positive 362,000.</p><p class="dlg-body">You do not call nine months of subscriber losses a deliberate strategy.</p><br><div class="dlg-turn"><span class="spkr ng">NG:</span><span class="dlg-text"> Michael, 616,000 adds in a single quarter is more than AT&amp;T&#x27;s combined</span></div><p class="dlg-body">Q3 and Q4. You do not stumble into that number. The Q1 to Q3 softness</p><p class="dlg-body">was a deliberate pull-back on unprofitable promotions. Verizon chose</p><p class="dlg-body">margin over volume for three quarters, then activated at the highest-value</p><p class="dlg-body">point in the calendar. That is sequencing, not panic.</p><br><div class="dlg-turn"><span class="spkr rollins">ROLLINS:</span><span class="dlg-text"> &quot;Deliberate pull-back&quot; is a polite way of saying they lost the</span></div><p class="dlg-body">switching argument for nine months and bought their way back in Q4.</p><p class="dlg-body">The subscriber voted with their SIM card.</p><br><div class="dlg-turn"><span class="spkr max">MAX:</span><span class="dlg-text">  Let us talk about affordability. Who can actually sustain this</span></div><p class="dlg-body">spending — not in absolute terms, but relative to the cash</p><p class="dlg-body">they have left after honoring every prior commitment?</p><br><div class="dlg-turn"><span class="spkr rollins">ROLLINS:</span><span class="dlg-text"> This is the right question and it is underappreciated. The</span></div><p class="dlg-body">metric that matters is subsidy spend as a percentage of</p><p class="dlg-body">post-dividend free cash flow — the cash left over after</p><p class="dlg-body">capex, interest, taxes, and dividends are paid. That is the</p><p class="dlg-body">pool from which promotional decisions are funded. In 2025:</p><p class="dlg-body">T-Mobile burns 29 cents of every available dollar on equipment</p><p class="dlg-body">subsidies. AT&amp;T burns roughly 36 cents. Verizon burns 41 cents.</p><p class="dlg-body">Verizon is committing more than two-fifths of its truly</p><p class="dlg-body">discretionary cash to a promotional program that generated</p><p class="dlg-body">362,000 net adds. T-Mobile commits less, generates eleven</p><p class="dlg-body">times as many net adds, and has no dividend reducing the pool</p><p class="dlg-body">in the first place. The efficiency gap is not just in subscribers</p><p class="dlg-body">per dollar — it is in the share of investable capital being</p><p class="dlg-body">consumed by the promotional machine.</p><br><hr><p class="dlg-head">PART II — THE HIDDEN COST: BAD DEBT</p><hr><br><div class="dlg-turn"><span class="spkr max">MAX:</span><span class="dlg-text">  Let&#x27;s go deeper on cost. Beyond equipment loss, what are the</span></div><p class="dlg-body">second-order financial effects of running these promotion cycles?</p><br><div class="dlg-turn"><span class="spkr rollins">ROLLINS:</span><span class="dlg-text"> Bad debt. Device installment plans are consumer credit. When you</span></div><p class="dlg-body">offer a free phone financed over 36 months, you are extending credit —</p><p class="dlg-body">and some of those customers will default. AT&amp;T&#x27;s provision for credit</p><p class="dlg-body">losses hit $2.3 billion in 2025, which is 3.4 cents of every service</p><p class="dlg-body">revenue dollar. That is the highest ratio of the three. T-Mobile&#x27;s</p><p class="dlg-body">bad debt is rising fast — up 53% in two years to $1.4 billion — which</p><p class="dlg-body">is the EIP financing cost behind all those net adds. The true cost of</p><p class="dlg-body">a promotion is equipment loss plus bad debt plus churn re-acquisition.</p><p class="dlg-body">When you add it up, the efficiency gap between T-Mobile and Verizon</p><p class="dlg-body">narrows. T-Mobile still leads, but by less.</p><br><div class="dlg-turn"><span class="spkr ng">NG:</span><span class="dlg-text"> Agreed on bad debt as a real cost. And notice: Verizon&#x27;s credit loss</span></div><p class="dlg-body">provision has been essentially flat for three years at $2.3 billion,</p><p class="dlg-body">despite growing its receivables substantially through Frontier.</p><p class="dlg-body">Their credit underwriting is tighter — a function of the premium</p><p class="dlg-body">customer profile they are defending, not an accident.</p><br><hr><p class="dlg-head">PART III — BALANCE SHEET: WHO CAN KEEP GOING?</p><hr><br><div class="dlg-turn"><span class="spkr max">MAX:</span><span class="dlg-text">  Let&#x27;s talk balance sheet. Net debt is the number everyone cites.</span></div><p class="dlg-body">But is it the right number?</p><br><div class="dlg-turn"><span class="spkr ng">NG:</span><span class="dlg-text"> No, and this is where AT&amp;T&#x27;s position is more constrained than the</span></div><p class="dlg-body">headline 2.46 times leverage suggests. AT&amp;T&#x27;s reported net debt is</p><p class="dlg-body">$117.9 billion. Add $23.9 billion in operating lease obligations —</p><p class="dlg-body">tower and network infrastructure leases that are real cash commitments</p><p class="dlg-body">regardless of whether they sit inside the debt line — and you are at</p><p class="dlg-body">$141 billion before you count pension underfunding. Then add AT&amp;T&#x27;s</p><p class="dlg-body">$2.1 billion pension gap, spectrum commitments, and roughly $10 billion</p><p class="dlg-body">in unrecognized tax benefits. AT&amp;T&#x27;s adjusted financial obligation</p><p class="dlg-body">is materially higher than the reported figure. The interest coverage</p><p class="dlg-body">ratio — EBITDA divided by interest expense — is 7.0 times, the lowest</p><p class="dlg-body">of the three. That is still healthy, but it is the least cushion.</p><br><div class="dlg-turn"><span class="spkr rollins">ROLLINS:</span><span class="dlg-text"> I fully agree AT&amp;T carries more hidden obligations than the net debt</span></div><p class="dlg-body">number shows. Where I push back is on the conclusion. AT&amp;T&#x27;s FCF is</p><p class="dlg-body">$19.4 billion annually. Their operating lease obligations are already</p><p class="dlg-body">embedded in their network cost structure — they are not going to zero.</p><p class="dlg-body">And they just completed the DIRECTV exit, which removed a significant</p><p class="dlg-body">contingent liability. The balance sheet is improving, not deteriorating.</p><br><div class="dlg-turn"><span class="spkr max">MAX:</span><span class="dlg-text">  What about Verizon? The Frontier acquisition pushed their gross debt</span></div><p class="dlg-body">above $158 billion.</p><br><div class="dlg-turn"><span class="spkr rollins">ROLLINS:</span><span class="dlg-text"> Verizon&#x27;s leverage picture is the most stretched of the three, and</span></div><p class="dlg-body">that is a hard fact. Reported net debt is $139 billion. Adjusted for</p><p class="dlg-body">operating leases, you are at $162 billion against $50 billion of</p><p class="dlg-body">EBITDA — 3.25 times. They pay $11.5 billion annually in dividends,</p><p class="dlg-body">which is 57% of free cash flow. That leaves $8.6 billion of annual</p><p class="dlg-body">FCF after the dividend. They are paying down debt at roughly 6%</p><p class="dlg-body">per year from FCF alone. At that rate, returning to pre-Frontier</p><p class="dlg-body">leverage takes years — during which any escalation of promotional</p><p class="dlg-body">spend competes directly with debt service.</p><br><div class="dlg-turn"><span class="spkr ng">NG:</span><span class="dlg-text"> The Frontier investment is deliberate and productive. FWA broadband</span></div><p class="dlg-body">grew 25% to 3.4 million subscribers in 2025. The convergence thesis</p><p class="dlg-body">— wireless plus fiber in the same bill — reduces churn and increases</p><p class="dlg-body">ARPA over time. You cannot evaluate a strategic infrastructure</p><p class="dlg-body">investment on a quarterly free cash flow basis.</p><br><hr><p class="dlg-head">PART IV — RANKING &amp; THE OUTLOOK</p><hr><br><div class="dlg-turn"><span class="spkr max">MAX:</span><span class="dlg-text">  If you had to rank the three on capacity to sustain promotional</span></div><p class="dlg-body">intensity — not willingness, but financial headroom — how do</p><p class="dlg-body">you call it?</p><br><div class="dlg-turn"><span class="spkr rollins">ROLLINS:</span><span class="dlg-text"> T-Mobile first by a clear margin. 2.38 times reported leverage,</span></div><p class="dlg-body">the lowest of the three. No dividend obligation — zero cents of</p><p class="dlg-body">FCF is contractually committed before they decide how to deploy</p><p class="dlg-body">capital. Interest coverage of 9 times. If a promotional escalation</p><p class="dlg-body">hits — and Apple&#x27;s iPhone 17 cycle will test all three — T-Mobile</p><p class="dlg-body">has the most degrees of freedom to respond aggressively. AT&amp;T second.</p><p class="dlg-body">Their balance sheet is improving, DIRECTV is off the books, and</p><p class="dlg-body">their churn discipline means they do not need to spend as recklessly</p><p class="dlg-body">to retain subscribers. Verizon third — not because the business is</p><p class="dlg-body">weak, but because the Frontier acquisition has reduced their room</p><p class="dlg-body">to maneuver on incremental spending for the next two to three years.</p><br><div class="dlg-turn"><span class="spkr ng">NG:</span><span class="dlg-text"> I would put Verizon second and AT&amp;T third on financial headroom.</span></div><p class="dlg-body">Verizon&#x27;s $20 billion of FCF is the highest of the group in</p><p class="dlg-body">absolute terms. Their dividend is large but stable, and their</p><p class="dlg-body">credit quality remains investment grade with room. AT&amp;T&#x27;s</p><p class="dlg-body">capital allocation complexity — spectrum, fiber, pension, FirstNet</p><p class="dlg-body">commitments — makes them the most constrained in terms of</p><p class="dlg-body">discretionary spend. But on the question of who gets the most</p><p class="dlg-body">strategic value from each dollar of promotion? T-Mobile wins that</p><p class="dlg-body">argument. I would simply challenge whether subscriber volume is</p><p class="dlg-body">the right optimization target.</p><br><hr><p class="dlg-head">PART V — ACCOUNTING FORENSICS: WHAT THE NUMBERS ARE HIDING</p><hr><br><div class="dlg-turn"><span class="spkr max">MAX:</span><span class="dlg-text">  Before we close, I want to go one layer deeper. Morgan Stanley&#x27;s</span></div><p class="dlg-body">accounting team published a 58-page handbook this month on exactly</p><p class="dlg-body">how these carriers present — and obscure — their financials. What</p><p class="dlg-body">is the single most important distortion investors are missing?</p><br><div class="dlg-turn"><span class="spkr ng">NG:</span><span class="dlg-text"> AT&amp;T&#x27;s pension income. In 2025, AT&amp;T will record approximately</span></div><p class="dlg-body">$1.9 billion of pension income inside its non-GAAP earnings. That</p><p class="dlg-body">number is not cash. It is not operating. It is an accounting</p><p class="dlg-body">artifact — plan assets earning more than the liability discount</p><p class="dlg-body">rate, compounded by curtailment gains from decade-long workforce</p><p class="dlg-body">reductions being amortized through income. The company has guided</p><p class="dlg-body">this income to $1.6 billion in 2026, $0.7 billion in 2027, and</p><p class="dlg-body">essentially zero by 2028. Strip it out and AT&amp;T&#x27;s true adjusted</p><p class="dlg-body">P/E on Morgan Stanley estimates is 15.1 times, not the company&#x27;s</p><p class="dlg-body">stated 13.3 times. Investors buying AT&amp;T as a cheap 13x earnings</p><p class="dlg-body">story are actually buying a 15x business whose earnings are about</p><p class="dlg-body">to step down due to a non-operating item running out of road.</p><br><div class="dlg-turn"><span class="spkr rollins">ROLLINS:</span><span class="dlg-text"> I will add the balance sheet side of the same story. AT&amp;T has</span></div><p class="dlg-body">$15 to $17 billion of preferred interests outstanding in</p><p class="dlg-body">subsidiaries — Tower Holdings, Telco LLC across multiple series,</p><p class="dlg-body">and Mobility II. These are structurally senior to AT&amp;T parent</p><p class="dlg-body">debt. Rating agencies do not give them equity credit. Moody&#x27;s</p><p class="dlg-body">treats them as pure debt. When you include these in AT&amp;T&#x27;s</p><p class="dlg-body">adjusted gross debt using Moody&#x27;s methodology, AT&amp;T&#x27;s adjusted</p><p class="dlg-body">gross debt is $174 billion. Adjusted net leverage is 3.7 times —</p><p class="dlg-body">the worst of the three. Earlier in this conversation we said</p><p class="dlg-body">AT&amp;T&#x27;s adjusted leverage was the best at 3.1 times. The Morgan</p><p class="dlg-body">Stanley data shows that conclusion was built on an incomplete</p><p class="dlg-body">accounting for AT&amp;T&#x27;s capital structure.</p><br><div class="dlg-turn"><span class="spkr max">MAX:</span><span class="dlg-text">  That is a direct reversal of what we said in Part Three.</span></div><br><div class="dlg-turn"><span class="spkr rollins">ROLLINS:</span><span class="dlg-text"> It is. And it does not weaken the T-Mobile thesis — it</span></div><p class="dlg-body">strengthens it. T-Mobile has no preferred interests in</p><p class="dlg-body">subsidiaries, no pension, no vendor financing complexity.</p><p class="dlg-body">Moody&#x27;s adjusted gross debt for TMUS is $116 billion. The $40</p><p class="dlg-body">billion gap above reported debt is almost entirely operating</p><p class="dlg-body">leases and EIP securitizations — both transparent and</p><p class="dlg-body">well-understood. AT&amp;T&#x27;s $50 billion gap includes $15 billion</p><p class="dlg-body">of structurally subordinating financing that sits above</p><p class="dlg-body">bondholders in the recovery waterfall. That is a different</p><p class="dlg-body">kind of hidden leverage.</p><br><div class="dlg-turn"><span class="spkr ng">NG:</span><span class="dlg-text"> I want to address Verizon&#x27;s accounting as well. Verizon finances</span></div><p class="dlg-body">its EIP receivables entirely on-balance-sheet through</p><p class="dlg-body">asset-backed securities — $26 billion at Q1 2025. Verizon</p><p class="dlg-body">itself excludes this from its net leverage calculation. When</p><p class="dlg-body">you strip it out of enterprise value, Verizon&#x27;s EV/EBITDA</p><p class="dlg-body">multiple drops by approximately half a turn. The debate among</p><p class="dlg-body">credit investors is whether ABS backed by equipment receivables</p><p class="dlg-body">is true corporate leverage or self-funding consumer credit</p><p class="dlg-body">infrastructure. Morgan Stanley includes it. I would argue the</p><p class="dlg-body">receivables are self-liquidating — customers repay the plan,</p><p class="dlg-body">the ABS is repaid. It is closer to auto ABS than corporate</p><p class="dlg-body">debt. But investors who include it see Verizon adjusted gross</p><p class="dlg-body">debt at $170 billion, nearly equal to AT&amp;T at $174 billion.</p><p class="dlg-body">Same mountain, different composition.</p><br><div class="dlg-turn"><span class="spkr max">MAX:</span><span class="dlg-text">  What about free cash flow? Where are the bodies buried?</span></div><br><div class="dlg-turn"><span class="spkr rollins">ROLLINS:</span><span class="dlg-text"> T-Mobile&#x27;s $18 billion reported adjusted FCF is the cleanest</span></div><p class="dlg-body">number in the group, but it still has two adjustments worth</p><p class="dlg-body">flagging. First, T-Mobile uses finance leases more intensively</p><p class="dlg-body">than peers — principal payments on those leases are classified</p><p class="dlg-body">as financing cash flows, not operating. Add them back and true</p><p class="dlg-body">FCF is approximately $1.5 to $2 billion lower. Second, T-Mobile</p><p class="dlg-body">carries tower obligations from failed sale-leaseback transactions</p><p class="dlg-body">at an 11.6 percent effective interest rate — against 4 percent</p><p class="dlg-body">on its regular long-term debt. The artificially high rate means</p><p class="dlg-body">the obligation amortizes slowly, and interest expense is</p><p class="dlg-body">overstated versus economic cost. True normalized FCF is closer</p><p class="dlg-body">to $16 billion. Still the best growth trajectory. But the</p><p class="dlg-body">headline flatters.</p><br><div class="dlg-turn"><span class="spkr ng">NG:</span><span class="dlg-text"> AT&amp;T&#x27;s FCF requires its own annotation. AT&amp;T operates a $6.3</span></div><p class="dlg-body">billion vendor financing program that extends payment terms to</p><p class="dlg-body">suppliers. When usage increases, operating cash flow is</p><p class="dlg-body">boosted. When usage decreases — as it did in 2023, when AT&amp;T</p><p class="dlg-body">reduced the program — reported FCF fell by $3.4 billion in a</p><p class="dlg-body">single year due entirely to this financing mechanic. The 2025</p><p class="dlg-body">figure of $19.4 billion is real cash, but its year-to-year</p><p class="dlg-body">sustainability is partly a function of whether management</p><p class="dlg-body">maintains or draws down supplier financing. That volatility</p><p class="dlg-body">should trade at a discount to T-Mobile&#x27;s structurally cleaner</p><p class="dlg-body">cash generation.</p><br><div class="dlg-turn"><span class="spkr max">MAX:</span><span class="dlg-text">  So the final ranking on balance sheet quality and cash flow</span></div><p class="dlg-body">transparency — has it changed?</p><br><div class="dlg-turn"><span class="spkr rollins">ROLLINS:</span><span class="dlg-text"> T-Mobile first, by a wider margin than we stated earlier.</span></div><p class="dlg-body">Cleanest cash flow, no pension exposure, no preferred interests</p><p class="dlg-body">in subsidiaries, no vendor financing complexity. Moody&#x27;s</p><p class="dlg-body">adjusted leverage of 3.45 times with the fastest deleveraging</p><p class="dlg-body">rate and zero dividend commitment. On a promotional capacity</p><p class="dlg-body">basis, there is no close second.</p><br><div class="dlg-turn"><span class="spkr ng">NG:</span><span class="dlg-text"> I agree on T-Mobile&#x27;s financial quality. What I would add is</span></div><p class="dlg-body">this: the accounting complexity at AT&amp;T is not all bad news.</p><p class="dlg-body">The pension income cliff creates a near-term earnings headwind</p><p class="dlg-body">— but AT&amp;T is best positioned to benefit from bonus depreciation</p><p class="dlg-body">reinstatement, which Morgan Stanley estimates could meaningfully</p><p class="dlg-body">accelerate FCF as soon as legislation passes. AT&amp;T&#x27;s cash tax</p><p class="dlg-body">rate is rising as bonus depreciation phases out — $1.5 billion</p><p class="dlg-body">more in 2025 cash taxes, another billion in 2026. Reverse that</p><p class="dlg-body">policy, and AT&amp;T gets a substantial FCF tailwind precisely when</p><p class="dlg-body">the pension income is running out. It is not a coincidence that</p><p class="dlg-body">Morgan Stanley has AT&amp;T as their top pick. The accounting</p><p class="dlg-body">complexity creates a mispriced opportunity if you know where</p><p class="dlg-body">to look.</p><br><div class="dlg-turn"><span class="spkr max">MAX:</span><span class="dlg-text">  Michael Rollins, Michael Ng — a masterclass in accounting</span></div><p class="dlg-body">translation. The phones may be free. The financial scrutiny,</p><p class="dlg-body">evidently, is not.</p><br><hr><p class="dlg-head">SIGINT NOTE: Analyst views simulated for illustrative purposes only.</p><p class="dlg-body">Financial data sourced from SEC EDGAR 10-K and 10-Q filings FY2023-FY2025.</p><p class="dlg-body">AT&amp;T equipment cost estimated; not separately disclosed in annual filings.</p><p class="dlg-body">TMUS capex estimated; exact figure not separately itemized in Adj. FCF bridge.</p><hr>
 </div>
-<div class="dialogue"><br>THE VERGE ROUNDTABLE — "WHO'S REALLY WINNING THE DEVICE SUBSIDY WAR?"<br>Published April 2026 | The Verge Technology & Business Desk<br><br><hr style="border:0;border-top:1px solid #e2e8f0;margin:12px 0"><br>PARTICIPANTS<br><hr style="border:0;border-top:1px solid #e2e8f0;margin:12px 0"><br><br>  MODERATOR  Alex Nguyen — Senior Technology Reporter, The Verge<br>  ANALYST 1  Marcus Behr — Managing Director, Telecom Equity Research,<br>             Deutsche Bank ("TMUS Bull")<br>  ANALYST 2  Diana Rhys — Managing Director, TMT Research,<br>             Goldman Sachs ("VZ/Quality Bull")<br><br><hr style="border:0;border-top:1px solid #e2e8f0;margin:12px 0"><br>PART I — SETTING THE STAGE<br><hr style="border:0;border-top:1px solid #e2e8f0;margin:12px 0"><br><br><span style="font-weight:700;color:#2d7a6b">ALEX:</span>  Let's start with the basics. Every carrier is dangling a<br>       free phone at you right now. Samsung Galaxy S25, iPhone 16 —<br>       carriers are practically giving them away. I want to know<br>       who is actually winning this spending contest, and who is<br>       writing checks they can't cash. Marcus, you cover T-Mobile.<br>       Make the case.<br><br><span style="font-weight:700;color:#E20074">MARCUS:</span> I'll make it simply. In 2025, T-Mobile's equipment gross loss —<br>       the real, net cost of subsidizing devices after recovering what<br>       customers pay — was $5.3 billion. That sounds like a lot of<br>       money. It is a lot of money. But for that $5.3 billion, they<br>       acquired 3.3 million net new postpaid phone subscribers. The<br>       math is $1,611 per net new phone customer. Now ask Diana what<br>       Verizon paid per net add.<br><br><span style="font-weight:700;color:#CD040B">DIANA:</span> I'll answer that because the framing is wrong. Verizon's net<br>       phone additions were 362,000 in 2025, and their equipment loss<br>       was $3.5 billion — which your math calls $9,685 per add. But<br>       that is an entirely misleading number. Verizon's device subsidy<br>       is not primarily an acquisition weapon. Eighty percent of that<br>       spend is targeted upgrade offers for existing postpaid accounts —<br>       customers already paying $147 per month in ARPA. Verizon is<br>       protecting the most lucrative customer base in U.S. wireless.<br>       You don't measure retention spend by new customer count.<br><br><span style="font-weight:700;color:#E20074">MARCUS:</span> Diana, with respect, that distinction has been the Verizon<br>       investor talking point for five years. Meanwhile, T-Mobile grew<br>       postpaid phone subscribers from 71 million to 78 million between<br>       2022 and 2025 — largely at Verizon's expense. Those are real<br>       people who switched. That's real ARPU walking out the door.<br><br><hr style="border:0;border-top:1px solid #e2e8f0;margin:12px 0"><br>PART II — THE BALANCE SHEET QUESTION<br><hr style="border:0;border-top:1px solid #e2e8f0;margin:12px 0"><br><br><span style="font-weight:700;color:#2d7a6b">ALEX:</span>  Let's talk debt, because subsidies are ultimately financed<br>       somehow. All three carriers are running net debt above $80<br>       billion. Who has the healthiest balance sheet to keep this<br>       game going?<br><br><span style="font-weight:700;color:#CD040B">DIANA:</span> This is where I give T-Mobile full credit — reluctantly.<br>       Their net leverage is the tightest in the group at 2.4x<br>       EBITDA. They've paid down the Sprint acquisition debt faster<br>       than most analysts expected. And their adjusted free cash flow<br>       hit $18 billion in 2025 — up 32% in two years. If there is<br>       a carrier that can sustain or even accelerate device subsidies<br>       without stressing its balance sheet, it is T-Mobile. I will<br>       not dispute that.<br><br><span style="font-weight:700;color:#E20074">MARCUS:</span> Thank you. And to your own thesis — Verizon closed the Frontier<br>       acquisition in September 2024 for $28.5 billion, which pushed<br>       their gross debt past $158 billion. Cash from operations is<br>       strong, but free cash flow is roughly flat at $20 billion. Their<br>       leverage is now 2.8x. That's not dangerous territory, but it<br>       means the room to escalate subsidy intensity is more constrained<br>       than it was two years ago. If a price war breaks out — if Apple<br>       launches a promotion cycle on iPhone 17 and every carrier tries<br>       to out-offer the other — Verizon cannot respond as aggressively<br>       without moving the credit needle.<br><br><span style="font-weight:700;color:#CD040B">DIANA:</span> I'll grant the Frontier point. But let's not ignore what<br>       Frontier actually bought them: a fiber footprint that is the<br>       strategic hedge against wireless-only disintermediation.<br>       Verizon's convergence story — wireless plus fiber in the same<br>       bill — is what drives ARPA and reduces churn. Their residential<br>       FWA broadband base grew 25% to 3.4 million subscribers in 2025.<br>       Convergence is Verizon's long game. You cannot value that<br>       on a quarterly net-adds scorecard.<br><br><hr style="border:0;border-top:1px solid #e2e8f0;margin:12px 0"><br>PART III — AT&T: THE SILENT COMPETITOR<br><hr style="border:0;border-top:1px solid #e2e8f0;margin:12px 0"><br><br><span style="font-weight:700;color:#2d7a6b">ALEX:</span>  Neither of you has said much about AT&T. They added 1.55<br>       million postpaid phone customers in 2025 — far more than<br>       Verizon — while running the tightest churn in the group at<br>       0.90%. What is AT&T doing right that doesn't get enough credit?<br><br><span style="font-weight:700;color:#CD040B">DIANA:</span> AT&T is running the most operationally disciplined subsidy<br>       program of the three. Their estimated equipment gross loss is<br>       in the $4 billion range — similar in absolute terms to<br>       T-Mobile, but AT&T is converting that into 1.55 million adds<br>       while simultaneously improving their service EBITDA margin<br>       to 51%. And critically: their postpaid phone churn was the<br>       best of the three heading into 2025. What AT&T figured out —<br>       and T-Mobile has not yet fully absorbed — is that subsidy<br>       and churn management are not separate tactics. You use device<br>       promotions to lock in subscribers on multi-year device payment<br>       plans. The phone becomes the retention instrument.<br><br><span style="font-weight:700;color:#E20074">MARCUS:</span> I agree AT&T deserves credit for execution. But their gross<br>       adds trajectory is declining — 1.55 million in 2025 versus<br>       1.74 million in 2023. That is a company managing a plateau,<br>       not accelerating. And their net debt moved from $126 billion<br>       to $117 billion over the period — improvement, yes, but they<br>       still carry the most constrained balance sheet of the three<br>       relative to their EBITDA base when you factor in pension<br>       obligations and DIRECTV-related contingencies.<br><br><span style="font-weight:700;color:#2d7a6b">ALEX:</span>  If you had to rank the three on "subsidy efficiency" — who<br>       is getting the most strategic value per dollar of equipment<br>       loss — how would you each rank them?<br><br><span style="font-weight:700;color:#E20074">MARCUS:</span> T-Mobile first, AT&T second, Verizon third. And I want to<br>        add something that I think the annual Verizon number obscures.<br>        Verizon's Consumer segment lost 414,000 postpaid phone subscribers<br>        in the first three quarters of 2025. That is not retention. That<br>        is a bleed. They then spent their way to 616,000 net adds in Q4<br>        alone — Black Friday, iPhone deals, the works — to rescue the<br>        annual number to a positive 362,000. So the strategy Diana is<br>        defending produced nine months of subscriber losses followed by<br>        a panic promotion in Q4. That is not a disciplined premium<br>        retention posture. That is reactive spending to cover a bad year.<br><br><span style="font-weight:700;color:#CD040B">DIANA:</span>  My ranking: Verizon first, T-Mobile second, AT&T third —<br>        but the question is wrong. "Efficiency" depends entirely on<br>        what you're optimizing. If your goal is market share at any<br>        cost, T-Mobile wins. If your goal is long-term service<br>        revenue per customer, Verizon wins. And Marcus — the Q4<br>        recovery you are calling "panic spending" added 616,000<br>        postpaid phone customers in a single quarter. That is more<br>        than AT&T did in all of Q3 and Q4 combined. You don't panic<br>        your way to 616,000 net adds. You execute. The Q1–Q3 softness<br>        was a deliberate pull-back on unprofitable promotions earlier<br>        in the year. Verizon chose margin over volume for three<br>        quarters, then activated at the highest-value moment in the<br>        calendar. That is not reactive. That is sequencing.<br><br><span style="font-weight:700;color:#E20074">MARCUS:</span> Diana, "deliberate pull-back" is a polite way of saying they<br>        lost the switching battle for three quarters and bought their<br>        way back in Q4. We can argue about intention all we want —<br>        the subscriber voted with their SIM card. And I will add one<br>        more number that does not get enough attention: bad debt.<br>        Subsidies do not just cost you in equipment gross loss —<br>        they cost you again when customers default on their device<br>        payment plans. AT&T's provision for credit losses hit<br>        $2.3 billion in 2025, which is 3.4 cents of every service<br>        revenue dollar gone to bad debt. That is the highest ratio<br>        of the three. T-Mobile's bad debt is rising — up 53% over<br>        two years to $1.4 billion — which is the cost of aggressive<br>        EIP financing behind all those net adds. The point is: the<br>        true cost of subsidy is equipment loss plus bad debt plus<br>        churn-driven re-acquisition. When you add it all up, the gap<br>        between T-Mobile and Verizon narrows. T-Mobile still wins<br>        on efficiency, but by less than the headline numbers suggest.<br><br><span style="font-weight:700;color:#CD040B">DIANA:</span>  Agreed on bad debt as a hidden cost — and notice that<br>        Verizon's credit loss provision has been essentially flat for<br>        three years at $2.3 billion despite growing its receivables<br>        base substantially through Frontier. Their credit underwriting<br>        is tighter. That is a function of the premium customer profile<br>        they are defending.<br><br><hr style="border:0;border-top:1px solid #e2e8f0;margin:12px 0"><br>PART IV — THE 12-MONTH OUTLOOK<br><hr style="border:0;border-top:1px solid #e2e8f0;margin:12px 0"><br><br><span style="font-weight:700;color:#2d7a6b">ALEX:</span>  Last question. Apple iPhone 17 is expected later this year.<br>       Analysts are predicting the biggest upgrade cycle in four<br>       years. What does that do to the subsidy dynamic?<br><br><span style="font-weight:700;color:#E20074">MARCUS:</span> It is a red-letter event for T-Mobile. They have 78 million<br>        postpaid customers, a significant share of whom are on older<br>        devices. The upgrade cycle means promotional spending goes up<br>        for everyone — but T-Mobile's $17 billion of adjusted free cash<br>        flow and 2.4x leverage gives them the most room to be<br>        aggressive. I would expect them to offer the most compelling<br>        trade-in deals and to lead the industry in net adds through<br>        Q3 and Q4 of this year. This is precisely when the balance<br>        sheet health we talked about becomes the competitive weapon.<br><br><span style="font-weight:700;color:#CD040B">DIANA:</span>  Marcus is right that T-Mobile has room to be aggressive.<br>        Where we disagree is on whether aggressive is smart. Verizon<br>        will participate in the upgrade cycle but they will be<br>        disciplined — offering promotions targeted at high-ARPA<br>        multi-line accounts, not entry-level switchers. Their goal<br>        will be to deepen the MyPlan ecosystem and improve<br>        connections-per-account. I expect Verizon's ARPA to cross<br>        $150 by end of 2026, which is the number that makes their<br>        whole thesis re-rate. AT&T will do what AT&T does: execute<br>        quietly and let the churn rate do the talking.<br><br><span style="font-weight:700;color:#2d7a6b">ALEX:</span>  Marcus, Diana, thank you both. The phones are free.<br>       The debate, apparently, is not.<br><br><hr style="border:0;border-top:1px solid #e2e8f0;margin:12px 0"><br>SIGINT NOTE: Analyst views are simulated for illustrative purposes.<br>All financial data sourced from SEC EDGAR 10-K filings (FY2023-FY2025).<br>AT&T equipment cost estimated; not separately disclosed in filings.<br><hr style="border:0;border-top:1px solid #e2e8f0;margin:12px 0"><br></div>
 
 <footer>
   SIGINT Intelligence Platform &nbsp;·&nbsp;
-  Source: SEC EDGAR 10-K Filings FY2023–FY2025 &nbsp;·&nbsp;
-  AT&T equipment cost estimated &nbsp;·&nbsp;
-  Analyst views simulated for illustrative purposes &nbsp;·&nbsp;
+  Source: SEC EDGAR 10-K + 10-Q filings (FY2023–FY2025) &nbsp;·&nbsp;
+  AT&T equipment cost and TMUS capex estimated where not separately disclosed &nbsp;·&nbsp;
+  Analyst views are simulated for illustrative purposes only &nbsp;·&nbsp;
   April 2026
 </footer>
+
 </body>
 </html>
