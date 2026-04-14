@@ -10,30 +10,30 @@
     font-family: 'Segoe UI', Arial, sans-serif;
     background: #fff;
     color: #1a1a2e;
-    line-height: 1.65;
-    font-size: 15px;
+    line-height: 1.45;
+    font-size: 13px;
   }
 
   /* ── HEADER ── */
   .report-header {
     background: #1a1a2e;
     color: #fff;
-    padding: 28px 48px 20px;
+    padding: 20px 40px 16px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
   }
   .report-header h1 {
-    font-size: 1.55em;
+    font-size: 1.45em;
     font-weight: 800;
     letter-spacing: -0.3px;
     line-height: 1.2;
     max-width: 680px;
   }
   .report-header .meta {
-    font-size: 0.78em;
+    font-size: 0.75em;
     color: #a0aec0;
-    margin-top: 6px;
+    margin-top: 5px;
   }
   .carrier-badges {
     display: flex;
@@ -42,10 +42,10 @@
     flex-shrink: 0;
   }
   .badge {
-    padding: 6px 18px;
-    border-radius: 4px;
+    padding: 5px 14px;
+    border-radius: 3px;
     font-weight: 700;
-    font-size: 0.82em;
+    font-size: 0.78em;
     color: #fff;
   }
 
@@ -53,153 +53,167 @@
   .verdict {
     background: #1a1a2e;
     color: #fff;
-    padding: 18px 48px;
-    border-left: 5px solid #E20074;
-    font-size: 0.95em;
-    line-height: 1.8;
+    padding: 14px 40px;
+    border-left: 4px solid #E20074;
+    font-size: 0.88em;
+    line-height: 1.55;
   }
   .verdict strong { color: #90cdf4; }
 
   /* ── SECTION ── */
   .section {
-    padding: 36px 48px;
+    padding: 24px 40px;
     border-bottom: 1px solid #e2e8f0;
   }
   .section-title {
-    font-size: 1.1em;
+    font-size: 0.78em;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
     color: #1a1a2e;
-    border-left: 4px solid #1a1a2e;
-    padding-left: 12px;
-    margin-bottom: 20px;
+    border-left: 3px solid #1a1a2e;
+    padding-left: 10px;
+    margin-bottom: 14px;
   }
 
   /* ── METRICS TABLE ── */
   table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.83em;
+    font-size: 0.78em;
   }
   th {
     background: #1a1a2e;
     color: #fff;
     text-align: left;
-    padding: 10px 14px;
+    padding: 7px 10px;
     font-weight: 700;
-    font-size: 0.85em;
+    font-size: 0.82em;
   }
   td {
-    padding: 9px 14px;
+    padding: 6px 10px;
     border-bottom: 1px solid #e2e8f0;
     vertical-align: top;
+    line-height: 1.35;
   }
   tr:nth-child(even) td { background: #f8fafc; }
   td.tmus { color: #E20074; font-weight: 700; }
   td.vz   { color: #CD040B;   font-weight: 700; }
   td.att  { color: #009FDB;    font-weight: 700; }
   td.metric { color: #2d3748; font-weight: 600; }
-  td.take  { color: #4a5568; font-size: 0.9em; }
-  .note { color: #a0aec0; font-size: 0.78em; margin-top: 14px; }
+  td.take  { color: #4a5568; font-size: 0.88em; }
+  .note { color: #a0aec0; font-size: 0.73em; margin-top: 10px; line-height: 1.5; }
 
   /* ── SCORECARD ── */
   .scorecard {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin: 24px 0;
+    gap: 12px;
+    margin: 16px 0;
   }
   .score-card {
     border: 1.5px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 18px 16px;
+    border-radius: 6px;
+    padding: 14px 12px;
     text-align: center;
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
-  .score-label { font-size: 0.72em; color: #718096; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-  .score-val   { font-size: 1.7em; font-weight: 800; margin-bottom: 4px; }
-  .score-sub   { font-size: 0.75em; color: #a0aec0; font-style: italic; }
-
-  /* ── ATT CALLOUT ── */
-  .att-callout {
-    background: #e6f5fc;
-    border: 1.5px solid #009FDB;
-    border-radius: 8px;
-    padding: 20px 24px;
-    margin: 24px 0;
-  }
-  .att-callout h3 { color: #009FDB; font-size: 0.9em; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
-  .att-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 12px;
-  }
-  .att-item .label { font-size: 0.72em; color: #4a5568; font-weight: 700; }
-  .att-item .val   { font-size: 1.3em; font-weight: 800; color: #009FDB; margin: 4px 0; }
-  .att-item .note  { font-size: 0.68em; color: #718096; font-style: italic; }
+  .score-label { font-size: 0.68em; color: #718096; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .score-val   { font-size: 1.55em; font-weight: 800; margin-bottom: 3px; }
+  .score-sub   { font-size: 0.70em; color: #a0aec0; font-style: italic; }
 
   /* ── DIALOGUE ── */
   .dialogue-wrap {
-    padding: 36px 48px;
+    padding: 24px 40px;
     background: #fff;
   }
   .dlg-head {
-    font-size: 1.05em;
+    font-size: 0.82em;
     font-weight: 800;
     color: #1a1a2e;
     text-transform: uppercase;
     letter-spacing: 0.3px;
-    margin: 24px 0 6px;
+    margin: 18px 0 4px;
+    page-break-after: avoid;
+    break-after: avoid;
   }
   .dlg-participant {
     font-style: italic;
     color: #718096;
-    font-size: 0.88em;
-    padding-left: 16px;
-    margin: 3px 0;
+    font-size: 0.82em;
+    padding-left: 12px;
+    margin: 2px 0;
   }
   .dlg-turn {
     display: grid;
-    grid-template-columns: 110px 1fr;
-    gap: 0 20px;
-    margin: 14px 0;
+    grid-template-columns: 100px 1fr;
+    gap: 0 16px;
+    margin: 8px 0;
     align-items: start;
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
   .spkr {
     font-weight: 800;
-    font-size: 0.88em;
-    padding: 4px 10px;
-    border-radius: 4px;
+    font-size: 0.80em;
+    padding: 3px 8px;
+    border-radius: 3px;
     text-align: center;
     color: #fff;
     margin-top: 2px;
     display: block;
+    white-space: nowrap;
   }
   .spkr.rollins { background: #E20074; }
   .spkr.ng      { background: #CD040B;   }
-  .spkr.max   { background: #2d7a6b;   }
-  .dlg-text  {
-    font-size: 0.90em;
-    line-height: 1.8;
+  .spkr.max     { background: #2d7a6b;   }
+  .dlg-text {
+    font-size: 0.84em;
+    line-height: 1.55;
     color: #1a1a2e;
     padding-top: 2px;
   }
   .dlg-body {
-    font-size: 0.88em;
+    font-size: 0.82em;
     color: #4a5568;
-    margin: 6px 0 6px 130px;
+    margin: 4px 0 4px 116px;
     font-style: italic;
   }
-  hr { border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0; }
+  hr { border: 0; border-top: 1px solid #e2e8f0; margin: 14px 0; }
 
   /* ── FOOTER ── */
   footer {
     background: #f8fafc;
-    padding: 16px 48px;
+    padding: 12px 40px;
     border-top: 1px solid #e2e8f0;
     color: #a0aec0;
-    font-size: 0.75em;
+    font-size: 0.70em;
     text-align: center;
+  }
+
+  /* ── PRINT ── */
+  @page {
+    size: letter;
+    margin: 0.55in 0.6in 0.55in 0.6in;
+  }
+  @media print {
+    body { font-size: 11px; }
+    .report-header { page-break-after: avoid; break-after: avoid; }
+    .verdict { page-break-inside: avoid; break-inside: avoid; page-break-after: avoid; break-after: avoid; }
+    .section { page-break-inside: auto; break-inside: auto; }
+    .section-title { page-break-after: avoid; break-after: avoid; }
+    table { page-break-inside: auto; break-inside: auto; }
+    tr { page-break-inside: avoid; break-inside: avoid; }
+    thead { display: table-header-group; }
+    .scorecard { page-break-inside: avoid; break-inside: avoid; }
+    .score-card { page-break-inside: avoid; break-inside: avoid; }
+    .dlg-turn { page-break-inside: avoid; break-inside: avoid; }
+    .dlg-head { page-break-after: avoid; break-after: avoid; }
+    hr { page-break-after: avoid; break-after: avoid; }
+    .dialogue-wrap { page-break-before: always; break-before: always; }
+    footer { page-break-inside: avoid; break-inside: avoid; }
+    .note { page-break-inside: avoid; break-inside: avoid; }
   }
 </style>
 </head>
@@ -218,11 +232,18 @@
 </div>
 
 <div class="verdict">
-  <strong>SIGINT VERDICT:</strong> T-Mobile converts each dollar of equipment loss into 4–6× more subscribers than Verizon
-  ($1,611 vs. $9,685 per net phone add). But net leverage alone does not determine who can keep playing —
-  when operating lease obligations, pension commitments, and dividend burdens are included,
-  AT&T's adjusted leverage of 3.08× is the best of the three, and Verizon's 57% FCF dividend commitment
-  is the binding constraint on its promotional flexibility.
+  <strong>SIGINT VERDICT:</strong> T-Mobile is winning the only metric that determines long-run market share: subscriber
+  conversion efficiency. At $1,611 per postpaid phone net add versus Verizon's $9,685, T-Mobile is deploying
+  promotional capital roughly 6× more productively — and its 29% Subsidy Burn Rate against post-dividend FCF is
+  the lowest of the three carriers. Verizon's 57% FCF dividend pre-commitment combined with a 41% Subsidy Burn Rate
+  leaves it with the least discretionary capital to respond competitively; its superior service EBITDA margin
+  (63.9%) reflects a premium positioning that becomes a structural liability if subscriber losses accelerate.
+  AT&T presents the most complex risk/reward: Moody's-adjusted gross debt of $173.6B (~3.7x) is the highest of
+  the group, and $15B of preferred interests at operating subsidiaries rank structurally senior to parent
+  bondholders — a nuance that reported leverage obscures. The partial offset is AT&T's off-balance-sheet
+  receivables factoring program, which provides ~$3–4B of annual FCF optionality that neither peer enjoys at
+  the same scale. The promotion game favors T-Mobile until Verizon finds a way to grow without burning capital
+  it can no longer afford to waste.
 </div>
 
 <div class="section">
