@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIGINT — Carrier Intelligence Platform</title>
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --gray1: #4a5568;
+    --gray2: #a0aec0;
+    --bg: #f7f8fa;
+    --card: #ffffff;
+    --tmo: #E20074;
+    --vz: #CD040B;
+    --att: #009FDB;
+    --green: #38a169;
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+         background: var(--bg); color: var(--ink); }
+
+  header { background: var(--ink); color: #fff; padding: 36px 48px 28px; }
+  header h1 { font-size: 2.0rem; font-weight: 700; letter-spacing: -0.02em; }
+  header p.tagline { color: #a0aec0; font-size: 0.9rem; margin-top: 8px; max-width: 600px; }
+  .badge-row { display: flex; gap: 10px; margin-top: 16px; }
+  .badge { padding: 4px 14px; border-radius: 4px; font-size: 0.80rem; font-weight: 700; color: #fff; }
+
+  .content { max-width: 960px; margin: 0 auto; padding: 48px 40px; }
+  h2.section-title { font-size: 1.1rem; font-weight: 700; color: var(--ink);
+                     margin-bottom: 20px; border-bottom: 2px solid var(--border);
+                     padding-bottom: 10px; }
+
+  .report-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 48px; }
+  @media (max-width: 680px) { .report-grid { grid-template-columns: 1fr; } }
+
+  .report-card { background: var(--card); border: 1px solid var(--border);
+                 border-radius: 10px; padding: 28px; box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+                 transition: box-shadow 0.15s; text-decoration: none; color: inherit;
+                 display: flex; flex-direction: column; }
+  .report-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.10); }
+  .report-card .chip { display: inline-block; font-size: 0.70rem; font-weight: 700;
+                       padding: 3px 10px; border-radius: 3px; color: #fff;
+                       margin-bottom: 14px; }
+  .chip-green { background: var(--green); }
+  .chip-gray  { background: var(--gray1); }
+  .report-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+  .report-card p  { font-size: 0.84rem; color: var(--gray1); line-height: 1.55; flex-grow: 1; }
+  .report-card .meta { font-size: 0.75rem; color: var(--gray2); margin-top: 16px; }
+  .report-card .links { display: flex; gap: 12px; margin-top: 16px; }
+  .link-btn { display: inline-block; padding: 7px 18px; border-radius: 5px;
+              font-size: 0.80rem; font-weight: 600; text-decoration: none;
+              border: 1px solid var(--border); color: var(--ink);
+              background: var(--bg); }
+  .link-btn.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .link-btn:hover { opacity: 0.85; }
+
+  .highlights { background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+                padding: 28px; margin-bottom: 48px; }
+  .highlights h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 16px; color: var(--ink); }
+  .hl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 680px) { .hl-grid { grid-template-columns: 1fr; } }
+  .hl-item { padding: 14px; border-radius: 8px; }
+  .hl-item .carrier { font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+                      letter-spacing: 0.05em; margin-bottom: 6px; }
+  .hl-item .number { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
+  .hl-item .label  { font-size: 0.75rem; color: var(--gray1); }
+  .hl-tmo { background: #fff0f7; border: 1px solid #fce8f3; }
+  .hl-vz  { background: #fff5f5; border: 1px solid #fceaea; }
+  .hl-att { background: #e6f5fc; border: 1px solid #bee3f8; }
+
+  footer { background: var(--ink); color: #718096; text-align: center;
+           padding: 20px; font-size: 0.75rem; }
+</style>
+</head>
+<body>
+<header>
+  <h1>SIGINT &mdash; Carrier Intelligence Platform</h1>
+  <p class="tagline">Investment-grade telecom analysis. U.S. wireless subsidy economics,
+     balance sheet forensics, and competitive dynamics across T-Mobile, Verizon, and AT&amp;T.</p>
+  <div class="badge-row">
+    <span class="badge" style="background:var(--tmo);">T-Mobile</span>
+    <span class="badge" style="background:var(--vz);">Verizon</span>
+    <span class="badge" style="background:var(--att);">AT&amp;T</span>
+  </div>
+</header>
+
+<div class="content">
+
+  <h2 class="section-title">Reports</h2>
+
+  <div class="report-grid">
+
+    <a href="output/sigint_q1_2026.html" class="report-card">
+      <span class="chip chip-green">Q1 2026 &nbsp;&#x2022;&nbsp; LATEST</span>
+      <h3>The Promotion Game &mdash; Q1 2026 Update</h3>
+      <p>VZ delivers its first positive Q1 phone net adds since 2013. AT&amp;T's equipment
+         loss collapses to $277M. T-Mobile posts 49% EBITDA margins. Full YoY comparison
+         using Q1 2026 earnings releases from all three carriers.</p>
+      <div class="meta">Source: SEC EDGAR 8-K/10-Q filings &bull; Published April 2026</div>
+      <div class="links">
+        <span class="link-btn primary">View Report &rarr;</span>
+        <a href="output/sigint_q1_2026.pdf" class="link-btn" onclick="event.stopPropagation()">PDF</a>
+      </div>
+    </a>
+
+    <a href="output/sigint_promotion_game.html" class="report-card">
+      <span class="chip chip-gray">FY2023&ndash;FY2025 &nbsp;&#x2022;&nbsp; ANNUAL BASELINE</span>
+      <h3>The Promotion Game &mdash; Annual Analysis</h3>
+      <p>Three-year trend analysis of carrier device subsidy economics. Equipment gross
+         loss trajectories, subsidy burn rates, leverage forensics, and analyst roundtable
+         covering the full FY2025 annual reporting cycle.</p>
+      <div class="meta">Source: SEC EDGAR 10-K Filings FY2023&ndash;FY2025 &bull; Published April 2026</div>
+      <div class="links">
+        <span class="link-btn primary">View Report &rarr;</span>
+        <a href="output/sigint_promotion_game.pdf" class="link-btn" onclick="event.stopPropagation()">PDF</a>
+      </div>
+    </a>
+
+  </div>
+
+  <h2 class="section-title">Q1 2026 Headline Metrics</h2>
+
+  <div class="highlights">
+    <h3>Equipment Gross Loss &mdash; Q1 2026 ($ millions)</h3>
+    <div class="hl-grid">
+      <div class="hl-item hl-tmo">
+        <div class="carrier" style="color:var(--tmo);">T-Mobile</div>
+        <div class="number" style="color:var(--tmo);">$1,492M</div>
+        <div class="label">217K account net adds &bull; 43% subsidy burn rate</div>
+      </div>
+      <div class="hl-item hl-vz">
+        <div class="carrier" style="color:var(--vz);">Verizon</div>
+        <div class="number" style="color:var(--vz);">$825M</div>
+        <div class="label">+55K phone adds &bull; First positive Q1 since 2013</div>
+      </div>
+      <div class="hl-item hl-att">
+        <div class="carrier" style="color:var(--att);">AT&amp;T</div>
+        <div class="number" style="color:var(--att);">$277M</div>
+        <div class="label">294K phone adds &bull; Most disciplined subsidy posture</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlights">
+    <h3>Free Cash Flow &mdash; Q1 2026</h3>
+    <div class="hl-grid">
+      <div class="hl-item hl-tmo">
+        <div class="carrier" style="color:var(--tmo);">T-Mobile</div>
+        <div class="number" style="color:var(--tmo);">$4.6B</div>
+        <div class="label">49.1% EBITDA margin &bull; 2.4x LTM leverage</div>
+      </div>
+      <div class="hl-item hl-vz">
+        <div class="carrier" style="color:var(--vz);">Verizon</div>
+        <div class="number" style="color:var(--vz);">$3.8B</div>
+        <div class="label">$2.9B dividends &bull; Only $890M post-div &bull; Frontier debt $172.5B</div>
+      </div>
+      <div class="hl-item hl-att">
+        <div class="carrier" style="color:var(--att);">AT&amp;T</div>
+        <div class="number" style="color:var(--att);">$2.5B</div>
+        <div class="label">Down from $3.1B &bull; Fiber capex surge +$600M YoY</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  SIGINT Intelligence Platform &nbsp;&middot;&nbsp;
+  Coverage: TMUS, VZ, T &nbsp;&middot;&nbsp;
+  Data sourced from SEC EDGAR public filings &nbsp;&middot;&nbsp;
+  For institutional use; illustrative purposes only
+</footer>
+</body>
+</html>
