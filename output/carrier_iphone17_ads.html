@@ -28,96 +28,89 @@
   nav a { color: #009FDB; text-decoration: none; font-weight: 600; }
   nav a:hover { text-decoration: underline; }
 
-  header { background: var(--ink); padding: 32px 48px 28px; }
-  header h1 { font-size: 1.45rem; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
-  header p  { font-size: 0.83rem; color: var(--gray3); margin-top: 6px; }
-  .tickers  { display: flex; gap: 7px; margin-top: 14px; flex-wrap: wrap; }
-  .ticker   { font-size: 0.68rem; font-weight: 700; color: #fff; padding: 2px 8px;
+  header { background: var(--ink); padding: 28px 48px 24px; }
+  header h1 { font-size: 1.35rem; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
+  header p  { font-size: 0.80rem; color: var(--gray3); margin-top: 5px; }
+  .tickers  { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+  .ticker   { font-size: 0.64rem; font-weight: 700; color: #fff; padding: 2px 7px;
               border-radius: 3px; letter-spacing: 0.05em; }
 
-  main { max-width: 1080px; margin: 0 auto; padding: 40px 32px 60px; }
+  main { max-width: 1200px; margin: 0 auto; padding: 32px 24px 60px; }
 
-  .section-label {
-    font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
-    letter-spacing: 0.14em; color: var(--gray2); margin-bottom: 20px;
-    padding-bottom: 10px; border-bottom: 1px solid var(--border);
-  }
+  /* ══ MATRIX ══ */
+  .matrix-outer { overflow-x: auto; border-radius: 8px;
+                  border: 1px solid var(--border); background: var(--card); }
 
-  /* ══ TIMELINE ══ */
-  .timeline-wrap {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 8px; margin-bottom: 48px; overflow-x: auto;
-  }
-  .timeline-grid {
+  .matrix {
     display: grid;
-    grid-template-columns: repeat(9, minmax(118px, 1fr));
-    min-width: 860px;
+    grid-template-columns: 90px repeat(9, minmax(108px, 1fr));
+    min-width: 1050px;
   }
-  .tl-month { border-right: 1px solid var(--border); }
-  .tl-month:last-child { border-right: none; }
-  .tl-month-label {
-    font-size: 0.62rem; font-weight: 800; text-transform: uppercase;
-    letter-spacing: 0.08em; color: var(--gray2);
-    padding: 9px 8px 7px; background: #f8fafc;
-    border-bottom: 1px solid var(--border); text-align: center;
+
+  /* all cells share base border */
+  .matrix > div {
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
   }
-  .tl-month-label span {
-    display: block; font-size: 0.56rem; font-weight: 400;
-    color: var(--gray3); margin-top: 1px; letter-spacing: 0; text-transform: none;
+  .matrix > div:last-child,
+  .matrix > div:nth-child(10n) { border-right: none; }
+
+  /* month header row */
+  .mh-blank {
+    background: var(--ink);
+    border-bottom: 1px solid #2d3748 !important;
+    border-right: 1px solid #2d3748 !important;
   }
-  .tl-ads { padding: 7px 5px; display: flex; flex-direction: column; gap: 6px; min-height: 44px; }
-  .tl-thumb {
+  .mh {
+    background: var(--ink); padding: 9px 8px 8px;
+    text-align: center;
+    border-bottom: 1px solid #2d3748 !important;
+    border-right: 1px solid #2d3748 !important;
+  }
+  .mh-label { font-size: 0.62rem; font-weight: 800; color: #fff;
+              text-transform: uppercase; letter-spacing: 0.08em; }
+  .mh-sub   { font-size: 0.54rem; color: var(--gray3); margin-top: 2px; }
+
+  /* carrier label cells */
+  .cl {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 12px 10px; background: #f8fafc;
+    position: sticky; left: 0; z-index: 2;
+  }
+  .cl-name { font-size: 0.72rem; font-weight: 800; color: var(--ink);
+             writing-mode: horizontal-tb; }
+  .cl-dot  { width: 8px; height: 8px; border-radius: 50%; margin-bottom: 6px; }
+  .cl-count { font-size: 0.58rem; color: var(--gray3); margin-top: 3px; }
+
+  /* month content cells */
+  .mc {
+    padding: 6px 5px; display: flex; flex-direction: column;
+    gap: 5px; align-items: stretch; background: var(--card);
+  }
+  .mc.empty { background: #fbfcfd; }
+
+  /* individual thumbnails */
+  .th {
     display: block; text-decoration: none;
-    border-radius: 3px; overflow: hidden; border: 1px solid var(--border);
-    transition: box-shadow 0.1s;
+    border-radius: 3px; overflow: hidden;
+    border: 1px solid var(--border);
+    transition: box-shadow 0.1s, transform 0.1s;
+    background: #e2e8f0;
   }
-  .tl-thumb:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-  .tl-thumb img { display: block; width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; }
-  .tl-bar { height: 2px; width: 100%; }
-  .tl-label {
-    font-size: 0.56rem; color: var(--gray1); line-height: 1.3;
-    padding: 2px 4px 3px; white-space: nowrap; overflow: hidden;
-    text-overflow: ellipsis; background: #fff;
-  }
+  .th:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.18); transform: scale(1.03); z-index: 10; position: relative; }
+  .th img   { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+  .th-bar   { height: 2px; width: 100%; }
+  .th-date  { font-size: 0.52rem; color: var(--gray2); padding: 2px 4px 3px;
+              white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+              background: #fff; line-height: 1.2; }
 
-  /* ══ CARRIER SECTIONS ══ */
-  .carrier-section { margin-bottom: 44px; }
-  .carrier-header {
-    display: flex; align-items: center; gap: 10px;
-    margin-bottom: 16px; padding-bottom: 10px;
-    border-bottom: 2px solid var(--border);
+  /* empty month placeholder — keep height consistent */
+  .no-ad {
+    display: flex; align-items: center; justify-content: center;
+    aspect-ratio: 16/9; background: #f0f4f8; border-radius: 3px;
+    border: 1px dashed var(--border);
+    font-size: 0.50rem; color: var(--gray3);
   }
-  .carrier-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-  .carrier-name { font-size: 0.95rem; font-weight: 700; color: var(--ink); }
-
-  .ads-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-  @media (max-width: 720px) { .ads-grid { grid-template-columns: 1fr; } }
-
-  .ad-card {
-    display: flex; flex-direction: column;
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 7px; overflow: hidden; text-decoration: none;
-    color: inherit; transition: box-shadow 0.12s, transform 0.1s;
-  }
-  .ad-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.09); transform: translateY(-1px); }
-
-  .thumb-wrap { position: relative; width: 100%; padding-top: 56.25%; background: #e2e8f0; }
-  .thumb-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .carrier-stripe { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-  .play-badge {
-    position: absolute; bottom: 7px; right: 7px;
-    background: rgba(0,0,0,0.60); color: #fff;
-    font-size: 0.60rem; font-weight: 700; padding: 2px 6px;
-    border-radius: 3px; letter-spacing: 0.04em;
-  }
-  .ad-body { padding: 13px 14px 14px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
-  .ad-title { font-size: 0.82rem; font-weight: 700; color: var(--ink); line-height: 1.35; }
-  .ad-meta  { font-size: 0.67rem; color: var(--gray3); margin-top: auto;
-              display: flex; justify-content: space-between; padding-top: 8px; }
 
   footer { background: var(--ink); color: var(--gray2); text-align: center;
            padding: 18px; font-size: 0.72rem; }
@@ -129,7 +122,7 @@
 
 <header>
   <h1>SIGINT — iPhone 17 Carrier Ad Tracker</h1>
-  <p>YouTube ads featuring iPhone 17 · Sep 2025 – May 2026 · up to 3 ads per carrier</p>
+  <p>YouTube advertising activity · Sep 2025 – May 2026 · rows = carrier, columns = month · click any thumbnail to watch</p>
   <div class="tickers">
     <span class="ticker" style="background:var(--tmo)">T-Mobile</span>
     <span class="ticker" style="background:var(--att)">AT&amp;T</span>
@@ -140,389 +133,493 @@
 </header>
 
 <main>
+<div class="matrix-outer">
+<div class="matrix">
 
-  <!-- ══ TIMELINE ══ -->
-  <div class="section-label">Ad Timeline &nbsp;·&nbsp; Sep 2025 – May 2026 &nbsp;·&nbsp; 19 ads tracked</div>
-  <div class="timeline-wrap">
-    <div class="timeline-grid">
+  <!-- ── HEADER ROW ── -->
+  <div class="mh-blank"></div>
+  <div class="mh"><div class="mh-label">Sep 2025</div><div class="mh-sub">iPhone 17 launch</div></div>
+  <div class="mh"><div class="mh-label">Oct 2025</div><div class="mh-sub">&nbsp;</div></div>
+  <div class="mh"><div class="mh-label">Nov 2025</div><div class="mh-sub">&nbsp;</div></div>
+  <div class="mh"><div class="mh-label">Dec 2025</div><div class="mh-sub">Holiday push</div></div>
+  <div class="mh"><div class="mh-label">Jan 2026</div><div class="mh-sub">&nbsp;</div></div>
+  <div class="mh"><div class="mh-label">Feb 2026</div><div class="mh-sub">Super Bowl</div></div>
+  <div class="mh"><div class="mh-label">Mar 2026</div><div class="mh-sub">&nbsp;</div></div>
+  <div class="mh"><div class="mh-label">Apr 2026</div><div class="mh-sub">&nbsp;</div></div>
+  <div class="mh"><div class="mh-label">May 2026</div><div class="mh-sub">&nbsp;</div></div>
 
-      <div class="tl-month">
-        <div class="tl-month-label">Sep 2025<span>iPhone 17 launch</span></div>
-        <div class="tl-ads">
-          <a class="tl-thumb" href="https://youtube.com/watch?v=4oPBBg9vzRs" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/4oPBBg9vzRs/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--att)"></div>
-            <div class="tl-label">AT&amp;T · Sep 19</div>
-          </a>
-          <a class="tl-thumb" href="https://youtube.com/watch?v=iw6eZV9MtDI" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/iw6eZV9MtDI/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--att)"></div>
-            <div class="tl-label">AT&amp;T · Sep 20</div>
-          </a>
-          <a class="tl-thumb" href="https://youtube.com/watch?v=aTkfjPTjU-U" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/aTkfjPTjU-U/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--xfn)"></div>
-            <div class="tl-label">Xfinity · Sep 20</div>
-          </a>
-          <a class="tl-thumb" href="https://youtube.com/watch?v=0H3Mw8_ggUM" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/0H3Mw8_ggUM/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--vz)"></div>
-            <div class="tl-label">Verizon · Sep 21</div>
-          </a>
-          <a class="tl-thumb" href="https://youtube.com/watch?v=vapM_XL6Frw" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/vapM_XL6Frw/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--vz)"></div>
-            <div class="tl-label">Verizon · Sep 30</div>
-          </a>
-        </div>
-      </div>
-
-      <div class="tl-month">
-        <div class="tl-month-label">Oct 2025<span>&nbsp;</span></div>
-        <div class="tl-ads">
-          <a class="tl-thumb" href="https://youtube.com/watch?v=QQIGQomuMaI" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/QQIGQomuMaI/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--spc)"></div>
-            <div class="tl-label">Spectrum · Oct 21</div>
-          </a>
-          <a class="tl-thumb" href="https://youtube.com/watch?v=hnP6gnm7Mpo" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/hnP6gnm7Mpo/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--tmo)"></div>
-            <div class="tl-label">T-Mobile · Oct 25</div>
-          </a>
-        </div>
-      </div>
-
-      <div class="tl-month">
-        <div class="tl-month-label">Nov 2025<span>&nbsp;</span></div>
-        <div class="tl-ads">
-          <a class="tl-thumb" href="https://youtube.com/watch?v=gd92tyfFBkE" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/gd92tyfFBkE/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--vz)"></div>
-            <div class="tl-label">Verizon · Nov 7</div>
-          </a>
-          <a class="tl-thumb" href="https://youtube.com/watch?v=FYnBwMPPSak" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/FYnBwMPPSak/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--xfn)"></div>
-            <div class="tl-label">Xfinity · Nov 14</div>
-          </a>
-          <a class="tl-thumb" href="https://youtube.com/watch?v=E7vVSltswH8" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/E7vVSltswH8/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--tmo)"></div>
-            <div class="tl-label">T-Mobile · Nov 16</div>
-          </a>
-        </div>
-      </div>
-
-      <div class="tl-month">
-        <div class="tl-month-label">Dec 2025<span>Holiday push</span></div>
-        <div class="tl-ads">
-          <a class="tl-thumb" href="https://youtube.com/watch?v=54EKEi8c-Bo" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/54EKEi8c-Bo/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--vz)"></div>
-            <div class="tl-label">Verizon · Dec 4</div>
-          </a>
-          <a class="tl-thumb" href="https://youtube.com/watch?v=hhgHSxSHiEI" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/hhgHSxSHiEI/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--tmo)"></div>
-            <div class="tl-label">T-Mobile · Dec 6</div>
-          </a>
-          <a class="tl-thumb" href="https://youtube.com/watch?v=DTg_W6MSfw8" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/DTg_W6MSfw8/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--vz)"></div>
-            <div class="tl-label">Verizon · Dec 8</div>
-          </a>
-          <a class="tl-thumb" href="https://youtube.com/watch?v=1y_LI7Vzv9o" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/1y_LI7Vzv9o/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--tmo)"></div>
-            <div class="tl-label">T-Mobile · Dec 8</div>
-          </a>
-          <a class="tl-thumb" href="https://youtube.com/watch?v=MZzwKVswFYo" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/MZzwKVswFYo/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--att)"></div>
-            <div class="tl-label">AT&amp;T · Dec 10</div>
-          </a>
-          <a class="tl-thumb" href="https://youtube.com/watch?v=vjhjZbAx0oM" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/vjhjZbAx0oM/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--vz)"></div>
-            <div class="tl-label">Verizon · Dec 16</div>
-          </a>
-        </div>
-      </div>
-
-      <div class="tl-month">
-        <div class="tl-month-label">Jan 2026<span>&nbsp;</span></div>
-        <div class="tl-ads">
-          <a class="tl-thumb" href="https://youtube.com/watch?v=ukvfqZEc_OM" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/ukvfqZEc_OM/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--tmo)"></div>
-            <div class="tl-label">T-Mobile · Jan 8</div>
-          </a>
-        </div>
-      </div>
-
-      <div class="tl-month">
-        <div class="tl-month-label">Feb 2026<span>Super Bowl push</span></div>
-        <div class="tl-ads">
-          <a class="tl-thumb" href="https://youtube.com/watch?v=oIGCt_v2RpE" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/oIGCt_v2RpE/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--att)"></div>
-            <div class="tl-label">AT&amp;T · Feb 5</div>
-          </a>
-          <a class="tl-thumb" href="https://youtube.com/watch?v=ZYjAjyc7o-g" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/ZYjAjyc7o-g/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--vz)"></div>
-            <div class="tl-label">Verizon · Feb 11</div>
-          </a>
-          <a class="tl-thumb" href="https://youtube.com/watch?v=DPxc70TcRww" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/DPxc70TcRww/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--vz)"></div>
-            <div class="tl-label">Verizon · Feb 23</div>
-          </a>
-          <a class="tl-thumb" href="https://youtube.com/watch?v=vMxBaG5Xemk" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/vMxBaG5Xemk/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--vz)"></div>
-            <div class="tl-label">Verizon · Feb 26</div>
-          </a>
-        </div>
-      </div>
-
-      <div class="tl-month">
-        <div class="tl-month-label">Mar 2026<span>&nbsp;</span></div>
-        <div class="tl-ads"></div>
-      </div>
-
-      <div class="tl-month">
-        <div class="tl-month-label">Apr 2026<span>&nbsp;</span></div>
-        <div class="tl-ads"></div>
-      </div>
-
-      <div class="tl-month">
-        <div class="tl-month-label">May 2026<span>&nbsp;</span></div>
-        <div class="tl-ads">
-          <a class="tl-thumb" href="https://youtube.com/watch?v=NK8nmWqDMlE" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/NK8nmWqDMlE/hqdefault.jpg" loading="lazy" alt="">
-            <div class="tl-bar" style="background:var(--att)"></div>
-            <div class="tl-label">AT&amp;T · May 5</div>
-          </a>
-        </div>
-      </div>
-
-    </div>
+  <!-- ══════════════════════════════════════
+       ROW 1 — T-MOBILE
+  ══════════════════════════════════════ -->
+  <div class="cl">
+    <div class="cl-dot" style="background:var(--tmo)"></div>
+    <div class="cl-name">T-Mobile</div>
+    <div class="cl-count">6 ads</div>
   </div>
 
-  <!-- ══ CARRIER SECTIONS ══ -->
-  <div class="section-label">Ads by Carrier</div>
+  <!-- Sep: none confirmed -->
+  <div class="mc empty"><div class="no-ad">—</div></div>
 
-  <!-- T-Mobile -->
-  <section class="carrier-section">
-    <div class="carrier-header">
-      <span class="carrier-dot" style="background:var(--tmo)"></span>
-      <span class="carrier-name">T-Mobile</span>
-    </div>
-    <div class="ads-grid">
-      <a class="ad-card" href="https://youtube.com/watch?v=ukvfqZEc_OM" target="_blank" rel="noopener">
-        <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/ukvfqZEc_OM/hqdefault.jpg" loading="lazy" alt="">
-          <div class="carrier-stripe" style="background:var(--tmo)"></div>
-          <span class="play-badge">▶ YouTube</span>
-        </div>
-        <div class="ad-body">
-          <div class="ad-title">Group Photo iPhone 17: 15-Minute Switch</div>
-          <div class="ad-meta"><span>Jan 8, 2026</span><span>:15 spot</span></div>
-        </div>
-      </a>
-      <a class="ad-card" href="https://youtube.com/watch?v=E7vVSltswH8" target="_blank" rel="noopener">
-        <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/E7vVSltswH8/hqdefault.jpg" loading="lazy" alt="">
-          <div class="carrier-stripe" style="background:var(--tmo)"></div>
-          <span class="play-badge">▶ YouTube</span>
-        </div>
-        <div class="ad-body">
-          <div class="ad-title">Holiday Tree Lot — Jeff Bridges &amp; Zoe Saldaña</div>
-          <div class="ad-meta"><span>Nov 16, 2025</span><span>:30 spot</span></div>
-        </div>
-      </a>
-      <a class="ad-card" href="https://youtube.com/watch?v=hnP6gnm7Mpo" target="_blank" rel="noopener">
-        <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/hnP6gnm7Mpo/hqdefault.jpg" loading="lazy" alt="">
-          <div class="carrier-stripe" style="background:var(--tmo)"></div>
-          <span class="play-badge">▶ YouTube</span>
-        </div>
-        <div class="ad-body">
-          <div class="ad-title">T-Mobile iPhone 17 Pro — Feature Spot</div>
-          <div class="ad-meta"><span>Oct 25, 2025</span><span>Commercial</span></div>
-        </div>
-      </a>
-    </div>
-  </section>
+  <!-- Oct -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=hnP6gnm7Mpo" target="_blank" rel="noopener"
+       title="T-Mobile iPhone 17 Pro Feature Spot">
+      <img src="https://i.ytimg.com/vi/hnP6gnm7Mpo/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--tmo)"></div>
+      <div class="th-date">Oct 25</div>
+    </a>
+  </div>
 
-  <!-- AT&T -->
-  <section class="carrier-section">
-    <div class="carrier-header">
-      <span class="carrier-dot" style="background:var(--att)"></span>
-      <span class="carrier-name">AT&amp;T</span>
-    </div>
-    <div class="ads-grid">
-      <a class="ad-card" href="https://youtube.com/watch?v=4oPBBg9vzRs" target="_blank" rel="noopener">
-        <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/4oPBBg9vzRs/hqdefault.jpg" loading="lazy" alt="">
-          <div class="carrier-stripe" style="background:var(--att)"></div>
-          <span class="play-badge">▶ YouTube</span>
-        </div>
-        <div class="ad-body">
-          <div class="ad-title">iPhone 17 Pro — The Most Powerful iPhone Ever, Is Here</div>
-          <div class="ad-meta"><span>Sep 19, 2025</span><span>Launch day</span></div>
-        </div>
-      </a>
-      <a class="ad-card" href="https://youtube.com/watch?v=iw6eZV9MtDI" target="_blank" rel="noopener">
-        <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/iw6eZV9MtDI/hqdefault.jpg" loading="lazy" alt="">
-          <div class="carrier-stripe" style="background:var(--att)"></div>
-          <span class="play-badge">▶ YouTube</span>
-        </div>
-        <div class="ad-body">
-          <div class="ad-title">iPhone 17 Pro — Championship Tattoos</div>
-          <div class="ad-meta"><span>Sep 20, 2025</span><span>Commercial</span></div>
-        </div>
-      </a>
-      <a class="ad-card" href="https://youtube.com/watch?v=NK8nmWqDMlE" target="_blank" rel="noopener">
-        <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/NK8nmWqDMlE/hqdefault.jpg" loading="lazy" alt="">
-          <div class="carrier-stripe" style="background:var(--att)"></div>
-          <span class="play-badge">▶ YouTube</span>
-        </div>
-        <div class="ad-body">
-          <div class="ad-title">Festival</div>
-          <div class="ad-meta"><span>May 5, 2026</span><span>AT&amp;T</span></div>
-        </div>
-      </a>
-    </div>
-  </section>
+  <!-- Nov -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=E7vVSltswH8" target="_blank" rel="noopener"
+       title="Holiday Tree Lot — Jeff Bridges & Zoe Saldaña">
+      <img src="https://i.ytimg.com/vi/E7vVSltswH8/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--tmo)"></div>
+      <div class="th-date">Nov 16 · Holiday Tree Lot</div>
+    </a>
+  </div>
 
-  <!-- Verizon -->
-  <section class="carrier-section">
-    <div class="carrier-header">
-      <span class="carrier-dot" style="background:var(--vz)"></span>
-      <span class="carrier-name">Verizon</span>
-    </div>
-    <div class="ads-grid">
-      <a class="ad-card" href="https://youtube.com/watch?v=0H3Mw8_ggUM" target="_blank" rel="noopener">
-        <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/0H3Mw8_ggUM/hqdefault.jpg" loading="lazy" alt="">
-          <div class="carrier-stripe" style="background:var(--vz)"></div>
-          <span class="play-badge">▶ YouTube</span>
-        </div>
-        <div class="ad-body">
-          <div class="ad-title">Maluma — iPhone 17 Pro (Spanish-market spot)</div>
-          <div class="ad-meta"><span>Sep 21, 2025</span><span>:30 spot</span></div>
-        </div>
-      </a>
-      <a class="ad-card" href="https://youtube.com/watch?v=vapM_XL6Frw" target="_blank" rel="noopener">
-        <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/vapM_XL6Frw/hqdefault.jpg" loading="lazy" alt="">
-          <div class="carrier-stripe" style="background:var(--vz)"></div>
-          <span class="play-badge">▶ YouTube</span>
-        </div>
-        <div class="ad-body">
-          <div class="ad-title">Kevin Hart — iPhone 17 Pro</div>
-          <div class="ad-meta"><span>Sep 30, 2025</span><span>Commercial</span></div>
-        </div>
-      </a>
-      <a class="ad-card" href="https://youtube.com/watch?v=gd92tyfFBkE" target="_blank" rel="noopener">
-        <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/gd92tyfFBkE/hqdefault.jpg" loading="lazy" alt="">
-          <div class="carrier-stripe" style="background:var(--vz)"></div>
-          <span class="play-badge">▶ YouTube</span>
-        </div>
-        <div class="ad-body">
-          <div class="ad-title">Kevin Hart — iPhone 17, iPad &amp; Apple Watch: All for $0, No Trade-In</div>
-          <div class="ad-meta"><span>Nov 7, 2025</span><span>:60 spot</span></div>
-        </div>
-      </a>
-    </div>
-  </section>
+  <!-- Dec -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=hhgHSxSHiEI" target="_blank" rel="noopener"
+       title="Reindeer Stand-In ft. Jeff Bridges & Zoe Saldaña">
+      <img src="https://i.ytimg.com/vi/hhgHSxSHiEI/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--tmo)"></div>
+      <div class="th-date">Dec 6 · Reindeer Stand-In</div>
+    </a>
+    <a class="th" href="https://youtube.com/watch?v=1y_LI7Vzv9o" target="_blank" rel="noopener"
+       title="T-Mobile iPhone 17 Pro 2nd version">
+      <img src="https://i.ytimg.com/vi/1y_LI7Vzv9o/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--tmo)"></div>
+      <div class="th-date">Dec 8 · 2nd version</div>
+    </a>
+  </div>
 
-  <!-- Xfinity Mobile -->
-  <section class="carrier-section">
-    <div class="carrier-header">
-      <span class="carrier-dot" style="background:var(--xfn)"></span>
-      <span class="carrier-name">Xfinity Mobile</span>
-    </div>
-    <div class="ads-grid">
-      <a class="ad-card" href="https://youtube.com/watch?v=aTkfjPTjU-U" target="_blank" rel="noopener">
-        <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/aTkfjPTjU-U/hqdefault.jpg" loading="lazy" alt="">
-          <div class="carrier-stripe" style="background:var(--xfn)"></div>
-          <span class="play-badge">▶ YouTube</span>
-        </div>
-        <div class="ad-body">
-          <div class="ad-title">iPhone 17 Pro: A Work of Art</div>
-          <div class="ad-meta"><span>Sep 20, 2025</span><span>:30 spot</span></div>
-        </div>
-      </a>
-      <a class="ad-card" href="https://youtube.com/watch?v=FYnBwMPPSak" target="_blank" rel="noopener">
-        <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/FYnBwMPPSak/hqdefault.jpg" loading="lazy" alt="">
-          <div class="carrier-stripe" style="background:var(--xfn)"></div>
-          <span class="play-badge">▶ YouTube</span>
-        </div>
-        <div class="ad-body">
-          <div class="ad-title">iPhone 17 Pro: A Work of Art — Up to $830 Off</div>
-          <div class="ad-meta"><span>Nov 14, 2025</span><span>:30 spot</span></div>
-        </div>
-      </a>
-      <div class="ad-card" style="opacity:0.35; pointer-events:none;">
-        <div class="thumb-wrap" style="background:#e2e8f0; padding-top:56.25%;">
-          <div class="carrier-stripe" style="background:var(--xfn)"></div>
-        </div>
-        <div class="ad-body">
-          <div class="ad-title" style="color:var(--gray3)">No additional ads found in window</div>
-          <div class="ad-meta"><span>—</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Jan -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=ukvfqZEc_OM" target="_blank" rel="noopener"
+       title="Group Photo iPhone 17: 15-Minute Switch">
+      <img src="https://i.ytimg.com/vi/ukvfqZEc_OM/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--tmo)"></div>
+      <div class="th-date">Jan 8 · 15-Min Switch</div>
+    </a>
+  </div>
 
-  <!-- Spectrum Mobile -->
-  <section class="carrier-section">
-    <div class="carrier-header">
-      <span class="carrier-dot" style="background:var(--spc)"></span>
-      <span class="carrier-name">Spectrum Mobile</span>
-    </div>
-    <div class="ads-grid">
-      <a class="ad-card" href="https://youtube.com/watch?v=QQIGQomuMaI" target="_blank" rel="noopener">
-        <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/QQIGQomuMaI/hqdefault.jpg" loading="lazy" alt="">
-          <div class="carrier-stripe" style="background:var(--spc)"></div>
-          <span class="play-badge">▶ YouTube</span>
-        </div>
-        <div class="ad-body">
-          <div class="ad-title">Best iPhone 17 Trade-In Deals — AT&amp;T vs Spectrum Mobile</div>
-          <div class="ad-meta"><span>Oct 21, 2025</span><span>Comparison</span></div>
-        </div>
-      </a>
-      <div class="ad-card" style="opacity:0.35; pointer-events:none;">
-        <div class="thumb-wrap" style="background:#e2e8f0; padding-top:56.25%;">
-          <div class="carrier-stripe" style="background:var(--spc)"></div>
-        </div>
-        <div class="ad-body">
-          <div class="ad-title" style="color:var(--gray3)">No additional ads found in window</div>
-          <div class="ad-meta"><span>—</span></div>
-        </div>
-      </div>
-      <div class="ad-card" style="opacity:0.35; pointer-events:none;">
-        <div class="thumb-wrap" style="background:#e2e8f0; padding-top:56.25%;">
-          <div class="carrier-stripe" style="background:var(--spc)"></div>
-        </div>
-        <div class="ad-body">
-          <div class="ad-title" style="color:var(--gray3)">No additional ads found in window</div>
-          <div class="ad-meta"><span>—</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Feb: none -->
+  <div class="mc empty"><div class="no-ad">—</div></div>
 
+  <!-- Mar -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=ben-lAOFBE4" target="_blank" rel="noopener"
+       title="iPhone 17 por la casa, sin trade-in (Puerto Rico)">
+      <img src="https://i.ytimg.com/vi/ben-lAOFBE4/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--tmo)"></div>
+      <div class="th-date">Mar 24 · PR / sin trade-in</div>
+    </a>
+  </div>
+
+  <!-- Apr -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=oumf4p24sZY" target="_blank" rel="noopener"
+       title="Disfruta del iPhone 17 por la casa (Puerto Rico)">
+      <img src="https://i.ytimg.com/vi/oumf4p24sZY/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--tmo)"></div>
+      <div class="th-date">Apr 1 · PR campaign</div>
+    </a>
+  </div>
+
+  <!-- May: none -->
+  <div class="mc empty"><div class="no-ad">—</div></div>
+
+
+  <!-- ══════════════════════════════════════
+       ROW 2 — AT&T
+  ══════════════════════════════════════ -->
+  <div class="cl">
+    <div class="cl-dot" style="background:var(--att)"></div>
+    <div class="cl-name">AT&amp;T</div>
+    <div class="cl-count">7 ads</div>
+  </div>
+
+  <!-- Sep -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=4oPBBg9vzRs" target="_blank" rel="noopener"
+       title="iPhone 17 Pro — Launch Day (AT&T official)">
+      <img src="https://i.ytimg.com/vi/4oPBBg9vzRs/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--att)"></div>
+      <div class="th-date">Sep 19 · Launch day</div>
+    </a>
+    <a class="th" href="https://youtube.com/watch?v=iw6eZV9MtDI" target="_blank" rel="noopener"
+       title="iPhone 17 Pro Championship Tattoos">
+      <img src="https://i.ytimg.com/vi/iw6eZV9MtDI/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--att)"></div>
+      <div class="th-date">Sep 20 · Championship Tattoos</div>
+    </a>
+  </div>
+
+  <!-- Oct: none -->
+  <div class="mc empty"><div class="no-ad">—</div></div>
+
+  <!-- Nov: none -->
+  <div class="mc empty"><div class="no-ad">—</div></div>
+
+  <!-- Dec -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=MZzwKVswFYo" target="_blank" rel="noopener"
+       title="iPhone 17 Pro AT&T TV Commercial">
+      <img src="https://i.ytimg.com/vi/MZzwKVswFYo/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--att)"></div>
+      <div class="th-date">Dec 10 · Holiday TV spot</div>
+    </a>
+    <a class="th" href="https://youtube.com/watch?v=9f8rBT77PJE" target="_blank" rel="noopener"
+       title="AT&T iPhone 17 Pro Dec 24">
+      <img src="https://i.ytimg.com/vi/9f8rBT77PJE/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--att)"></div>
+      <div class="th-date">Dec 24</div>
+    </a>
+  </div>
+
+  <!-- Jan: none -->
+  <div class="mc empty"><div class="no-ad">—</div></div>
+
+  <!-- Feb -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=oIGCt_v2RpE" target="_blank" rel="noopener"
+       title="Don't Move | AT&T (official)">
+      <img src="https://i.ytimg.com/vi/oIGCt_v2RpE/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--att)"></div>
+      <div class="th-date">Feb 5 · Don't Move</div>
+    </a>
+  </div>
+
+  <!-- Mar -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=q-vA2bHhVw0" target="_blank" rel="noopener"
+       title="iPhone 17e: Feature stacked. Value packed. (AT&T official)">
+      <img src="https://i.ytimg.com/vi/q-vA2bHhVw0/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--att)"></div>
+      <div class="th-date">Mar 4 · iPhone 17e launch</div>
+    </a>
+  </div>
+
+  <!-- Apr: none -->
+  <div class="mc empty"><div class="no-ad">—</div></div>
+
+  <!-- May -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=NK8nmWqDMlE" target="_blank" rel="noopener"
+       title="Festival | AT&T">
+      <img src="https://i.ytimg.com/vi/NK8nmWqDMlE/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--att)"></div>
+      <div class="th-date">May 5 · Festival</div>
+    </a>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       ROW 3 — VERIZON
+  ══════════════════════════════════════ -->
+  <div class="cl">
+    <div class="cl-dot" style="background:var(--vz)"></div>
+    <div class="cl-name">Verizon</div>
+    <div class="cl-count">9 ads</div>
+  </div>
+
+  <!-- Sep -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=0H3Mw8_ggUM" target="_blank" rel="noopener"
+       title="Maluma iPhone 17 Pro Spanish-market spot">
+      <img src="https://i.ytimg.com/vi/0H3Mw8_ggUM/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--vz)"></div>
+      <div class="th-date">Sep 21 · Maluma</div>
+    </a>
+    <a class="th" href="https://youtube.com/watch?v=vapM_XL6Frw" target="_blank" rel="noopener"
+       title="Kevin Hart iPhone 17 Pro">
+      <img src="https://i.ytimg.com/vi/vapM_XL6Frw/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--vz)"></div>
+      <div class="th-date">Sep 30 · Kevin Hart</div>
+    </a>
+  </div>
+
+  <!-- Oct: none -->
+  <div class="mc empty"><div class="no-ad">—</div></div>
+
+  <!-- Nov -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=gd92tyfFBkE" target="_blank" rel="noopener"
+       title="Kevin Hart — iPhone 17 + iPad + Apple Watch: All $0, No Trade-In">
+      <img src="https://i.ytimg.com/vi/gd92tyfFBkE/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--vz)"></div>
+      <div class="th-date">Nov 7 · Kevin Hart $0</div>
+    </a>
+  </div>
+
+  <!-- Dec -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=54EKEi8c-Bo" target="_blank" rel="noopener"
+       title="Holiday Kevin Elf: Watching You — Kevin Hart :30">
+      <img src="https://i.ytimg.com/vi/54EKEi8c-Bo/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--vz)"></div>
+      <div class="th-date">Dec 4 · Kevin Elf :30</div>
+    </a>
+    <a class="th" href="https://youtube.com/watch?v=DTg_W6MSfw8" target="_blank" rel="noopener"
+       title="Holiday Reindeer Same Day iPhone 17 — Jeff Bridges & Zoe Saldaña">
+      <img src="https://i.ytimg.com/vi/DTg_W6MSfw8/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--vz)"></div>
+      <div class="th-date">Dec 8 · Holiday Reindeer</div>
+    </a>
+    <a class="th" href="https://youtube.com/watch?v=vjhjZbAx0oM" target="_blank" rel="noopener"
+       title="Holidays Kevin Elf: Watching You :60">
+      <img src="https://i.ytimg.com/vi/vjhjZbAx0oM/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--vz)"></div>
+      <div class="th-date">Dec 16 · Kevin Elf :60</div>
+    </a>
+  </div>
+
+  <!-- Jan: none -->
+  <div class="mc empty"><div class="no-ad">—</div></div>
+
+  <!-- Feb -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=ZYjAjyc7o-g" target="_blank" rel="noopener"
+       title="Verizon Commercial #5 (2026)">
+      <img src="https://i.ytimg.com/vi/ZYjAjyc7o-g/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--vz)"></div>
+      <div class="th-date">Feb 11</div>
+    </a>
+    <a class="th" href="https://youtube.com/watch?v=DPxc70TcRww" target="_blank" rel="noopener"
+       title="Hockey Game Switching Teams Ad">
+      <img src="https://i.ytimg.com/vi/DPxc70TcRww/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--vz)"></div>
+      <div class="th-date">Feb 23 · Hockey Switch</div>
+    </a>
+    <a class="th" href="https://youtube.com/watch?v=vMxBaG5Xemk" target="_blank" rel="noopener"
+       title="Get 4 iPhone 17 Pro on us: Hockey Rink">
+      <img src="https://i.ytimg.com/vi/vMxBaG5Xemk/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--vz)"></div>
+      <div class="th-date">Feb 26 · Hockey Rink</div>
+    </a>
+  </div>
+
+  <!-- Mar: none -->
+  <div class="mc empty"><div class="no-ad">—</div></div>
+
+  <!-- Apr -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=2iMGeSwlwnE" target="_blank" rel="noopener"
+       title="Commercial Verizon & Apple iPhone 17 (2026)">
+      <img src="https://i.ytimg.com/vi/2iMGeSwlwnE/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--vz)"></div>
+      <div class="th-date">Apr 23</div>
+    </a>
+  </div>
+
+  <!-- May: none -->
+  <div class="mc empty"><div class="no-ad">—</div></div>
+
+
+  <!-- ══════════════════════════════════════
+       ROW 4 — XFINITY MOBILE
+  ══════════════════════════════════════ -->
+  <div class="cl">
+    <div class="cl-dot" style="background:var(--xfn)"></div>
+    <div class="cl-name">Xfinity Mobile</div>
+    <div class="cl-count">9 ads</div>
+  </div>
+
+  <!-- Sep -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=aTkfjPTjU-U" target="_blank" rel="noopener"
+       title="iPhone 17 Pro: A Work of Art | Xfinity Mobile :30">
+      <img src="https://i.ytimg.com/vi/aTkfjPTjU-U/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--xfn)"></div>
+      <div class="th-date">Sep 20 · A Work of Art</div>
+    </a>
+    <a class="th" href="https://youtube.com/watch?v=DtvJ5VMP4ig" target="_blank" rel="noopener"
+       title="Xfinity Commercial #2 (2025)">
+      <img src="https://i.ytimg.com/vi/DtvJ5VMP4ig/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--xfn)"></div>
+      <div class="th-date">Sep 30 · #2</div>
+    </a>
+  </div>
+
+  <!-- Oct: none -->
+  <div class="mc empty"><div class="no-ad">—</div></div>
+
+  <!-- Nov -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=Ge4LirgPHe8" target="_blank" rel="noopener"
+       title="Xfinity Commercial #4 (2025)">
+      <img src="https://i.ytimg.com/vi/Ge4LirgPHe8/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--xfn)"></div>
+      <div class="th-date">Nov 7 · #4</div>
+    </a>
+    <a class="th" href="https://youtube.com/watch?v=FYnBwMPPSak" target="_blank" rel="noopener"
+       title="iPhone 17 Pro: A Work of Art (Up to $830 Off)">
+      <img src="https://i.ytimg.com/vi/FYnBwMPPSak/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--xfn)"></div>
+      <div class="th-date">Nov 14 · $830 Off</div>
+    </a>
+  </div>
+
+  <!-- Dec -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=eey8GMi4qdQ" target="_blank" rel="noopener"
+       title="Xfinity Commercial 2025 (USA)">
+      <img src="https://i.ytimg.com/vi/eey8GMi4qdQ/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--xfn)"></div>
+      <div class="th-date">Dec 16</div>
+    </a>
+  </div>
+
+  <!-- Jan -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=kNH68HYD25k" target="_blank" rel="noopener"
+       title="Xfinity Mobile Commercial (2026)">
+      <img src="https://i.ytimg.com/vi/kNH68HYD25k/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--xfn)"></div>
+      <div class="th-date">Jan 18</div>
+    </a>
+    <a class="th" href="https://youtube.com/watch?v=cFYY0bOh8zQ" target="_blank" rel="noopener"
+       title="Xfinity Commercial #2 (2026)">
+      <img src="https://i.ytimg.com/vi/cFYY0bOh8zQ/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--xfn)"></div>
+      <div class="th-date">Jan 19 · #2</div>
+    </a>
+  </div>
+
+  <!-- Feb -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=fnncIVKvJkg" target="_blank" rel="noopener"
+       title="Jurassic World: Big Game Commercial 2026 (Super Bowl)">
+      <img src="https://i.ytimg.com/vi/fnncIVKvJkg/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--xfn)"></div>
+      <div class="th-date">Feb 2 · Super Bowl spot</div>
+    </a>
+    <a class="th" href="https://youtube.com/watch?v=Wuw3ASGxM1Y" target="_blank" rel="noopener"
+       title="Xfinity Mobile Commercial #2 (2026)">
+      <img src="https://i.ytimg.com/vi/Wuw3ASGxM1Y/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--xfn)"></div>
+      <div class="th-date">Feb 2 · #2</div>
+    </a>
+    <a class="th" href="https://youtube.com/watch?v=JgPizt-JmgA" target="_blank" rel="noopener"
+       title="Xfinity Commercial (2026) Feb">
+      <img src="https://i.ytimg.com/vi/JgPizt-JmgA/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--xfn)"></div>
+      <div class="th-date">Feb 28</div>
+    </a>
+  </div>
+
+  <!-- Mar: none -->
+  <div class="mc empty"><div class="no-ad">—</div></div>
+
+  <!-- Apr -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=sygMjzbIbXE" target="_blank" rel="noopener"
+       title="MegaMobile: Deals | Xfinity (official)">
+      <img src="https://i.ytimg.com/vi/sygMjzbIbXE/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--xfn)"></div>
+      <div class="th-date">Apr 15 · MegaMobile Deals</div>
+    </a>
+    <a class="th" href="https://youtube.com/watch?v=2CnTmJmHh1I" target="_blank" rel="noopener"
+       title="Xfinity Commercial #2 (2026) Apr">
+      <img src="https://i.ytimg.com/vi/2CnTmJmHh1I/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--xfn)"></div>
+      <div class="th-date">Apr 14</div>
+    </a>
+  </div>
+
+  <!-- May: none -->
+  <div class="mc empty"><div class="no-ad">—</div></div>
+
+
+  <!-- ══════════════════════════════════════
+       ROW 5 — SPECTRUM MOBILE
+  ══════════════════════════════════════ -->
+  <div class="cl">
+    <div class="cl-dot" style="background:var(--spc)"></div>
+    <div class="cl-name">Spectrum Mobile</div>
+    <div class="cl-count">8 ads</div>
+  </div>
+
+  <!-- Sep -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=PWzhx6JWSu0" target="_blank" rel="noopener"
+       title="It's Only Everything: Destination :60 | Spectrum (official)">
+      <img src="https://i.ytimg.com/vi/PWzhx6JWSu0/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--spc)"></div>
+      <div class="th-date">Sep 29 · It's Only Everything</div>
+    </a>
+  </div>
+
+  <!-- Oct -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=xZAZ21x8CpM" target="_blank" rel="noopener"
+       title="Monsters Dinner | Spectrum Mobile TV commercial">
+      <img src="https://i.ytimg.com/vi/xZAZ21x8CpM/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--spc)"></div>
+      <div class="th-date">Oct 1 · Monsters Dinner</div>
+    </a>
+  </div>
+
+  <!-- Nov: none -->
+  <div class="mc empty"><div class="no-ad">—</div></div>
+
+  <!-- Dec -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=4ppfmLtbUqU" target="_blank" rel="noopener"
+       title="Spectrum Commercial 2025 (USA)">
+      <img src="https://i.ytimg.com/vi/4ppfmLtbUqU/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--spc)"></div>
+      <div class="th-date">Dec 10</div>
+    </a>
+  </div>
+
+  <!-- Jan: none -->
+  <div class="mc empty"><div class="no-ad">—</div></div>
+
+  <!-- Feb -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=VgY8tnGJKX4" target="_blank" rel="noopener"
+       title="Spectrum Commercial 2026 (USA)">
+      <img src="https://i.ytimg.com/vi/VgY8tnGJKX4/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--spc)"></div>
+      <div class="th-date">Feb 17</div>
+    </a>
+  </div>
+
+  <!-- Mar -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=WDBSs5SkLO0" target="_blank" rel="noopener"
+       title="Behind the Beat | Spectrum (official)">
+      <img src="https://i.ytimg.com/vi/WDBSs5SkLO0/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--spc)"></div>
+      <div class="th-date">Mar 4 · Behind the Beat</div>
+    </a>
+    <a class="th" href="https://youtube.com/watch?v=ENF9ocXT3ks" target="_blank" rel="noopener"
+       title="Spectrum — Always Evolving TV Commercial">
+      <img src="https://i.ytimg.com/vi/ENF9ocXT3ks/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--spc)"></div>
+      <div class="th-date">Mar 7 · Always Evolving</div>
+    </a>
+  </div>
+
+  <!-- Apr -->
+  <div class="mc">
+    <a class="th" href="https://youtube.com/watch?v=Aow8Vuc1p8o" target="_blank" rel="noopener"
+       title="Fan like a champion with Spectrum TV (official)">
+      <img src="https://i.ytimg.com/vi/Aow8Vuc1p8o/hqdefault.jpg" loading="lazy" alt="">
+      <div class="th-bar" style="background:var(--spc)"></div>
+      <div class="th-date">Apr 1 · Fan like a champion</div>
+    </a>
+  </div>
+
+  <!-- May: none -->
+  <div class="mc empty"><div class="no-ad">—</div></div>
+
+</div><!-- /matrix -->
+</div><!-- /matrix-outer -->
 </main>
 
 <footer>
