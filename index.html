@@ -16,6 +16,8 @@
     --vz:     #CD040B;
     --att:    #009FDB;
     --green:  #2f855a;
+    --amber:  #b7791f;
+    --purple: #6B46C1;
     --border: #e2e8f0;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,214 +25,216 @@
          background: var(--bg); color: var(--ink); line-height: 1.5; }
 
   /* ── Header ── */
-  header { background: var(--ink); padding: 32px 48px 28px; }
-  header h1 { font-size: 1.55rem; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
-  header p  { font-size: 0.83rem; color: var(--gray3); margin-top: 5px; }
-  .tickers  { display: flex; gap: 8px; margin-top: 14px; }
-  .ticker   { font-size: 0.72rem; font-weight: 700; color: #fff; padding: 2px 9px;
-              border-radius: 3px; letter-spacing: 0.04em; }
+  header { background: var(--ink); padding: 40px 48px 36px; }
+  .header-inner { max-width: 960px; margin: 0 auto; }
+  header h1 { font-size: 1.65rem; font-weight: 800; color: #fff;
+              letter-spacing: -0.02em; line-height: 1.2; }
+  header p  { font-size: 0.85rem; color: var(--gray3); margin-top: 8px;
+              max-width: 520px; line-height: 1.6; }
+  .tickers  { display: flex; gap: 7px; margin-top: 16px; flex-wrap: wrap; }
+  .ticker   { font-size: 0.68rem; font-weight: 700; color: #fff; padding: 2px 8px;
+              border-radius: 3px; letter-spacing: 0.05em; }
 
   /* ── Layout ── */
-  main { max-width: 880px; margin: 0 auto; padding: 40px 32px 60px; }
-  h2.section { font-size: 0.70rem; font-weight: 700; text-transform: uppercase;
-               letter-spacing: 0.10em; color: var(--gray2); margin-bottom: 16px;
-               padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  main { max-width: 960px; margin: 0 auto; padding: 48px 32px 72px; }
+
+  /* ── Section headers ── */
+  .section-label {
+    font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray2); margin-bottom: 20px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label .section-count {
+    font-size: 0.60rem; font-weight: 700; color: var(--gray3);
+    background: var(--border); padding: 1px 7px; border-radius: 10px;
+  }
 
   /* ── Report cards ── */
-  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; }
-  @media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
+  .cards-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 48px; }
+  @media (max-width: 620px) { .cards-row { grid-template-columns: 1fr; } }
 
-  .card { display: block; background: var(--card); border: 1px solid var(--border);
-          border-left: 4px solid var(--border); border-radius: 6px;
-          padding: 22px 24px; text-decoration: none; color: inherit;
-          transition: box-shadow 0.12s, border-color 0.12s; }
-  .card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.09); }
-  .card.latest { border-left-color: var(--green); }
-  .card.annual { border-left-color: var(--gray3); }
+  .card {
+    display: flex; flex-direction: column;
+    background: var(--card); border: 1px solid var(--border);
+    border-top: 3px solid var(--border);
+    border-radius: 8px; padding: 24px 26px 20px;
+    text-decoration: none; color: inherit;
+    transition: box-shadow 0.12s, transform 0.12s;
+  }
+  .card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.08); transform: translateY(-1px); }
 
-  .card-tag { font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
-              letter-spacing: 0.08em; margin-bottom: 10px; }
-  .card.latest .card-tag { color: var(--green); }
-  .card.annual .card-tag { color: var(--gray2); }
+  .card.latest  { border-top-color: var(--green); }
+  .card.annual  { border-top-color: var(--gray3); }
+  .card.tracker { border-top-color: var(--purple); }
+  .card.coming  { border-top-color: var(--border); opacity: 0.6; cursor: default; pointer-events: none; }
 
-  .card h3 { font-size: 0.97rem; font-weight: 700; color: var(--ink); margin-bottom: 7px; }
-  .card p   { font-size: 0.80rem; color: var(--gray1); line-height: 1.55; }
-  .card-meta { margin-top: 14px; font-size: 0.72rem; color: var(--gray3);
-               display: flex; align-items: center; justify-content: space-between; }
-  .card-meta a { color: var(--att); text-decoration: none; font-weight: 600; }
-  .card-meta a:hover { text-decoration: underline; }
+  .card-eyebrow {
+    font-size: 0.62rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.10em; margin-bottom: 12px;
+  }
+  .card.latest  .card-eyebrow { color: var(--green); }
+  .card.annual  .card-eyebrow { color: var(--gray2); }
+  .card.tracker .card-eyebrow { color: var(--purple); }
+  .card.coming  .card-eyebrow { color: var(--gray3); }
 
-  /* ── Metrics table ── */
-  .metrics-block { background: var(--card); border: 1px solid var(--border);
-                   border-radius: 6px; margin-bottom: 40px; overflow: hidden; }
-  .metrics-block h3 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
-                      letter-spacing: 0.08em; color: var(--gray2);
-                      padding: 14px 20px 12px; border-bottom: 1px solid var(--border); }
-  table { width: 100%; border-collapse: collapse; }
-  thead tr { background: #f8fafc; }
-  th { font-size: 0.70rem; font-weight: 700; text-transform: uppercase;
-       letter-spacing: 0.06em; color: var(--gray2); padding: 9px 20px;
-       text-align: left; border-bottom: 1px solid var(--border); }
-  th:not(:first-child) { text-align: right; }
-  td { font-size: 0.82rem; padding: 10px 20px; border-bottom: 1px solid #f0f4f8;
-       color: var(--ink); vertical-align: top; }
-  td:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
-  tr:last-child td { border-bottom: none; }
-  .carrier-cell { display: flex; align-items: center; gap: 8px; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-  .metric-label { font-size: 0.70rem; color: var(--gray2); margin-top: 1px; }
-  .val-main { font-weight: 600; }
-  .up   { color: #2f855a; }
-  .down { color: #c53030; }
+  .card h3 { font-size: 1.00rem; font-weight: 700; color: var(--ink);
+             margin-bottom: 8px; line-height: 1.3; }
+  .card p  { font-size: 0.80rem; color: var(--gray1); line-height: 1.6; flex: 1; }
+
+  .card-footer {
+    margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .card-meta  { font-size: 0.70rem; color: var(--gray3); }
+  .card-cta   { font-size: 0.72rem; font-weight: 700; color: var(--att);
+                text-decoration: none; white-space: nowrap; }
+  .card-cta:hover { text-decoration: underline; }
+  .card-pdf   { font-size: 0.70rem; font-weight: 600; color: var(--gray2);
+                text-decoration: none; }
+  .card-pdf:hover { color: var(--ink); }
+
+  /* ── Tracker row (wider cards) ── */
+  .trackers-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-bottom: 48px; }
+  @media (max-width: 720px) { .trackers-row { grid-template-columns: 1fr; } }
+
+  .tracker-pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; padding: 2px 8px; border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .tracker-pill.live    { background: #e6f7f0; color: var(--green); }
+  .tracker-pill.coming  { background: #f0f4f8; color: var(--gray3); }
+  .tracker-pill .dot    { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+  /* ── Carrier badges in tracker card ── */
+  .carrier-badges { display: flex; gap: 5px; margin-top: 12px; flex-wrap: wrap; }
+  .cbadge { font-size: 0.60rem; font-weight: 700; color: #fff; padding: 1px 7px;
+            border-radius: 3px; letter-spacing: 0.04em; }
 
   footer { background: var(--ink); color: var(--gray2); text-align: center;
-           padding: 18px; font-size: 0.72rem; }
+           padding: 20px; font-size: 0.72rem; line-height: 1.8; }
+  footer a { color: var(--gray3); text-decoration: none; }
+  footer a:hover { color: #fff; }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>SIGINT — Carrier Intelligence Platform</h1>
-  <p>U.S. wireless subsidy economics, balance sheet forensics, and competitive dynamics</p>
-  <div class="tickers">
-    <span class="ticker" style="background:var(--tmo)">TMUS</span>
-    <span class="ticker" style="background:var(--vz)">VZ</span>
-    <span class="ticker" style="background:var(--att)">T</span>
+  <div class="header-inner">
+    <h1>SIGINT</h1>
+    <p>Carrier intelligence platform — subsidy economics, balance sheet forensics,
+       competitive dynamics, and advertising strategy for U.S. wireless operators.</p>
+    <div class="tickers">
+      <span class="ticker" style="background:var(--tmo)">TMUS</span>
+      <span class="ticker" style="background:var(--vz)">VZ</span>
+      <span class="ticker" style="background:var(--att)">T</span>
+      <span class="ticker" style="background:#6B46C1">CMCSA</span>
+      <span class="ticker" style="background:#0082CA">CHTR</span>
+    </div>
   </div>
 </header>
 
 <main>
 
-  <h2 class="section">Research</h2>
+  <!-- ── Results & Metrics ── -->
+  <div class="section-label">
+    Results &amp; Metrics
+    <span class="section-count">2 reports</span>
+  </div>
 
-  <div class="cards">
+  <div class="cards-row">
 
     <a href="output/sigint_q1_2026.html" class="card latest">
-      <div class="card-tag">Q1 2026 &nbsp;·&nbsp; Latest</div>
-      <h3>The Promotion Game — Q1 2026 Update</h3>
+      <div class="card-eyebrow">Q1 2026 &nbsp;·&nbsp; Latest Quarterly</div>
+      <h3>The Promotion Game — Q1 2026</h3>
       <p>VZ's first positive Q1 phone net adds since 2013. AT&amp;T equipment loss
-         collapses to $277M. T-Mobile 49% EBITDA margins. Full YoY comparison
-         from Q1 2026 earnings releases.</p>
-      <div class="card-meta">
-        <span>SEC EDGAR 8-K/10-Q · April 2026</span>
-        <a href="output/sigint_q1_2026.pdf" onclick="event.stopPropagation()">↓ PDF</a>
+         collapses to $277M. T-Mobile posts 49% EBITDA margins. Full YoY
+         comparison across all three carriers from Q1 2026 earnings releases.</p>
+      <div class="card-footer">
+        <span class="card-meta">SEC EDGAR 8-K / 10-Q &nbsp;·&nbsp; April 2026</span>
+        <span>
+          <a class="card-pdf" href="output/sigint_q1_2026.pdf"
+             onclick="event.stopPropagation()">↓ PDF</a>
+        </span>
       </div>
     </a>
 
     <a href="output/sigint_promotion_game.html" class="card annual">
-      <div class="card-tag">FY2023–FY2025 &nbsp;·&nbsp; Annual Baseline</div>
+      <div class="card-eyebrow">FY2023 – FY2025 &nbsp;·&nbsp; Annual Baseline</div>
       <h3>The Promotion Game — Annual Analysis</h3>
-      <p>Three-year trend analysis. Equipment loss trajectories, subsidy burn rates,
-         leverage forensics, and analyst roundtable covering the full FY2025
+      <p>Three-year trend analysis covering equipment loss trajectories, subsidy burn
+         rates, leverage forensics, and analyst roundtable across the full FY2025
          annual reporting cycle.</p>
-      <div class="card-meta">
-        <span>SEC EDGAR 10-K · April 2026</span>
-        <a href="output/sigint_promotion_game.pdf" onclick="event.stopPropagation()">↓ PDF</a>
+      <div class="card-footer">
+        <span class="card-meta">SEC EDGAR 10-K &nbsp;·&nbsp; April 2026</span>
+        <span>
+          <a class="card-pdf" href="output/sigint_promotion_game.pdf"
+             onclick="event.stopPropagation()">↓ PDF</a>
+        </span>
       </div>
     </a>
 
   </div>
 
-  <h2 class="section">Q1 2026 Snapshot</h2>
-
-  <div class="metrics-block">
-    <h3>Equipment Gross Loss &amp; Subsidy Efficiency</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Carrier</th>
-          <th>Equip Loss</th>
-          <th>Net Adds</th>
-          <th>Cost / Add</th>
-          <th>Post-Div FCF</th>
-          <th>Burn Rate</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <div class="carrier-cell"><span class="dot" style="background:var(--tmo)"></span>T-Mobile</div>
-            <div class="metric-label">Postpaid account adds</div>
-          </td>
-          <td><span class="val-main">$1,492M</span></td>
-          <td><span class="val-main up">+217K</span></td>
-          <td>$6,876<br><span class="metric-label">per acct</span></td>
-          <td><span class="val-main up">$3,479M</span></td>
-          <td>43%</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="carrier-cell"><span class="dot" style="background:var(--vz)"></span>Verizon</div>
-            <div class="metric-label">Postpaid phone adds · first positive Q1 since 2013</div>
-          </td>
-          <td><span class="val-main">$825M</span></td>
-          <td><span class="val-main up">+55K</span></td>
-          <td>$15,000<br><span class="metric-label">per phone</span></td>
-          <td><span class="val-main down">$890M</span></td>
-          <td class="down">93%</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="carrier-cell"><span class="dot" style="background:var(--att)"></span>AT&amp;T</div>
-            <div class="metric-label">Postpaid phone adds</div>
-          </td>
-          <td><span class="val-main">$277M</span></td>
-          <td><span class="val-main up">+294K</span></td>
-          <td>$942<br><span class="metric-label">per phone</span></td>
-          <td><span class="val-main down">$503M</span></td>
-          <td>55%</td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- ── Trackers ── -->
+  <div class="section-label">
+    Trackers
+    <span class="section-count">1 live &nbsp;·&nbsp; more coming</span>
   </div>
 
-  <div class="metrics-block">
-    <h3>Balance Sheet &amp; Cash Generation</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Carrier</th>
-          <th>Adj EBITDA</th>
-          <th>EBITDA Margin</th>
-          <th>FCF</th>
-          <th>LTM Leverage</th>
-          <th>Interest Exp</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><div class="carrier-cell"><span class="dot" style="background:var(--tmo)"></span>T-Mobile</div></td>
-          <td><span class="val-main up">$9,241M</span><br><span class="metric-label">+12% YoY</span></td>
-          <td class="up">49.1%</td>
-          <td>$4,599M</td>
-          <td>2.4×</td>
-          <td>$1,031M</td>
-        </tr>
-        <tr>
-          <td><div class="carrier-cell"><span class="dot" style="background:var(--vz)"></span>Verizon</div></td>
-          <td><span class="val-main">$13,395M</span><br><span class="metric-label">+6.7% YoY</span></td>
-          <td>38.9%</td>
-          <td>$3,800M</td>
-          <td>2.6×</td>
-          <td class="down">$1,940M<br><span class="metric-label">+19% YoY · Frontier debt</span></td>
-        </tr>
-        <tr>
-          <td><div class="carrier-cell"><span class="dot" style="background:var(--att)"></span>AT&amp;T</div></td>
-          <td><span class="val-main">$11,800M</span><br><span class="metric-label">+2.6% YoY</span></td>
-          <td>37.5%</td>
-          <td class="down">$2,500M<br><span class="metric-label">↓ from $3.1B · fiber capex</span></td>
-          <td>~2.6×</td>
-          <td>$1,813M</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="trackers-row">
+
+    <a href="output/carrier_iphone17_ads.html" class="card tracker">
+      <div class="tracker-pill live"><span class="dot"></span>Live</div>
+      <div class="card-eyebrow">Advertising Tracker</div>
+      <h3>iPhone 17 Carrier Ad Monitor</h3>
+      <p>YouTube ads featuring iPhone 17 prominently, tracked across all five
+         U.S. carriers from launch (Sep 2025) through mid-2026. 3 ads per carrier
+         with thumbnails, messaging, and direct video links.</p>
+      <div class="carrier-badges">
+        <span class="cbadge" style="background:#E20074">TMUS</span>
+        <span class="cbadge" style="background:#CD040B">VZ</span>
+        <span class="cbadge" style="background:#009FDB">T</span>
+        <span class="cbadge" style="background:#6B46C1">XCNTY</span>
+        <span class="cbadge" style="background:#0082CA">CHTR</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-meta">YouTube Data API &nbsp;·&nbsp; Sep 2025 – Jul 2026</span>
+      </div>
+    </a>
+
+    <div class="card coming">
+      <div class="tracker-pill coming"><span class="dot"></span>Coming Soon</div>
+      <div class="card-eyebrow">Promo Tracker</div>
+      <h3>Carrier Promotion Monitor</h3>
+      <p>Real-time tracking of device promotions, trade-in values, and plan pricing
+         changes across T-Mobile, Verizon, and AT&amp;T.</p>
+      <div class="card-footer">
+        <span class="card-meta">In development</span>
+      </div>
+    </div>
+
+    <div class="card coming">
+      <div class="tracker-pill coming"><span class="dot"></span>Coming Soon</div>
+      <div class="card-eyebrow">Filing Tracker</div>
+      <h3>SEC Filing Monitor</h3>
+      <p>Automated EDGAR watcher for 8-K and 10-Q filings across the coverage
+         universe — earnings dates, material events, and key disclosure alerts.</p>
+      <div class="card-footer">
+        <span class="card-meta">In development</span>
+      </div>
+    </div>
+
   </div>
 
 </main>
 
 <footer>
-  SIGINT Intelligence Platform &nbsp;·&nbsp; TMUS · VZ · T &nbsp;·&nbsp;
-  SEC EDGAR public filings &nbsp;·&nbsp; For institutional use; illustrative purposes only
+  SIGINT Intelligence Platform &nbsp;·&nbsp; TMUS · VZ · T · CMCSA · CHTR
+  &nbsp;·&nbsp; SEC EDGAR public filings &nbsp;·&nbsp; For institutional use; illustrative purposes only
 </footer>
+
 </body>
 </html>
