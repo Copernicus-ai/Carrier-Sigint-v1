@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SIGINT — Carrier iPhone 17 Advertising Tracker</title>
+<title>SIGINT — iPhone 17 Carrier Ad Tracker</title>
 <style>
   :root {
     --ink:    #1a1a2e;
@@ -13,56 +13,111 @@
     --bg:     #f4f6f9;
     --card:   #ffffff;
     --border: #e2e8f0;
+    --tmo:    #E20074;
+    --vz:     #CD040B;
+    --att:    #009FDB;
+    --xfn:    #6E1BF5;
+    --spc:    #0082CA;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
          background: var(--bg); color: var(--ink); line-height: 1.5; }
 
+  nav { background: #edf2f7; padding: 8px 40px; font-size: 0.78rem;
+        border-bottom: 1px solid var(--border); }
+  nav a { color: #009FDB; text-decoration: none; font-weight: 600; }
+  nav a:hover { text-decoration: underline; }
+
   header { background: var(--ink); padding: 32px 48px 28px; }
   header h1 { font-size: 1.45rem; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
   header p  { font-size: 0.83rem; color: var(--gray3); margin-top: 6px; }
+  .tickers  { display: flex; gap: 7px; margin-top: 14px; flex-wrap: wrap; }
+  .ticker   { font-size: 0.68rem; font-weight: 700; color: #fff; padding: 2px 8px;
+              border-radius: 3px; letter-spacing: 0.05em; }
 
-  main { max-width: 1060px; margin: 0 auto; padding: 40px 32px 60px; }
+  main { max-width: 1080px; margin: 0 auto; padding: 40px 32px 60px; }
 
-  .carrier-section { margin-bottom: 48px; }
+  .section-label {
+    font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray2); margin-bottom: 20px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--border);
+  }
+
+  /* ══ TIMELINE ══ */
+  .timeline-wrap {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; margin-bottom: 48px; overflow-x: auto;
+  }
+  .timeline-grid {
+    display: grid;
+    grid-template-columns: repeat(9, minmax(118px, 1fr));
+    min-width: 860px;
+  }
+  .tl-month { border-right: 1px solid var(--border); }
+  .tl-month:last-child { border-right: none; }
+  .tl-month-label {
+    font-size: 0.62rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--gray2);
+    padding: 9px 8px 7px; background: #f8fafc;
+    border-bottom: 1px solid var(--border); text-align: center;
+  }
+  .tl-month-label span {
+    display: block; font-size: 0.56rem; font-weight: 400;
+    color: var(--gray3); margin-top: 1px; letter-spacing: 0; text-transform: none;
+  }
+  .tl-ads { padding: 7px 5px; display: flex; flex-direction: column; gap: 6px; min-height: 44px; }
+  .tl-thumb {
+    display: block; text-decoration: none;
+    border-radius: 3px; overflow: hidden; border: 1px solid var(--border);
+    transition: box-shadow 0.1s;
+  }
+  .tl-thumb:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .tl-thumb img { display: block; width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; }
+  .tl-bar { height: 2px; width: 100%; }
+  .tl-label {
+    font-size: 0.56rem; color: var(--gray1); line-height: 1.3;
+    padding: 2px 4px 3px; white-space: nowrap; overflow: hidden;
+    text-overflow: ellipsis; background: #fff;
+  }
+
+  /* ══ CARRIER SECTIONS ══ */
+  .carrier-section { margin-bottom: 44px; }
   .carrier-header {
-    display: flex; align-items: center; gap: 12px;
-    margin-bottom: 18px; padding-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px; padding-bottom: 10px;
     border-bottom: 2px solid var(--border);
   }
-  .carrier-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
-  .carrier-name { font-size: 1.05rem; font-weight: 700; color: var(--ink); }
+  .carrier-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .carrier-name { font-size: 0.95rem; font-weight: 700; color: var(--ink); }
 
-  .ads-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  @media (max-width: 680px) { .ads-grid { grid-template-columns: 1fr; } }
+  .ads-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 720px) { .ads-grid { grid-template-columns: 1fr; } }
 
   .ad-card {
+    display: flex; flex-direction: column;
     background: var(--card); border: 1px solid var(--border);
-    border-radius: 8px; overflow: hidden; text-decoration: none;
-    color: inherit; display: flex; flex-direction: column;
-    transition: box-shadow 0.12s;
+    border-radius: 7px; overflow: hidden; text-decoration: none;
+    color: inherit; transition: box-shadow 0.12s, transform 0.1s;
   }
-  .ad-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.10); }
+  .ad-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.09); transform: translateY(-1px); }
 
   .thumb-wrap { position: relative; width: 100%; padding-top: 56.25%; background: #e2e8f0; }
-  .thumb-wrap img {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    object-fit: cover;
-  }
+  .thumb-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .carrier-stripe { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
   .play-badge {
-    position: absolute; bottom: 8px; right: 8px;
-    background: rgba(0,0,0,0.65); color: #fff;
-    font-size: 0.65rem; font-weight: 700; padding: 3px 7px;
+    position: absolute; bottom: 7px; right: 7px;
+    background: rgba(0,0,0,0.60); color: #fff;
+    font-size: 0.60rem; font-weight: 700; padding: 2px 6px;
     border-radius: 3px; letter-spacing: 0.04em;
   }
-
-  .ad-body { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
-  .ad-title { font-size: 0.88rem; font-weight: 700; color: var(--ink); line-height: 1.35; }
-  .ad-msg { font-size: 0.78rem; color: var(--gray1); line-height: 1.5; flex: 1; }
-  .ad-meta { font-size: 0.70rem; color: var(--gray3);
-              display: flex; justify-content: space-between; margin-top: 4px; }
-
-  .no-ads { font-size: 0.83rem; color: var(--gray2); font-style: italic; padding: 16px 0; }
+  .ad-body { padding: 13px 14px 14px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .ad-title { font-size: 0.82rem; font-weight: 700; color: var(--ink); line-height: 1.35; }
+  .ad-meta  { font-size: 0.67rem; color: var(--gray3); margin-top: auto;
+              display: flex; justify-content: space-between; padding-top: 8px; }
 
   footer { background: var(--ink); color: var(--gray2); text-align: center;
            padding: 18px; font-size: 0.72rem; }
@@ -70,225 +125,357 @@
 </head>
 <body>
 
+<nav>← <a href="../index.html">SIGINT Home</a></nav>
+
 <header>
-  <h1>SIGINT — Carrier iPhone 17 Advertising Tracker</h1>
-  <p>YouTube ads featuring iPhone 17 &nbsp;·&nbsp; Sep 2025 – Jul 2026 &nbsp;·&nbsp;
-     T-Mobile · AT&amp;T · Verizon · Xfinity Mobile · Spectrum Mobile</p>
+  <h1>SIGINT — iPhone 17 Carrier Ad Tracker</h1>
+  <p>YouTube ads featuring iPhone 17 · Sep 2025 – May 2026 · up to 3 ads per carrier</p>
+  <div class="tickers">
+    <span class="ticker" style="background:var(--tmo)">T-Mobile</span>
+    <span class="ticker" style="background:var(--att)">AT&amp;T</span>
+    <span class="ticker" style="background:var(--vz)">Verizon</span>
+    <span class="ticker" style="background:var(--xfn)">Xfinity Mobile</span>
+    <span class="ticker" style="background:var(--spc)">Spectrum Mobile</span>
+  </div>
 </header>
 
 <main>
+
+  <!-- ══ TIMELINE ══ -->
+  <div class="section-label">Ad Timeline &nbsp;·&nbsp; Sep 2025 – May 2026</div>
+  <div class="timeline-wrap">
+    <div class="timeline-grid">
+
+      <div class="tl-month">
+        <div class="tl-month-label">Sep 2025<span>iPhone 17 launch</span></div>
+        <div class="tl-ads">
+          <a class="tl-thumb" href="https://youtube.com/watch?v=4oPBBg9vzRs" target="_blank" rel="noopener">
+            <img src="https://i.ytimg.com/vi/4oPBBg9vzRs/hqdefault.jpg" loading="lazy" alt="">
+            <div class="tl-bar" style="background:var(--att)"></div>
+            <div class="tl-label">AT&amp;T · Sep 19</div>
+          </a>
+          <a class="tl-thumb" href="https://youtube.com/watch?v=iw6eZV9MtDI" target="_blank" rel="noopener">
+            <img src="https://i.ytimg.com/vi/iw6eZV9MtDI/hqdefault.jpg" loading="lazy" alt="">
+            <div class="tl-bar" style="background:var(--att)"></div>
+            <div class="tl-label">AT&amp;T · Sep 20</div>
+          </a>
+          <a class="tl-thumb" href="https://youtube.com/watch?v=aTkfjPTjU-U" target="_blank" rel="noopener">
+            <img src="https://i.ytimg.com/vi/aTkfjPTjU-U/hqdefault.jpg" loading="lazy" alt="">
+            <div class="tl-bar" style="background:var(--xfn)"></div>
+            <div class="tl-label">Xfinity · Sep 20</div>
+          </a>
+          <a class="tl-thumb" href="https://youtube.com/watch?v=0H3Mw8_ggUM" target="_blank" rel="noopener">
+            <img src="https://i.ytimg.com/vi/0H3Mw8_ggUM/hqdefault.jpg" loading="lazy" alt="">
+            <div class="tl-bar" style="background:var(--vz)"></div>
+            <div class="tl-label">Verizon · Sep 21</div>
+          </a>
+          <a class="tl-thumb" href="https://youtube.com/watch?v=vapM_XL6Frw" target="_blank" rel="noopener">
+            <img src="https://i.ytimg.com/vi/vapM_XL6Frw/hqdefault.jpg" loading="lazy" alt="">
+            <div class="tl-bar" style="background:var(--vz)"></div>
+            <div class="tl-label">Verizon · Sep 30</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="tl-month">
+        <div class="tl-month-label">Oct 2025<span>&nbsp;</span></div>
+        <div class="tl-ads">
+          <a class="tl-thumb" href="https://youtube.com/watch?v=QQIGQomuMaI" target="_blank" rel="noopener">
+            <img src="https://i.ytimg.com/vi/QQIGQomuMaI/hqdefault.jpg" loading="lazy" alt="">
+            <div class="tl-bar" style="background:var(--spc)"></div>
+            <div class="tl-label">Spectrum · Oct 21</div>
+          </a>
+          <a class="tl-thumb" href="https://youtube.com/watch?v=hnP6gnm7Mpo" target="_blank" rel="noopener">
+            <img src="https://i.ytimg.com/vi/hnP6gnm7Mpo/hqdefault.jpg" loading="lazy" alt="">
+            <div class="tl-bar" style="background:var(--tmo)"></div>
+            <div class="tl-label">T-Mobile · Oct 25</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="tl-month">
+        <div class="tl-month-label">Nov 2025<span>&nbsp;</span></div>
+        <div class="tl-ads">
+          <a class="tl-thumb" href="https://youtube.com/watch?v=gd92tyfFBkE" target="_blank" rel="noopener">
+            <img src="https://i.ytimg.com/vi/gd92tyfFBkE/hqdefault.jpg" loading="lazy" alt="">
+            <div class="tl-bar" style="background:var(--vz)"></div>
+            <div class="tl-label">Verizon · Nov 7</div>
+          </a>
+          <a class="tl-thumb" href="https://youtube.com/watch?v=FYnBwMPPSak" target="_blank" rel="noopener">
+            <img src="https://i.ytimg.com/vi/FYnBwMPPSak/hqdefault.jpg" loading="lazy" alt="">
+            <div class="tl-bar" style="background:var(--xfn)"></div>
+            <div class="tl-label">Xfinity · Nov 14</div>
+          </a>
+          <a class="tl-thumb" href="https://youtube.com/watch?v=E7vVSltswH8" target="_blank" rel="noopener">
+            <img src="https://i.ytimg.com/vi/E7vVSltswH8/hqdefault.jpg" loading="lazy" alt="">
+            <div class="tl-bar" style="background:var(--tmo)"></div>
+            <div class="tl-label">T-Mobile · Nov 16</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="tl-month">
+        <div class="tl-month-label">Dec 2025<span>&nbsp;</span></div>
+        <div class="tl-ads"></div>
+      </div>
+
+      <div class="tl-month">
+        <div class="tl-month-label">Jan 2026<span>&nbsp;</span></div>
+        <div class="tl-ads">
+          <a class="tl-thumb" href="https://youtube.com/watch?v=ukvfqZEc_OM" target="_blank" rel="noopener">
+            <img src="https://i.ytimg.com/vi/ukvfqZEc_OM/hqdefault.jpg" loading="lazy" alt="">
+            <div class="tl-bar" style="background:var(--tmo)"></div>
+            <div class="tl-label">T-Mobile · Jan 8</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="tl-month">
+        <div class="tl-month-label">Feb 2026<span>&nbsp;</span></div>
+        <div class="tl-ads"></div>
+      </div>
+
+      <div class="tl-month">
+        <div class="tl-month-label">Mar 2026<span>&nbsp;</span></div>
+        <div class="tl-ads"></div>
+      </div>
+
+      <div class="tl-month">
+        <div class="tl-month-label">Apr 2026<span>&nbsp;</span></div>
+        <div class="tl-ads"></div>
+      </div>
+
+      <div class="tl-month">
+        <div class="tl-month-label">May 2026<span>&nbsp;</span></div>
+        <div class="tl-ads">
+          <a class="tl-thumb" href="https://youtube.com/watch?v=NK8nmWqDMlE" target="_blank" rel="noopener">
+            <img src="https://i.ytimg.com/vi/NK8nmWqDMlE/hqdefault.jpg" loading="lazy" alt="">
+            <div class="tl-bar" style="background:var(--att)"></div>
+            <div class="tl-label">AT&amp;T · May 5</div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ CARRIER SECTIONS ══ -->
+  <div class="section-label">Ads by Carrier</div>
+
+  <!-- T-Mobile -->
   <section class="carrier-section">
     <div class="carrier-header">
-      <span class="carrier-dot" style="background:#E20074"></span>
+      <span class="carrier-dot" style="background:var(--tmo)"></span>
       <span class="carrier-name">T-Mobile</span>
     </div>
     <div class="ads-grid">
       <a class="ad-card" href="https://youtube.com/watch?v=ukvfqZEc_OM" target="_blank" rel="noopener">
         <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/ukvfqZEc_OM/hqdefault.jpg" alt="Group Photo iPhone 17: 15-Minute Switch | T-Mobile Commercial :15 (2026)" loading="lazy">
+          <img src="https://i.ytimg.com/vi/ukvfqZEc_OM/hqdefault.jpg" loading="lazy" alt="">
+          <div class="carrier-stripe" style="background:var(--tmo)"></div>
           <span class="play-badge">▶ YouTube</span>
         </div>
         <div class="ad-body">
-          <div class="ad-title">Group Photo iPhone 17: 15-Minute Switch | T-Mobile Commercial :15 (2026)</div>
-          <div class="ad-msg">Featuring by Harvey Guillén, Zoe Saldaña &amp; Druski. It&#x27;s better over here. Don&#x27;t forget Subscribe, Like and Comment...</div>
-          <div class="ad-meta">
-            <span>Keith P.</span>
-            <span>2026-01-08</span>
-          </div>
-        </div>
-      </a>
-      <a class="ad-card" href="https://youtube.com/watch?v=1y_LI7Vzv9o" target="_blank" rel="noopener">
-        <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/1y_LI7Vzv9o/hqdefault.jpg" alt="T-Mobile Commercial (2025, 2nd version) | iPhone 17 Pro | Featuring Jeff Bridges And Zoe Saldana" loading="lazy">
-          <span class="play-badge">▶ YouTube</span>
-        </div>
-        <div class="ad-body">
-          <div class="ad-title">T-Mobile Commercial (2025, 2nd version) | iPhone 17 Pro | Featuring Jeff Bridges And Zoe Saldana</div>
-          <div class="ad-msg">T-Mobile | Happy Holidays | Commercial (2025, 2nd version) | iPhone 17 Pro | Featuring Jeff Bridges And Zoe Saldana.</div>
-          <div class="ad-meta">
-            <span>ZHENG WEN</span>
-            <span>2025-12-08</span>
-          </div>
+          <div class="ad-title">Group Photo iPhone 17: 15-Minute Switch</div>
+          <div class="ad-meta"><span>Jan 8, 2026</span><span>:15 spot</span></div>
         </div>
       </a>
       <a class="ad-card" href="https://youtube.com/watch?v=E7vVSltswH8" target="_blank" rel="noopener">
         <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/E7vVSltswH8/hqdefault.jpg" alt="Holiday Christmas Tree Lot iPhone 17 | Jeff Bridges, Zoe Saldaña &amp;amp; Druski T-Mobile Commercial | :30" loading="lazy">
+          <img src="https://i.ytimg.com/vi/E7vVSltswH8/hqdefault.jpg" loading="lazy" alt="">
+          <div class="carrier-stripe" style="background:var(--tmo)"></div>
           <span class="play-badge">▶ YouTube</span>
         </div>
         <div class="ad-body">
-          <div class="ad-title">Holiday Christmas Tree Lot iPhone 17 | Jeff Bridges, Zoe Saldaña &amp;amp; Druski T-Mobile Commercial | :30</div>
-          <div class="ad-msg">Year 2025. It&#x27;s better over here. Don&#x27;t forget Subscribe, Like and Comment...</div>
-          <div class="ad-meta">
-            <span>Keith P.</span>
-            <span>2025-11-16</span>
-          </div>
+          <div class="ad-title">Holiday Tree Lot — Jeff Bridges &amp; Zoe Saldaña</div>
+          <div class="ad-meta"><span>Nov 16, 2025</span><span>:30 spot</span></div>
+        </div>
+      </a>
+      <a class="ad-card" href="https://youtube.com/watch?v=hnP6gnm7Mpo" target="_blank" rel="noopener">
+        <div class="thumb-wrap">
+          <img src="https://i.ytimg.com/vi/hnP6gnm7Mpo/hqdefault.jpg" loading="lazy" alt="">
+          <div class="carrier-stripe" style="background:var(--tmo)"></div>
+          <span class="play-badge">▶ YouTube</span>
+        </div>
+        <div class="ad-body">
+          <div class="ad-title">T-Mobile iPhone 17 Pro — Feature Spot</div>
+          <div class="ad-meta"><span>Oct 25, 2025</span><span>Commercial</span></div>
         </div>
       </a>
     </div>
   </section>
+
+  <!-- AT&T -->
   <section class="carrier-section">
     <div class="carrier-header">
-      <span class="carrier-dot" style="background:#009FDB"></span>
+      <span class="carrier-dot" style="background:var(--att)"></span>
       <span class="carrier-name">AT&amp;T</span>
     </div>
     <div class="ads-grid">
       <a class="ad-card" href="https://youtube.com/watch?v=4oPBBg9vzRs" target="_blank" rel="noopener">
         <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/4oPBBg9vzRs/hqdefault.jpg" alt="iPhone 17 Pro. The most powerful iPhone ever, is here!" loading="lazy">
+          <img src="https://i.ytimg.com/vi/4oPBBg9vzRs/hqdefault.jpg" loading="lazy" alt="">
+          <div class="carrier-stripe" style="background:var(--att)"></div>
           <span class="play-badge">▶ YouTube</span>
         </div>
         <div class="ad-body">
-          <div class="ad-title">iPhone 17 Pro. The most powerful iPhone ever, is here!</div>
-          <div class="ad-msg">brilliant 6.3-inch display aluminum unibody design A19 Pro chip all 48MP rear cameras breakthrough battery life @Apple ...</div>
-          <div class="ad-meta">
-            <span>AT&amp;T</span>
-            <span>2025-09-19</span>
-          </div>
+          <div class="ad-title">iPhone 17 Pro — The Most Powerful iPhone Ever, Is Here</div>
+          <div class="ad-meta"><span>Sep 19, 2025</span><span>Launch day</span></div>
+        </div>
+      </a>
+      <a class="ad-card" href="https://youtube.com/watch?v=iw6eZV9MtDI" target="_blank" rel="noopener">
+        <div class="thumb-wrap">
+          <img src="https://i.ytimg.com/vi/iw6eZV9MtDI/hqdefault.jpg" loading="lazy" alt="">
+          <div class="carrier-stripe" style="background:var(--att)"></div>
+          <span class="play-badge">▶ YouTube</span>
+        </div>
+        <div class="ad-body">
+          <div class="ad-title">iPhone 17 Pro — Championship Tattoos</div>
+          <div class="ad-meta"><span>Sep 20, 2025</span><span>Commercial</span></div>
         </div>
       </a>
       <a class="ad-card" href="https://youtube.com/watch?v=NK8nmWqDMlE" target="_blank" rel="noopener">
         <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/NK8nmWqDMlE/hqdefault.jpg" alt="Festival | AT&amp;amp;T" loading="lazy">
+          <img src="https://i.ytimg.com/vi/NK8nmWqDMlE/hqdefault.jpg" loading="lazy" alt="">
+          <div class="carrier-stripe" style="background:var(--att)"></div>
           <span class="play-badge">▶ YouTube</span>
         </div>
         <div class="ad-body">
-          <div class="ad-title">Festival | AT&amp;amp;T</div>
-          <div class="ad-msg">Phone 17 Pro&#x27;s front camera makes fitting everyone in the selfie a Summer breeze. Subscribe to our channel!</div>
-          <div class="ad-meta">
-            <span>AT&amp;T</span>
-            <span>2026-05-05</span>
-          </div>
-        </div>
-      </a>
-      <a class="ad-card" href="https://youtube.com/watch?v=jF1JJbK_e3Y" target="_blank" rel="noopener">
-        <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/jF1JJbK_e3Y/hqdefault.jpg" alt="Festival | AT&amp;amp;T" loading="lazy">
-          <span class="play-badge">▶ YouTube</span>
-        </div>
-        <div class="ad-body">
-          <div class="ad-title">Festival | AT&amp;amp;T</div>
-          <div class="ad-msg">Phone 17 Pro&#x27;s front camera makes fitting everyone in the selfie a Summer breeze. Subscribe to our channel!</div>
-          <div class="ad-meta">
-            <span>AT&amp;T</span>
-            <span>2026-05-06</span>
-          </div>
+          <div class="ad-title">Festival</div>
+          <div class="ad-meta"><span>May 5, 2026</span><span>AT&amp;T</span></div>
         </div>
       </a>
     </div>
   </section>
+
+  <!-- Verizon -->
   <section class="carrier-section">
     <div class="carrier-header">
-      <span class="carrier-dot" style="background:#CD040B"></span>
+      <span class="carrier-dot" style="background:var(--vz)"></span>
       <span class="carrier-name">Verizon</span>
     </div>
     <div class="ads-grid">
       <a class="ad-card" href="https://youtube.com/watch?v=0H3Mw8_ggUM" target="_blank" rel="noopener">
         <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/0H3Mw8_ggUM/hqdefault.jpg" alt="USA | MALUMA NEW IPHONE 17 PRO | VERIZON 2025 COMERCIAL LATINO" loading="lazy">
+          <img src="https://i.ytimg.com/vi/0H3Mw8_ggUM/hqdefault.jpg" loading="lazy" alt="">
+          <div class="carrier-stripe" style="background:var(--vz)"></div>
           <span class="play-badge">▶ YouTube</span>
         </div>
         <div class="ad-body">
-          <div class="ad-title">USA | MALUMA NEW IPHONE 17 PRO | VERIZON 2025 COMERCIAL LATINO</div>
-          <div class="ad-msg">USA | MALUMA NEW IPHONE 17 PRO | VERIZON 2025 COMERCIAL LATINO</div>
-          <div class="ad-meta">
-            <span>Cesar Rafael Eduarte</span>
-            <span>2025-09-21</span>
-          </div>
+          <div class="ad-title">Maluma — iPhone 17 Pro (Spanish-market spot)</div>
+          <div class="ad-meta"><span>Sep 21, 2025</span><span>:30 spot</span></div>
         </div>
       </a>
       <a class="ad-card" href="https://youtube.com/watch?v=vapM_XL6Frw" target="_blank" rel="noopener">
         <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/vapM_XL6Frw/hqdefault.jpg" alt="Verizon Commercial (2025) | iPhone 17 Pro | Featuring Kevin Hart" loading="lazy">
+          <img src="https://i.ytimg.com/vi/vapM_XL6Frw/hqdefault.jpg" loading="lazy" alt="">
+          <div class="carrier-stripe" style="background:var(--vz)"></div>
           <span class="play-badge">▶ YouTube</span>
         </div>
         <div class="ad-body">
-          <div class="ad-title">Verizon Commercial (2025) | iPhone 17 Pro | Featuring Kevin Hart</div>
-          <div class="ad-msg">Verizon Commercial (2025) | iPhone 17 Pro | Featuring Kevin Hart.</div>
-          <div class="ad-meta">
-            <span>ZHENG WEN</span>
-            <span>2025-09-30</span>
-          </div>
+          <div class="ad-title">Kevin Hart — iPhone 17 Pro</div>
+          <div class="ad-meta"><span>Sep 30, 2025</span><span>Commercial</span></div>
         </div>
       </a>
-      <a class="ad-card" href="https://youtube.com/watch?v=2iMGeSwlwnE" target="_blank" rel="noopener">
+      <a class="ad-card" href="https://youtube.com/watch?v=gd92tyfFBkE" target="_blank" rel="noopener">
         <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/2iMGeSwlwnE/hqdefault.jpg" alt="Commercial Verizon &amp;amp; Apple iPhone 17 (2026)" loading="lazy">
+          <img src="https://i.ytimg.com/vi/gd92tyfFBkE/hqdefault.jpg" loading="lazy" alt="">
+          <div class="carrier-stripe" style="background:var(--vz)"></div>
           <span class="play-badge">▶ YouTube</span>
         </div>
         <div class="ad-body">
-          <div class="ad-title">Commercial Verizon &amp;amp; Apple iPhone 17 (2026)</div>
-          <div class="ad-msg">The iPhone 17 Pro and iPhone 17 Pro Max are smartphones developed and marketed by Apple. Alongside the iPhone 17 and ...</div>
-          <div class="ad-meta">
-            <span>TVC iOne Ad</span>
-            <span>2026-04-23</span>
-          </div>
+          <div class="ad-title">Kevin Hart — iPhone 17, iPad &amp; Apple Watch: All for $0, No Trade-In</div>
+          <div class="ad-meta"><span>Nov 7, 2025</span><span>:60 spot</span></div>
         </div>
       </a>
     </div>
   </section>
+
+  <!-- Xfinity Mobile -->
   <section class="carrier-section">
     <div class="carrier-header">
-      <span class="carrier-dot" style="background:#6E1BF5"></span>
+      <span class="carrier-dot" style="background:var(--xfn)"></span>
       <span class="carrier-name">Xfinity Mobile</span>
     </div>
     <div class="ads-grid">
       <a class="ad-card" href="https://youtube.com/watch?v=aTkfjPTjU-U" target="_blank" rel="noopener">
         <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/aTkfjPTjU-U/hqdefault.jpg" alt="iPhone 17 Pro: A Work of Art | Xfinity Mobile Commercial | :30 (2025)" loading="lazy">
+          <img src="https://i.ytimg.com/vi/aTkfjPTjU-U/hqdefault.jpg" loading="lazy" alt="">
+          <div class="carrier-stripe" style="background:var(--xfn)"></div>
           <span class="play-badge">▶ YouTube</span>
         </div>
         <div class="ad-body">
-          <div class="ad-title">iPhone 17 Pro: A Work of Art | Xfinity Mobile Commercial | :30 (2025)</div>
-          <div class="ad-msg">Don&#x27;t forget Subscribe, Like and Comment...</div>
-          <div class="ad-meta">
-            <span>Keith P.</span>
-            <span>2025-09-20</span>
-          </div>
+          <div class="ad-title">iPhone 17 Pro: A Work of Art</div>
+          <div class="ad-meta"><span>Sep 20, 2025</span><span>:30 spot</span></div>
         </div>
       </a>
       <a class="ad-card" href="https://youtube.com/watch?v=FYnBwMPPSak" target="_blank" rel="noopener">
         <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/FYnBwMPPSak/hqdefault.jpg" alt="iPhone 17 Pro: A Work of Art (Up to $830 Off) | Xfinity Mobile Commercial | :30 (2025)" loading="lazy">
+          <img src="https://i.ytimg.com/vi/FYnBwMPPSak/hqdefault.jpg" loading="lazy" alt="">
+          <div class="carrier-stripe" style="background:var(--xfn)"></div>
           <span class="play-badge">▶ YouTube</span>
         </div>
         <div class="ad-body">
-          <div class="ad-title">iPhone 17 Pro: A Work of Art (Up to $830 Off) | Xfinity Mobile Commercial | :30 (2025)</div>
-          <div class="ad-msg">Don&#x27;t forget Subscribe, Like and Comment...</div>
-          <div class="ad-meta">
-            <span>Keith P.</span>
-            <span>2025-11-14</span>
-          </div>
+          <div class="ad-title">iPhone 17 Pro: A Work of Art — Up to $830 Off</div>
+          <div class="ad-meta"><span>Nov 14, 2025</span><span>:30 spot</span></div>
         </div>
       </a>
+      <div class="ad-card" style="opacity:0.35; pointer-events:none;">
+        <div class="thumb-wrap" style="background:#e2e8f0; padding-top:56.25%;">
+          <div class="carrier-stripe" style="background:var(--xfn)"></div>
+        </div>
+        <div class="ad-body">
+          <div class="ad-title" style="color:var(--gray3)">No additional ads found in window</div>
+          <div class="ad-meta"><span>—</span></div>
+        </div>
+      </div>
     </div>
   </section>
+
+  <!-- Spectrum Mobile -->
   <section class="carrier-section">
     <div class="carrier-header">
-      <span class="carrier-dot" style="background:#0082CA"></span>
+      <span class="carrier-dot" style="background:var(--spc)"></span>
       <span class="carrier-name">Spectrum Mobile</span>
     </div>
     <div class="ads-grid">
       <a class="ad-card" href="https://youtube.com/watch?v=QQIGQomuMaI" target="_blank" rel="noopener">
         <div class="thumb-wrap">
-          <img src="https://i.ytimg.com/vi/QQIGQomuMaI/hqdefault.jpg" alt="BEST iPhone 17 Trade-In Deals — AT&amp;amp;T vs Spectrum Mobile" loading="lazy">
+          <img src="https://i.ytimg.com/vi/QQIGQomuMaI/hqdefault.jpg" loading="lazy" alt="">
+          <div class="carrier-stripe" style="background:var(--spc)"></div>
           <span class="play-badge">▶ YouTube</span>
         </div>
         <div class="ad-body">
-          <div class="ad-title">BEST iPhone 17 Trade-In Deals — AT&amp;amp;T vs Spectrum Mobile</div>
-          <div class="ad-msg">That “free” iPhone 17 deal might not be so free Here&#x27;s what to check before you upgrade. #iPhone17 #iPhoneDeals ...</div>
-          <div class="ad-meta">
-            <span>Save On Wireless</span>
-            <span>2025-10-21</span>
-          </div>
+          <div class="ad-title">Best iPhone 17 Trade-In Deals — AT&amp;T vs Spectrum Mobile</div>
+          <div class="ad-meta"><span>Oct 21, 2025</span><span>Comparison</span></div>
         </div>
       </a>
+      <div class="ad-card" style="opacity:0.35; pointer-events:none;">
+        <div class="thumb-wrap" style="background:#e2e8f0; padding-top:56.25%;">
+          <div class="carrier-stripe" style="background:var(--spc)"></div>
+        </div>
+        <div class="ad-body">
+          <div class="ad-title" style="color:var(--gray3)">No additional ads found in window</div>
+          <div class="ad-meta"><span>—</span></div>
+        </div>
+      </div>
+      <div class="ad-card" style="opacity:0.35; pointer-events:none;">
+        <div class="thumb-wrap" style="background:#e2e8f0; padding-top:56.25%;">
+          <div class="carrier-stripe" style="background:var(--spc)"></div>
+        </div>
+        <div class="ad-body">
+          <div class="ad-title" style="color:var(--gray3)">No additional ads found in window</div>
+          <div class="ad-meta"><span>—</span></div>
+        </div>
+      </div>
     </div>
   </section>
+
 </main>
 
 <footer>
-  SIGINT Intelligence Platform &nbsp;·&nbsp; YouTube Data API &nbsp;·&nbsp; For research use only
+  SIGINT Intelligence Platform &nbsp;·&nbsp; YouTube Data API &nbsp;·&nbsp;
+  iPhone 17 launch Sep 19, 2025 &nbsp;·&nbsp; For research use only
 </footer>
 </body>
 </html>
