@@ -105,6 +105,31 @@
            aspect-ratio: 16/9; background: #f0f4f8; border-radius: 2px;
            border: 1px dashed #d0d7df; font-size: 0.46rem; color: #c0c8d4; }
 
+
+  /* ── View velocity overlay ── */
+  .th { position: relative; }
+  .vbadge {
+    position: absolute; top: 3px; left: 3px;
+    font-size: 0.44rem; font-weight: 800; letter-spacing: 0.03em;
+    padding: 1px 5px; border-radius: 2px; line-height: 1.5;
+    pointer-events: none;
+  }
+  .vbadge.hi  { background: rgba(0,160,70,0.88);  color:#fff; }
+  .vbadge.mid { background: rgba(180,110,0,0.85); color:#fff; }
+  .vbadge.lo  { background: rgba(40,40,40,0.72);  color:#ccc; }
+
+  .vel-legend {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    font-size: 0.66rem; color: var(--gray2); margin-bottom: 14px;
+    margin-top: -4px;
+  }
+  .vel-legend .lbl { font-weight: 700; color: var(--gray1); margin-right: 4px; }
+  .vel-swatch {
+    display: inline-flex; align-items: center; gap: 5px;
+  }
+  .vel-pip { width: 28px; border-radius: 1px; }
+  .vel-note { font-style: italic; color: var(--gray3); font-size: 0.62rem; }
+
   footer { background: var(--ink); color: var(--gray2); text-align: center;
            padding: 18px; font-size: 0.72rem; margin-top: 0; }
 </style>
@@ -131,6 +156,14 @@
     <div class="legend-item"><div class="legend-box" style="background:#3d1a6e"></div>iPhone 17e era (Mar 2026+)</div>
   </div>
 
+  <div class="vel-legend">
+    <span class="lbl">Bar height = v/day (log):</span>
+    <span class="vel-swatch"><div class="vel-pip" style="height:9px;background:#00a046"></div>≥100 v/d</span>
+    <span class="vel-swatch"><div class="vel-pip" style="height:5px;background:#b46e00"></div>10–99 v/d</span>
+    <span class="vel-swatch"><div class="vel-pip" style="height:2px;background:#888"></div>&lt;10 v/d</span>
+    <span class="vel-note">· Badge = total views · T-Mobile figures from archiver channels, not official</span>
+  </div>
+
 <div class="matrix-outer"><div class="matrix">
 
   <!-- ── HEADER ROW ── -->
@@ -150,36 +183,36 @@
   <!-- Sep -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=IQnHjqzxP_U" target="_blank" rel="noopener" title="Karma: No Trade-In iPhone 16 20% | Zoe Saldaña T-Mobile :30">
-      <img src="https://i.ytimg.com/vi/IQnHjqzxP_U/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--tmo)"></div><div class="th-date">Sep 5 · Karma/Zoe Saldaña</div></a>
+      <div class="vbadge lo">220</div><img src="https://i.ytimg.com/vi/IQnHjqzxP_U/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--tmo); height:2.0px"></div><div class="th-date">Sep 5 · Karma/Zoe Saldaña</div></a>
     <a class="th" href="https://youtube.com/watch?v=cr6WeN1SRQM" target="_blank" rel="noopener" title="Savings Zoe Go Grande | Jeff Bridges & Zoe Saldaña T-Mobile">
-      <img src="https://i.ytimg.com/vi/cr6WeN1SRQM/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--tmo)"></div><div class="th-date">Sep 20 · iPhone 17 launch</div></a>
+      <div class="vbadge mid">3.6K</div><img src="https://i.ytimg.com/vi/cr6WeN1SRQM/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--tmo); height:4.0px"></div><div class="th-date">Sep 20 · iPhone 17 launch</div></a>
   </div>
   <!-- Oct -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=hnP6gnm7Mpo" target="_blank" rel="noopener" title="T-Mobile iPhone 17 Pro Feature Spot">
-      <img src="https://i.ytimg.com/vi/hnP6gnm7Mpo/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--tmo)"></div><div class="th-date">Oct 25</div></a>
+      <div class="vbadge mid">2.3K</div><img src="https://i.ytimg.com/vi/hnP6gnm7Mpo/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--tmo); height:3.8px"></div><div class="th-date">Oct 25</div></a>
   </div>
   <!-- Nov -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=E7vVSltswH8" target="_blank" rel="noopener" title="Holiday Christmas Tree Lot | Jeff Bridges & Zoe Saldaña T-Mobile :30">
-      <img src="https://i.ytimg.com/vi/E7vVSltswH8/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--tmo)"></div><div class="th-date">Nov 16 · Holiday Tree Lot</div></a>
+      <div class="vbadge mid">2.5K</div><img src="https://i.ytimg.com/vi/E7vVSltswH8/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--tmo); height:3.9px"></div><div class="th-date">Nov 16 · Holiday Tree Lot</div></a>
   </div>
   <!-- Dec -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=hhgHSxSHiEI" target="_blank" rel="noopener" title="Reindeer Stand-In ft. Jeff Bridges & Zoe Saldaña | T-Mobile">
-      <img src="https://i.ytimg.com/vi/hhgHSxSHiEI/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--tmo)"></div><div class="th-date">Dec 6 · Reindeer Stand-In</div></a>
+      <div class="vbadge lo">139</div><img src="https://i.ytimg.com/vi/hhgHSxSHiEI/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--tmo); height:2.0px"></div><div class="th-date">Dec 6 · Reindeer Stand-In</div></a>
     <a class="th" href="https://youtube.com/watch?v=1y_LI7Vzv9o" target="_blank" rel="noopener" title="T-Mobile iPhone 17 Pro 2nd version">
-      <img src="https://i.ytimg.com/vi/1y_LI7Vzv9o/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--tmo)"></div><div class="th-date">Dec 8 · 2nd version</div></a>
+      <div class="vbadge lo">1.2K</div><img src="https://i.ytimg.com/vi/1y_LI7Vzv9o/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--tmo); height:3.4px"></div><div class="th-date">Dec 8 · 2nd version</div></a>
   </div>
   <!-- Jan -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=ukvfqZEc_OM" target="_blank" rel="noopener" title="Group Photo iPhone 17: 15-Minute Switch | T-Mobile :15">
-      <img src="https://i.ytimg.com/vi/ukvfqZEc_OM/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--tmo)"></div><div class="th-date">Jan 8 · 15-Min Switch</div></a>
+      <div class="vbadge lo">397</div><img src="https://i.ytimg.com/vi/ukvfqZEc_OM/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--tmo); height:2.8px"></div><div class="th-date">Jan 8 · 15-Min Switch</div></a>
   </div>
   <!-- Feb -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=whHB6_hP6xM" target="_blank" rel="noopener" title="Tell Me Why | T-Mobile Super Bowl LX ft. Backstreet Boys, Druski, MGK">
-      <img src="https://i.ytimg.com/vi/whHB6_hP6xM/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--tmo)"></div><div class="th-date">Feb 8 · Super Bowl LX / Tell Me Why</div></a>
+      <div class="vbadge lo">365</div><img src="https://i.ytimg.com/vi/whHB6_hP6xM/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--tmo); height:3.0px"></div><div class="th-date">Feb 8 · Super Bowl LX / Tell Me Why</div></a>
   </div>
   <!-- Mar 2026 -->
   <div class="mc empty"><div class="no-ad">—</div></div>
@@ -188,7 +221,7 @@
   <!-- May -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=en17Kk8aV4U" target="_blank" rel="noopener" title="T-Mobile Commercial (2026) Featuring Zoe Saldana">
-      <img src="https://i.ytimg.com/vi/en17Kk8aV4U/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--tmo)"></div><div class="th-date">May · Zoe Saldaña</div></a>
+      <div class="vbadge mid">5.7K</div><img src="https://i.ytimg.com/vi/en17Kk8aV4U/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--tmo); height:4.8px"></div><div class="th-date">May · Zoe Saldaña</div></a>
   </div>
 
   <!-- ══════════ AT&T ══════════ -->
@@ -196,44 +229,44 @@
   <!-- Sep -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=4oPBBg9vzRs" target="_blank" rel="noopener" title="iPhone 17 Pro — The Most Powerful iPhone Ever, Is Here | AT&T">
-      <img src="https://i.ytimg.com/vi/4oPBBg9vzRs/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--att)"></div><div class="th-date">Sep 19 · Launch day</div></a>
+      <div class="vbadge hi">81K</div><img src="https://i.ytimg.com/vi/4oPBBg9vzRs/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--att); height:6.2px"></div><div class="th-date">Sep 19 · Launch day</div></a>
   </div>
   <!-- Oct -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=iw6eZV9MtDI" target="_blank" rel="noopener" title="Championship Tattoos | AT&T">
-      <img src="https://i.ytimg.com/vi/iw6eZV9MtDI/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--att)"></div><div class="th-date">Oct 10 · Championship Tattoos</div></a>
+      <div class="vbadge mid">16K</div><img src="https://i.ytimg.com/vi/iw6eZV9MtDI/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--att); height:5.0px"></div><div class="th-date">Oct 10 · Championship Tattoos</div></a>
   </div>
   <!-- Nov -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=pESkooXEm4w" target="_blank" rel="noopener" title="Daughter's Wisdom | AT&T Holidays">
-      <img src="https://i.ytimg.com/vi/pESkooXEm4w/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--att)"></div><div class="th-date">Nov 6 · Daughter's Wisdom</div></a>
+      <div class="vbadge mid">16K</div><img src="https://i.ytimg.com/vi/pESkooXEm4w/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--att); height:5.2px"></div><div class="th-date">Nov 6 · Daughter's Wisdom</div></a>
   </div>
   <!-- Dec -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=qDsR6sVb4gw" target="_blank" rel="noopener" title="AT&T Commercial 2025 | iPhone 17 Pro">
-      <img src="https://i.ytimg.com/vi/qDsR6sVb4gw/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--att)"></div><div class="th-date">Dec (Holiday run)</div></a>
+      <div class="vbadge mid">6.5K</div><img src="https://i.ytimg.com/vi/qDsR6sVb4gw/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--att); height:4.6px"></div><div class="th-date">Dec (Holiday run)</div></a>
   </div>
   <!-- Jan -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=WgTr4DlVouw" target="_blank" rel="noopener" title="Don't Move | AT&T">
-      <img src="https://i.ytimg.com/vi/WgTr4DlVouw/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--att)"></div><div class="th-date">Jan 9 · Don't Move</div></a>
+      <div class="vbadge mid">4.5K</div><img src="https://i.ytimg.com/vi/WgTr4DlVouw/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--att); height:4.6px"></div><div class="th-date">Jan 9 · Don't Move</div></a>
   </div>
   <!-- Feb -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=oIGCt_v2RpE" target="_blank" rel="noopener" title="Don't Move (variant) | AT&T">
-      <img src="https://i.ytimg.com/vi/oIGCt_v2RpE/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--att)"></div><div class="th-date">Feb · Don't Move (variant)</div></a>
+      <div class="vbadge mid">2.4K</div><img src="https://i.ytimg.com/vi/oIGCt_v2RpE/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--att); height:4.3px"></div><div class="th-date">Feb · Don't Move (variant)</div></a>
   </div>
   <!-- Mar 2026 — iPhone 17e -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=q-vA2bHhVw0" target="_blank" rel="noopener" title="iPhone 17e: Feature stacked. Value packed. | AT&T official">
-      <img src="https://i.ytimg.com/vi/q-vA2bHhVw0/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--att)"></div><div class="th-date">Mar 4 · iPhone 17e launch</div></a>
+      <div class="vbadge mid">6.5K</div><img src="https://i.ytimg.com/vi/q-vA2bHhVw0/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--att); height:5.2px"></div><div class="th-date">Mar 4 · iPhone 17e launch</div></a>
   </div>
   <!-- Apr -->
   <div class="mc empty"><div class="no-ad">—</div></div>
   <!-- May -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=NK8nmWqDMlE" target="_blank" rel="noopener" title="Festival | AT&T">
-      <img src="https://i.ytimg.com/vi/NK8nmWqDMlE/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--att)"></div><div class="th-date">May 5 · Festival</div></a>
+      <div class="vbadge hi">141K</div><img src="https://i.ytimg.com/vi/NK8nmWqDMlE/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--att); height:9.0px"></div><div class="th-date">May 5 · Festival</div></a>
   </div>
 
   <!-- ══════════ VERIZON ══════════ -->
@@ -241,41 +274,41 @@
   <!-- Sep -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=KAxDHhkb4bw" target="_blank" rel="noopener" title="Verizon 2025 Commercial 1 — Apple iPhone 17 Pro ft. Kevin Hart">
-      <img src="https://i.ytimg.com/vi/KAxDHhkb4bw/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz)"></div><div class="th-date">Sep 23 · Kevin Hart #1</div></a>
+      <div class="vbadge lo">429</div><img src="https://i.ytimg.com/vi/KAxDHhkb4bw/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz); height:2.5px"></div><div class="th-date">Sep 23 · Kevin Hart #1</div></a>
     <a class="th" href="https://youtube.com/watch?v=vapM_XL6Frw" target="_blank" rel="noopener" title="Verizon Commercial 2025 iPhone 17 Pro | Kevin Hart">
-      <img src="https://i.ytimg.com/vi/vapM_XL6Frw/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz)"></div><div class="th-date">Sep 30 · Kevin Hart #2</div></a>
+      <div class="vbadge mid">15K</div><img src="https://i.ytimg.com/vi/vapM_XL6Frw/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz); height:5.0px"></div><div class="th-date">Sep 30 · Kevin Hart #2</div></a>
     <a class="th" href="https://youtube.com/watch?v=0H3Mw8_ggUM" target="_blank" rel="noopener" title="USA | MALUMA NEW IPHONE 17 PRO | VERIZON 2025 COMERCIAL LATINO">
-      <img src="https://i.ytimg.com/vi/0H3Mw8_ggUM/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz)"></div><div class="th-date">Sep 21 · Maluma (Latino)</div></a>
+      <div class="vbadge mid">8.4K</div><img src="https://i.ytimg.com/vi/0H3Mw8_ggUM/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz); height:4.6px"></div><div class="th-date">Sep 21 · Maluma (Latino)</div></a>
   </div>
   <!-- Oct -->
   <div class="mc empty"><div class="no-ad">—</div></div>
   <!-- Nov -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=r25ONbTAZs0" target="_blank" rel="noopener" title="Verizon Holidays Commercials — Kevin Hart, Melissa McCarthy">
-      <img src="https://i.ytimg.com/vi/r25ONbTAZs0/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz)"></div><div class="th-date">Nov 13 · Holiday compilation</div></a>
+      <div class="vbadge mid">8.4K</div><img src="https://i.ytimg.com/vi/r25ONbTAZs0/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz); height:4.8px"></div><div class="th-date">Nov 13 · Holiday compilation</div></a>
   </div>
   <!-- Dec -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=54EKEi8c-Bo" target="_blank" rel="noopener" title="Holiday Kevin Elf: Watching You | Kevin Hart Verizon :30">
-      <img src="https://i.ytimg.com/vi/54EKEi8c-Bo/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz)"></div><div class="th-date">Dec 4 · Kevin Elf :30</div></a>
+      <div class="vbadge lo">1.2K</div><img src="https://i.ytimg.com/vi/54EKEi8c-Bo/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz); height:3.5px"></div><div class="th-date">Dec 4 · Kevin Elf :30</div></a>
     <a class="th" href="https://youtube.com/watch?v=DTg_W6MSfw8" target="_blank" rel="noopener" title="Holiday Reindeer Same Day iPhone 17 | Verizon">
-      <img src="https://i.ytimg.com/vi/DTg_W6MSfw8/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz)"></div><div class="th-date">Dec 8 · Holiday Reindeer</div></a>
+      <div class="vbadge lo">299</div><img src="https://i.ytimg.com/vi/DTg_W6MSfw8/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz); height:2.5px"></div><div class="th-date">Dec 8 · Holiday Reindeer</div></a>
     <a class="th" href="https://youtube.com/watch?v=vjhjZbAx0oM" target="_blank" rel="noopener" title="Holidays Kevin Elf: Watching You | Verizon :60">
-      <img src="https://i.ytimg.com/vi/vjhjZbAx0oM/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz)"></div><div class="th-date">Dec 16 · Kevin Elf :60</div></a>
+      <div class="vbadge lo">390</div><img src="https://i.ytimg.com/vi/vjhjZbAx0oM/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz); height:2.8px"></div><div class="th-date">Dec 16 · Kevin Elf :60</div></a>
   </div>
   <!-- Jan -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=YToMw_32-7c" target="_blank" rel="noopener" title="After The Holidays: iPhone 17 | Verizon :30">
-      <img src="https://i.ytimg.com/vi/YToMw_32-7c/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz)"></div><div class="th-date">Jan 9 · After The Holidays</div></a>
+      <div class="vbadge lo">368</div><img src="https://i.ytimg.com/vi/YToMw_32-7c/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz); height:2.8px"></div><div class="th-date">Jan 9 · After The Holidays</div></a>
   </div>
   <!-- Feb -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=GEgVdYP_UTc" target="_blank" rel="noopener" title="Verizon Commercial #3 (2026)">
-      <img src="https://i.ytimg.com/vi/GEgVdYP_UTc/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz)"></div><div class="th-date">Feb 2</div></a>
+      <div class="vbadge mid">4.3K</div><img src="https://i.ytimg.com/vi/GEgVdYP_UTc/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz); height:4.7px"></div><div class="th-date">Feb 2</div></a>
     <a class="th" href="https://youtube.com/watch?v=DPxc70TcRww" target="_blank" rel="noopener" title="Verizon Hockey Game Switching Teams Ad">
-      <img src="https://i.ytimg.com/vi/DPxc70TcRww/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz)"></div><div class="th-date">Feb 23 · Hockey Switch</div></a>
+      <div class="vbadge mid">1.8K</div><img src="https://i.ytimg.com/vi/DPxc70TcRww/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz); height:4.2px"></div><div class="th-date">Feb 23 · Hockey Switch</div></a>
     <a class="th" href="https://youtube.com/watch?v=vMxBaG5Xemk" target="_blank" rel="noopener" title="Get 4 iPhone 17 Pro On Us — Hockey Rink | Verizon">
-      <img src="https://i.ytimg.com/vi/vMxBaG5Xemk/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz)"></div><div class="th-date">Feb 26 · Hockey Rink</div></a>
+      <div class="vbadge lo">220</div><img src="https://i.ytimg.com/vi/vMxBaG5Xemk/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--vz); height:2.8px"></div><div class="th-date">Feb 26 · Hockey Rink</div></a>
   </div>
   <!-- Mar–May -->
   <div class="mc empty"><div class="no-ad">—</div></div>
@@ -287,48 +320,48 @@
   <!-- Sep -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=cPmtvkfzSA8" target="_blank" rel="noopener" title="Boomtown: House Call iPhone 16 | Xfinity :30">
-      <img src="https://i.ytimg.com/vi/cPmtvkfzSA8/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn)"></div><div class="th-date">Sep 6 · Boomtown House Call</div></a>
+      <div class="vbadge lo">366</div><img src="https://i.ytimg.com/vi/cPmtvkfzSA8/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn); height:2.0px"></div><div class="th-date">Sep 6 · Boomtown House Call</div></a>
     <a class="th" href="https://youtube.com/watch?v=aTkfjPTjU-U" target="_blank" rel="noopener" title="iPhone 17 Pro: A Work of Art | Xfinity Mobile :30">
-      <img src="https://i.ytimg.com/vi/aTkfjPTjU-U/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn)"></div><div class="th-date">Sep 20 · A Work of Art</div></a>
+      <div class="vbadge lo">1.6K</div><img src="https://i.ytimg.com/vi/aTkfjPTjU-U/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn); height:3.4px"></div><div class="th-date">Sep 20 · A Work of Art</div></a>
     <a class="th" href="https://youtube.com/watch?v=DtvJ5VMP4ig" target="_blank" rel="noopener" title="Xfinity Commercial #2 (2025)">
-      <img src="https://i.ytimg.com/vi/DtvJ5VMP4ig/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn)"></div><div class="th-date">Sep 30</div></a>
+      <div class="vbadge mid">7.1K</div><img src="https://i.ytimg.com/vi/DtvJ5VMP4ig/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn); height:4.5px"></div><div class="th-date">Sep 30</div></a>
   </div>
   <!-- Oct -->
   <div class="mc empty"><div class="no-ad">—</div></div>
   <!-- Nov -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=Ge4LirgPHe8" target="_blank" rel="noopener" title="Xfinity Commercial #4 (2025)">
-      <img src="https://i.ytimg.com/vi/Ge4LirgPHe8/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn)"></div><div class="th-date">Nov 7</div></a>
+      <div class="vbadge mid">2.8K</div><img src="https://i.ytimg.com/vi/Ge4LirgPHe8/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn); height:3.9px"></div><div class="th-date">Nov 7</div></a>
     <a class="th" href="https://youtube.com/watch?v=FYnBwMPPSak" target="_blank" rel="noopener" title="iPhone 17 Pro: A Work of Art (Up to $830 Off) | Xfinity Mobile :30">
-      <img src="https://i.ytimg.com/vi/FYnBwMPPSak/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn)"></div><div class="th-date">Nov 14 · $830 Off</div></a>
+      <div class="vbadge lo">153</div><img src="https://i.ytimg.com/vi/FYnBwMPPSak/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn); height:2.0px"></div><div class="th-date">Nov 14 · $830 Off</div></a>
   </div>
   <!-- Dec -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=eey8GMi4qdQ" target="_blank" rel="noopener" title="Xfinity Commercial 2025 (USA)">
-      <img src="https://i.ytimg.com/vi/eey8GMi4qdQ/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn)"></div><div class="th-date">Dec 16</div></a>
+      <div class="vbadge lo">1.4K</div><img src="https://i.ytimg.com/vi/eey8GMi4qdQ/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn); height:3.6px"></div><div class="th-date">Dec 16</div></a>
   </div>
   <!-- Jan -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=kNH68HYD25k" target="_blank" rel="noopener" title="Xfinity Mobile Commercial (2026)">
-      <img src="https://i.ytimg.com/vi/kNH68HYD25k/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn)"></div><div class="th-date">Jan 18</div></a>
+      <div class="vbadge mid">7.3K</div><img src="https://i.ytimg.com/vi/kNH68HYD25k/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn); height:5.0px"></div><div class="th-date">Jan 18</div></a>
     <a class="th" href="https://youtube.com/watch?v=cFYY0bOh8zQ" target="_blank" rel="noopener" title="Xfinity Commercial #2 (2026)">
-      <img src="https://i.ytimg.com/vi/cFYY0bOh8zQ/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn)"></div><div class="th-date">Jan 19</div></a>
+      <div class="vbadge hi">42K</div><img src="https://i.ytimg.com/vi/cFYY0bOh8zQ/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn); height:6.2px"></div><div class="th-date">Jan 19</div></a>
   </div>
   <!-- Feb -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=Wuw3ASGxM1Y" target="_blank" rel="noopener" title="Xfinity Mobile Commercial #2 (2026)">
-      <img src="https://i.ytimg.com/vi/Wuw3ASGxM1Y/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn)"></div><div class="th-date">Feb 2</div></a>
+      <div class="vbadge lo">597</div><img src="https://i.ytimg.com/vi/Wuw3ASGxM1Y/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn); height:3.3px"></div><div class="th-date">Feb 2</div></a>
     <a class="th" href="https://youtube.com/watch?v=JgPizt-JmgA" target="_blank" rel="noopener" title="Xfinity Commercial (2026)">
-      <img src="https://i.ytimg.com/vi/JgPizt-JmgA/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn)"></div><div class="th-date">Feb 28</div></a>
+      <div class="vbadge mid">2.1K</div><img src="https://i.ytimg.com/vi/JgPizt-JmgA/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn); height:4.4px"></div><div class="th-date">Feb 28</div></a>
   </div>
   <!-- Mar 2026 -->
   <div class="mc empty"><div class="no-ad">—</div></div>
   <!-- Apr -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=sygMjzbIbXE" target="_blank" rel="noopener" title="MegaMobile: Deals | Xfinity (official)">
-      <img src="https://i.ytimg.com/vi/sygMjzbIbXE/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn)"></div><div class="th-date">Apr 15 · MegaMobile Deals</div></a>
+      <div class="vbadge mid">1.3K</div><img src="https://i.ytimg.com/vi/sygMjzbIbXE/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn); height:4.8px"></div><div class="th-date">Apr 15 · MegaMobile Deals</div></a>
     <a class="th" href="https://youtube.com/watch?v=2CnTmJmHh1I" target="_blank" rel="noopener" title="Xfinity Commercial #2 (2026) Apr">
-      <img src="https://i.ytimg.com/vi/2CnTmJmHh1I/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn)"></div><div class="th-date">Apr 14</div></a>
+      <div class="vbadge mid">400</div><img src="https://i.ytimg.com/vi/2CnTmJmHh1I/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--xfn); height:3.9px"></div><div class="th-date">Apr 14</div></a>
   </div>
   <!-- May -->
   <div class="mc empty"><div class="no-ad">—</div></div>
@@ -338,7 +371,7 @@
   <!-- Sep -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=PWzhx6JWSu0" target="_blank" rel="noopener" title="It's Only Everything: Destination :60 | Spectrum (official)">
-      <img src="https://i.ytimg.com/vi/PWzhx6JWSu0/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--spc)"></div><div class="th-date">Sep 29 · It's Only Everything</div></a>
+      <div class="vbadge mid">7.2K</div><img src="https://i.ytimg.com/vi/PWzhx6JWSu0/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--spc); height:4.5px"></div><div class="th-date">Sep 29 · It's Only Everything</div></a>
   </div>
   <!-- Oct–Nov -->
   <div class="mc empty"><div class="no-ad">—</div></div>
@@ -346,7 +379,7 @@
   <!-- Dec -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=Pxc4u60mhSk" target="_blank" rel="noopener" title="Spectrum Commercial #3 (2025)">
-      <img src="https://i.ytimg.com/vi/Pxc4u60mhSk/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--spc)"></div><div class="th-date">Dec · Spectrum Mobile</div></a>
+      <div class="vbadge lo">1.1K</div><img src="https://i.ytimg.com/vi/Pxc4u60mhSk/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--spc); height:3.2px"></div><div class="th-date">Dec · Spectrum Mobile</div></a>
   </div>
   <!-- Jan–Feb -->
   <div class="mc empty"><div class="no-ad">—</div></div>
@@ -354,7 +387,7 @@
   <!-- Mar 2026 -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=ENF9ocXT3ks" target="_blank" rel="noopener" title="Spectrum — Always Evolving TV Commercial">
-      <img src="https://i.ytimg.com/vi/ENF9ocXT3ks/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--spc)"></div><div class="th-date">Mar 7 · Always Evolving</div></a>
+      <div class="vbadge lo">39</div><img src="https://i.ytimg.com/vi/ENF9ocXT3ks/hqdefault.jpg" loading="lazy" alt=""><div class="th-bar" style="background:var(--spc); height:2.0px"></div><div class="th-date">Mar 7 · Always Evolving</div></a>
   </div>
   <!-- Apr–May -->
   <div class="mc empty"><div class="no-ad">—</div></div>
