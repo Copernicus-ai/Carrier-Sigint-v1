@@ -12,111 +12,156 @@
     --gray3:  #a0aec0;
     --bg:     #f4f6f9;
     --card:   #ffffff;
+    --border: #e2e8f0;
     --tmo:    #E20074;
     --vz:     #CD040B;
     --att:    #009FDB;
+    --xfn:    #6B46C1;
+    --spc:    #0082CA;
     --green:  #2f855a;
+    --green-bg: #e6f7f0;
     --amber:  #b7791f;
-    --purple: #6B46C1;
-    --border: #e2e8f0;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
-         background: var(--bg); color: var(--ink); line-height: 1.5; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
+    background: var(--bg); color: var(--ink); line-height: 1.5;
+  }
 
   /* ── Header ── */
   header { background: var(--ink); padding: 40px 48px 36px; }
-  .header-inner { max-width: 960px; margin: 0 auto; }
-  header h1 { font-size: 1.65rem; font-weight: 800; color: #fff;
-              letter-spacing: -0.02em; line-height: 1.2; }
-  header p  { font-size: 0.85rem; color: var(--gray3); margin-top: 8px;
-              max-width: 520px; line-height: 1.6; }
-  .tickers  { display: flex; gap: 7px; margin-top: 16px; flex-wrap: wrap; }
-  .ticker   { font-size: 0.68rem; font-weight: 700; color: #fff; padding: 2px 8px;
-              border-radius: 3px; letter-spacing: 0.05em; }
-
-  /* ── Layout ── */
-  main { max-width: 960px; margin: 0 auto; padding: 48px 32px 72px; }
-
-  /* ── Section headers ── */
-  .section-label {
-    font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
-    letter-spacing: 0.14em; color: var(--gray2); margin-bottom: 20px;
-    padding-bottom: 10px; border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; gap: 10px;
+  .header-inner { max-width: 1020px; margin: 0 auto; }
+  header h1 {
+    font-size: 1.65rem; font-weight: 800; color: #fff;
+    letter-spacing: -0.02em; line-height: 1.2;
   }
-  .section-label .section-count {
-    font-size: 0.60rem; font-weight: 700; color: var(--gray3);
-    background: var(--border); padding: 1px 7px; border-radius: 10px;
+  header p {
+    font-size: 0.85rem; color: var(--gray3); margin-top: 8px;
+    max-width: 560px; line-height: 1.6;
+  }
+  .tickers { display: flex; gap: 7px; margin-top: 16px; flex-wrap: wrap; }
+  .ticker {
+    font-size: 0.68rem; font-weight: 700; color: #fff;
+    padding: 2px 8px; border-radius: 3px; letter-spacing: 0.05em;
   }
 
-  /* ── Report cards ── */
-  .cards-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 48px; }
-  @media (max-width: 620px) { .cards-row { grid-template-columns: 1fr; } }
+  /* ── Main ── */
+  main { max-width: 1020px; margin: 0 auto; padding: 48px 32px 80px; }
 
-  .card {
-    display: flex; flex-direction: column;
-    background: var(--card); border: 1px solid var(--border);
+  /* ── Live pill ── */
+  .pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.60rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.10em; padding: 2px 9px; border-radius: 10px;
+    margin-bottom: 14px;
+  }
+  .pill.live   { background: var(--green-bg); color: var(--green); }
+  .pill.soon   { background: #f0f4f8; color: var(--gray3); }
+  .pill .dot   { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+  /* ── Hero grid ── */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  @media (max-width: 820px) { .hero-grid { grid-template-columns: 1fr; } }
+
+  /* ── Hero card ── */
+  .hero-card {
+    background: var(--card);
+    border: 1px solid var(--border);
     border-top: 3px solid var(--border);
-    border-radius: 8px; padding: 24px 26px 20px;
+    border-radius: 10px;
+    padding: 26px 24px 22px;
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .hero-card.live  { border-top-color: var(--green); }
+  .hero-card.soon  { border-top-color: var(--border); opacity: 0.65; }
+
+  .hero-eyebrow {
+    font-size: 0.60rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--gray2); margin-bottom: 6px;
+  }
+  .hero-card h2 {
+    font-size: 1.05rem; font-weight: 800; color: var(--ink);
+    line-height: 1.25; margin-bottom: 12px;
+  }
+  .hero-card > p {
+    font-size: 0.80rem; color: var(--gray1); line-height: 1.65;
+    margin-bottom: 20px;
+  }
+
+  /* ── Sub-boxes inside a hero card ── */
+  .sub-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    margin-top: auto;
+  }
+  .sub-grid.single { grid-template-columns: 1fr; }
+
+  .sub-box {
+    display: flex; flex-direction: column;
+    border: 1px solid var(--border); border-radius: 7px;
+    padding: 14px 14px 12px;
     text-decoration: none; color: inherit;
+    background: var(--bg);
     transition: box-shadow 0.12s, transform 0.12s;
   }
-  .card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.08); transform: translateY(-1px); }
-
-  .card.latest  { border-top-color: var(--green); }
-  .card.annual  { border-top-color: var(--gray3); }
-  .card.tracker { border-top-color: var(--purple); }
-  .card.coming  { border-top-color: var(--border); opacity: 0.6; cursor: default; pointer-events: none; }
-
-  .card-eyebrow {
-    font-size: 0.62rem; font-weight: 800; text-transform: uppercase;
-    letter-spacing: 0.10em; margin-bottom: 12px;
+  .sub-box:hover {
+    box-shadow: 0 4px 14px rgba(0,0,0,0.09);
+    transform: translateY(-1px);
+    background: #fff;
   }
-  .card.latest  .card-eyebrow { color: var(--green); }
-  .card.annual  .card-eyebrow { color: var(--gray2); }
-  .card.tracker .card-eyebrow { color: var(--purple); }
-  .card.coming  .card-eyebrow { color: var(--gray3); }
+  .sub-box.disabled {
+    pointer-events: none; opacity: 0.55; cursor: default;
+  }
 
-  .card h3 { font-size: 1.00rem; font-weight: 700; color: var(--ink);
-             margin-bottom: 8px; line-height: 1.3; }
-  .card p  { font-size: 0.80rem; color: var(--gray1); line-height: 1.6; flex: 1; }
-
-  .card-footer {
-    margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border);
+  .sub-label {
+    font-size: 0.58rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.10em; color: var(--gray3); margin-bottom: 5px;
+  }
+  .sub-title {
+    font-size: 0.83rem; font-weight: 700; color: var(--ink);
+    line-height: 1.3; margin-bottom: 4px;
+  }
+  .sub-meta {
+    font-size: 0.68rem; color: var(--gray3); margin-top: auto; padding-top: 8px;
     display: flex; align-items: center; justify-content: space-between;
   }
-  .card-meta  { font-size: 0.70rem; color: var(--gray3); }
-  .card-cta   { font-size: 0.72rem; font-weight: 700; color: var(--att);
-                text-decoration: none; white-space: nowrap; }
-  .card-cta:hover { text-decoration: underline; }
-  .card-pdf   { font-size: 0.70rem; font-weight: 600; color: var(--gray2);
-                text-decoration: none; }
-  .card-pdf:hover { color: var(--ink); }
-
-  /* ── Tracker row (wider cards) ── */
-  .trackers-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-bottom: 48px; }
-  @media (max-width: 720px) { .trackers-row { grid-template-columns: 1fr; } }
-
-  .tracker-pill {
-    display: inline-flex; align-items: center; gap: 5px;
-    font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.08em; padding: 2px 8px; border-radius: 10px;
-    margin-bottom: 10px;
+  .sub-meta a {
+    font-size: 0.68rem; font-weight: 600; color: var(--gray2);
+    text-decoration: none;
   }
-  .tracker-pill.live    { background: #e6f7f0; color: var(--green); }
-  .tracker-pill.coming  { background: #f0f4f8; color: var(--gray3); }
-  .tracker-pill .dot    { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  .sub-meta a:hover { color: var(--ink); }
 
-  /* ── Carrier badges in tracker card ── */
-  .carrier-badges { display: flex; gap: 5px; margin-top: 12px; flex-wrap: wrap; }
-  .cbadge { font-size: 0.60rem; font-weight: 700; color: #fff; padding: 1px 7px;
-            border-radius: 3px; letter-spacing: 0.04em; }
+  .sub-cta {
+    font-size: 0.68rem; font-weight: 700; color: var(--att);
+    margin-top: 6px; display: block;
+  }
 
-  footer { background: var(--ink); color: var(--gray2); text-align: center;
-           padding: 20px; font-size: 0.72rem; line-height: 1.8; }
-  footer a { color: var(--gray3); text-decoration: none; }
-  footer a:hover { color: #fff; }
+  /* ── Carrier badges ── */
+  .carrier-badges { display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap; }
+  .cbadge {
+    font-size: 0.58rem; font-weight: 700; color: #fff;
+    padding: 1px 6px; border-radius: 3px; letter-spacing: 0.04em;
+  }
+
+  /* ── Spectrum sub-box content ── */
+  .spec-bands {
+    display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap;
+  }
+  .band-chip {
+    font-size: 0.58rem; font-weight: 700; border-radius: 3px;
+    padding: 1px 6px; background: #edf2f7; color: var(--gray1);
+    letter-spacing: 0.03em;
+  }
+
+  footer {
+    background: var(--ink); color: var(--gray2);
+    text-align: center; padding: 20px;
+    font-size: 0.72rem; line-height: 1.8;
+  }
 </style>
 </head>
 <body>
@@ -130,110 +175,127 @@
       <span class="ticker" style="background:var(--tmo)">TMUS</span>
       <span class="ticker" style="background:var(--vz)">VZ</span>
       <span class="ticker" style="background:var(--att)">T</span>
-      <span class="ticker" style="background:#6B46C1">CMCSA</span>
-      <span class="ticker" style="background:#0082CA">CHTR</span>
+      <span class="ticker" style="background:var(--xfn)">CMCSA</span>
+      <span class="ticker" style="background:var(--spc)">CHTR</span>
     </div>
   </div>
 </header>
 
 <main>
+  <div class="hero-grid">
 
-  <!-- ── Results & Metrics ── -->
-  <div class="section-label">
-    Results &amp; Metrics
-    <span class="section-count">2 reports</span>
-  </div>
+    <!-- ── Box 1: The Promotion Game ── -->
+    <div class="hero-card live">
+      <div class="pill live"><span class="dot"></span>Live</div>
+      <div class="hero-eyebrow">Financial Analysis</div>
+      <h2>The Promotion Game</h2>
+      <p>Subsidy economics, equipment loss forensics, and EBITDA margin
+         dynamics across T-Mobile, AT&amp;T, and Verizon — from annual
+         baselines through the latest earnings cycle.</p>
 
-  <div class="cards-row">
+      <div class="sub-grid">
 
-    <a href="output/sigint_q1_2026.html" class="card latest">
-      <div class="card-eyebrow">Q1 2026 &nbsp;·&nbsp; Latest Quarterly</div>
-      <h3>The Promotion Game — Q1 2026</h3>
-      <p>VZ's first positive Q1 phone net adds since 2013. AT&amp;T equipment loss
-         collapses to $277M. T-Mobile posts 49% EBITDA margins. Full YoY
-         comparison across all three carriers from Q1 2026 earnings releases.</p>
-      <div class="card-footer">
-        <span class="card-meta">SEC EDGAR 8-K / 10-Q &nbsp;·&nbsp; April 2026</span>
-        <span>
-          <a class="card-pdf" href="output/sigint_q1_2026.pdf"
-             onclick="event.stopPropagation()">↓ PDF</a>
-        </span>
-      </div>
-    </a>
+        <a class="sub-box" href="output/sigint_promotion_game.html">
+          <div class="sub-label">Annual Baseline</div>
+          <div class="sub-title">FY 2023 – FY 2025</div>
+          <div class="sub-meta">
+            <span>Three-year trend</span>
+            <a href="output/sigint_promotion_game.pdf"
+               onclick="event.stopPropagation()">↓ PDF</a>
+          </div>
+        </a>
 
-    <a href="output/sigint_promotion_game.html" class="card annual">
-      <div class="card-eyebrow">FY2023 – FY2025 &nbsp;·&nbsp; Annual Baseline</div>
-      <h3>The Promotion Game — Annual Analysis</h3>
-      <p>Three-year trend analysis covering equipment loss trajectories, subsidy burn
-         rates, leverage forensics, and analyst roundtable across the full FY2025
-         annual reporting cycle.</p>
-      <div class="card-footer">
-        <span class="card-meta">SEC EDGAR 10-K &nbsp;·&nbsp; April 2026</span>
-        <span>
-          <a class="card-pdf" href="output/sigint_promotion_game.pdf"
-             onclick="event.stopPropagation()">↓ PDF</a>
-        </span>
-      </div>
-    </a>
+        <a class="sub-box" href="output/sigint_q1_2026.html">
+          <div class="sub-label">Latest Quarter</div>
+          <div class="sub-title">Q1 2026</div>
+          <div class="sub-meta">
+            <span>Apr 2026</span>
+            <a href="output/sigint_q1_2026.pdf"
+               onclick="event.stopPropagation()">↓ PDF</a>
+          </div>
+        </a>
 
-  </div>
-
-  <!-- ── Trackers ── -->
-  <div class="section-label">
-    Trackers
-    <span class="section-count">1 live &nbsp;·&nbsp; more coming</span>
-  </div>
-
-  <div class="trackers-row">
-
-    <a href="output/carrier_iphone17_ads.html" class="card tracker">
-      <div class="tracker-pill live"><span class="dot"></span>Live</div>
-      <div class="card-eyebrow">Advertising Tracker</div>
-      <h3>Monthly iPhone Carrier TV Ad Tracker</h3>
-      <p>YouTube ads featuring iPhone 17 prominently, tracked across all five
-         U.S. carriers from launch (Sep 2025) through mid-2026. 3 ads per carrier
-         with thumbnails, messaging, and direct video links.</p>
-      <div class="carrier-badges">
-        <span class="cbadge" style="background:#E20074">TMUS</span>
-        <span class="cbadge" style="background:#CD040B">VZ</span>
-        <span class="cbadge" style="background:#009FDB">T</span>
-        <span class="cbadge" style="background:#6B46C1">XCNTY</span>
-        <span class="cbadge" style="background:#0082CA">CHTR</span>
-      </div>
-      <div class="card-footer">
-        <span class="card-meta">YouTube Data API &nbsp;·&nbsp; Sep 2025 – Jul 2026</span>
-      </div>
-    </a>
-
-    <div class="card coming">
-      <div class="tracker-pill coming"><span class="dot"></span>Coming Soon</div>
-      <div class="card-eyebrow">Promo Tracker</div>
-      <h3>Carrier Promotion Monitor</h3>
-      <p>Real-time tracking of device promotions, trade-in values, and plan pricing
-         changes across T-Mobile, Verizon, and AT&amp;T.</p>
-      <div class="card-footer">
-        <span class="card-meta">In development</span>
       </div>
     </div>
 
-    <div class="card coming">
-      <div class="tracker-pill coming"><span class="dot"></span>Coming Soon</div>
-      <div class="card-eyebrow">Filing Tracker</div>
-      <h3>SEC Filing Monitor</h3>
-      <p>Automated EDGAR watcher for 8-K and 10-Q filings across the coverage
-         universe — earnings dates, material events, and key disclosure alerts.</p>
-      <div class="card-footer">
-        <span class="card-meta">In development</span>
+    <!-- ── Box 2: Carrier TV Ad Tracker ── -->
+    <div class="hero-card live">
+      <div class="pill live"><span class="dot"></span>Live</div>
+      <div class="hero-eyebrow">Advertising Intelligence</div>
+      <h2>Monthly Carrier TV Ad Tracker</h2>
+      <p>YouTube ad velocity by carrier — thumbnails, view counts, and
+         views-per-day as a proxy for paid amplification spend. Tracks
+         iPhone and Samsung campaigns from launch through mid-2026.</p>
+
+      <div class="sub-grid">
+
+        <a class="sub-box" href="output/carrier_iphone17_ads.html">
+          <div class="sub-label">Live · Sep 2025–</div>
+          <div class="sub-title">iPhone 17 Campaign</div>
+          <div class="carrier-badges">
+            <span class="cbadge" style="background:var(--tmo)">TMUS</span>
+            <span class="cbadge" style="background:var(--vz)">VZ</span>
+            <span class="cbadge" style="background:var(--att)">T</span>
+            <span class="cbadge" style="background:var(--xfn)">XCNTY</span>
+            <span class="cbadge" style="background:var(--spc)">CHTR</span>
+          </div>
+        </a>
+
+        <div class="sub-box disabled">
+          <div class="sub-label">Coming Soon</div>
+          <div class="sub-title">Samsung Galaxy Campaign</div>
+          <div class="carrier-badges">
+            <span class="cbadge" style="background:var(--tmo)">TMUS</span>
+            <span class="cbadge" style="background:var(--vz)">VZ</span>
+            <span class="cbadge" style="background:var(--att)">T</span>
+          </div>
+        </div>
+
+      </div>
+
+      <a class="sub-cta" href="output/carrier_velocity_vs_netadds.html">
+        View velocity analysis →
+      </a>
+
+    </div>
+
+    <!-- ── Box 3: Spectrum Holdings Tracker ── -->
+    <div class="hero-card soon">
+      <div class="pill soon"><span class="dot"></span>Coming Soon</div>
+      <div class="hero-eyebrow">Spectrum Intelligence</div>
+      <h2>Spectrum Holdings Tracker</h2>
+      <p>FCC license data by band and geography — C-band, AWS, 600 MHz,
+         and mmWave — combined with quarterly acquisition and auction
+         activity. See who is building coverage depth and where.</p>
+
+      <div class="sub-grid">
+
+        <div class="sub-box disabled">
+          <div class="sub-label">Holdings by Band</div>
+          <div class="sub-title">Latest License Data</div>
+          <div class="spec-bands">
+            <span class="band-chip">C-band</span>
+            <span class="band-chip">AWS</span>
+            <span class="band-chip">600 MHz</span>
+            <span class="band-chip">mmWave</span>
+          </div>
+        </div>
+
+        <div class="sub-box disabled">
+          <div class="sub-label">Quarterly Activity</div>
+          <div class="sub-title">Purchases &amp; Auctions</div>
+          <div class="sub-meta"><span>In development</span></div>
+        </div>
+
       </div>
     </div>
 
   </div>
-
 </main>
 
 <footer>
   SIGINT Intelligence Platform &nbsp;·&nbsp; TMUS · VZ · T · CMCSA · CHTR
-  &nbsp;·&nbsp; SEC EDGAR public filings &nbsp;·&nbsp; For institutional use; illustrative purposes only
+  &nbsp;·&nbsp; For institutional use; illustrative purposes only
 </footer>
 
 </body>
