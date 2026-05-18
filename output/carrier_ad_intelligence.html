@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIGINT — Carrier Ad Intelligence Brief</title>
+<style>
+  :root {
+    --bg:     #0a0c10;
+    --card:   #12161f;
+    --card2:  #0f1318;
+    --ink:    #e0e6ed;
+    --muted:  #6b7280;
+    --border: #1e2433;
+    --accent: #00d4ff;
+    --green:  #00ff88;
+    --amber:  #f59e0b;
+    --red:    #ff4757;
+    --tmo:    #E20074;
+    --att:    #009FDB;
+    --vz:     #CD040B;
+    --xfn:    #6B46C1;
+    --spc:    #0082CA;
+    --sam:    #1428A0;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink);
+         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
+         line-height: 1.65; font-size: 0.92rem; }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── Header ── */
+  header { background: #0d1117; border-bottom: 1px solid var(--border); padding: 32px 48px 28px; }
+  .back-link { font-size: 0.72rem; color: var(--accent); display: inline-block; margin-bottom: 14px; }
+  .header-eyebrow { font-size: 0.60rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: .14em; color: var(--muted); margin-bottom: 8px; }
+  header h1 { font-size: 1.55rem; font-weight: 800; color: #fff; letter-spacing: -.02em;
+    line-height: 1.2; margin-bottom: 10px; }
+  .header-meta { font-size: 0.74rem; color: var(--muted); }
+  .header-meta span { color: var(--ink); font-weight: 600; }
+
+  /* ── Layout ── */
+  .container { max-width: 980px; margin: 0 auto; padding: 48px 40px 80px; }
+
+  /* ── Section ── */
+  .section { margin-bottom: 52px; }
+  .section-label { font-size: 0.58rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: .16em; color: var(--accent); margin-bottom: 16px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  h2 { font-size: 1.12rem; font-weight: 800; color: #fff; margin-bottom: 12px; line-height: 1.3; }
+  h3 { font-size: 0.88rem; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+  p  { color: #94a3b8; margin-bottom: 12px; line-height: 1.7; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── Headline box ── */
+  .headline-box {
+    background: linear-gradient(135deg, #0f1d2e 0%, #0d1117 100%);
+    border: 1px solid #1e3a5f; border-radius: 10px;
+    padding: 28px 32px; margin-bottom: 40px;
+  }
+  .headline-box .hl-label { font-size: 0.58rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: .14em; color: var(--accent); margin-bottom: 10px; }
+  .headline-box .hl-text { font-size: 1.05rem; font-weight: 700; color: #fff; line-height: 1.5; }
+  .headline-box .hl-sub  { font-size: 0.80rem; color: #7dd3fc; margin-top: 8px; line-height: 1.6; }
+
+  /* ── Finding cards ── */
+  .findings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 0; }
+  @media (max-width: 700px) { .findings-grid { grid-template-columns: 1fr; } }
+  .finding {
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 18px 20px; border-left: 3px solid var(--accent);
+  }
+  .finding.amber { border-left-color: var(--amber); }
+  .finding.green { border-left-color: var(--green); }
+  .finding.red   { border-left-color: var(--red); }
+  .finding-num { font-size: 1.6rem; font-weight: 800; color: var(--accent); line-height: 1;
+    margin-bottom: 4px; }
+  .finding.amber .finding-num { color: var(--amber); }
+  .finding.green .finding-num { color: var(--green); }
+  .finding.red   .finding-num { color: var(--red); }
+  .finding-label { font-size: 0.72rem; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .finding-sub   { font-size: 0.70rem; color: var(--muted); line-height: 1.5; }
+
+  /* ── Tables ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.80rem; }
+  thead th { font-size: 0.60rem; font-weight: 800; text-transform: uppercase; letter-spacing: .10em;
+    color: var(--muted); padding: 8px 12px; text-align: left;
+    border-bottom: 1px solid var(--border); white-space: nowrap; }
+  tbody td { padding: 10px 12px; border-bottom: 1px solid #0f1318; color: #94a3b8;
+    vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: #0f1318; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  td.hi  { color: #00c060; font-weight: 700; }
+  td.mid { color: var(--amber); font-weight: 700; }
+  td.lo  { color: var(--muted); }
+  td.label { color: var(--ink); font-weight: 600; }
+
+  /* ── Carrier dot ── */
+  .cdot { display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    margin-right: 6px; vertical-align: middle; flex-shrink: 0; }
+
+  /* ── Carrier profile cards ── */
+  .profiles-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 780px) { .profiles-grid { grid-template-columns: 1fr; } }
+  .profile-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    overflow: hidden; }
+  .profile-head { padding: 14px 18px 12px; border-bottom: 1px solid var(--border); }
+  .profile-name { font-size: 0.85rem; font-weight: 800; color: #fff; margin-bottom: 2px; }
+  .profile-ticker { font-size: 0.60rem; color: var(--muted); font-weight: 700; letter-spacing: .06em; }
+  .profile-body { padding: 14px 18px; }
+  .profile-row { display: flex; justify-content: space-between; align-items: baseline;
+    padding: 5px 0; border-bottom: 1px solid #0f1318; font-size: 0.74rem; }
+  .profile-row:last-child { border-bottom: none; }
+  .profile-row .pk { color: var(--muted); }
+  .profile-row .pv { font-weight: 700; color: var(--ink); text-align: right; }
+  .profile-row .pv.green { color: #00c060; }
+  .profile-row .pv.amber { color: var(--amber); }
+  .profile-row .pv.red   { color: var(--red); }
+
+  /* ── Callout ── */
+  .callout { background: #131a10; border: 1px solid #2a4020; border-radius: 8px;
+    padding: 16px 20px; margin: 20px 0; font-size: 0.80rem; color: #86efac; line-height: 1.6; }
+  .callout.amber { background: #1a1610; border-color: #4a3010; color: #fcd34d; }
+  .callout.blue  { background: #0f1a2e; border-color: #1e3a5f; color: #7dd3fc; }
+  .callout strong { color: #fff; }
+
+  /* ── Pill ── */
+  .pill { display: inline-block; font-size: 0.58rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: .10em; padding: 2px 8px; border-radius: 10px; margin-left: 6px;
+    vertical-align: middle; }
+  .pill.tv     { background: #1e3a1e; color: #86efac; }
+  .pill.yt     { background: #3a1e1e; color: #fca5a5; }
+  .pill.both   { background: #1e2a3a; color: #7dd3fc; }
+  .pill.new    { background: #3a2a1e; color: #fcd34d; }
+
+  /* ── Caveats ── */
+  .caveat-list { list-style: none; padding: 0; }
+  .caveat-list li { font-size: 0.76rem; color: var(--muted); padding: 7px 0 7px 20px;
+    border-bottom: 1px solid #0f1318; position: relative; line-height: 1.5; }
+  .caveat-list li:last-child { border-bottom: none; }
+  .caveat-list li::before { content: '†'; position: absolute; left: 0; color: var(--accent); font-weight: 800; }
+
+  /* ── Sources ── */
+  .source-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .schip { font-size: 0.64rem; font-weight: 600; background: var(--card); border: 1px solid var(--border);
+    padding: 3px 10px; border-radius: 4px; color: var(--muted); }
+
+  footer { background: #0d1117; border-top: 1px solid var(--border); color: var(--muted);
+    text-align: center; padding: 18px; font-size: 0.68rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="../index.html">← SIGINT Home</a>
+  <div class="header-eyebrow">Intelligence Brief · Advertising Strategy</div>
+  <h1>Carrier Ad Intelligence:<br>iPhone vs. Samsung, TV vs. YouTube</h1>
+  <div class="header-meta">
+    Coverage: <span>Sep 2025 – May 2026</span> &nbsp;·&nbsp;
+    Carriers: <span>T-Mobile · AT&T · Verizon · Xfinity Mobile · Spectrum Mobile</span> &nbsp;·&nbsp;
+    Sources: <span>YouTube Data API · iSpot.tv · SEC 8-K filings</span> &nbsp;·&nbsp;
+    Published: <span>May 2026</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ── Headline ── -->
+  <div class="headline-box">
+    <div class="hl-label">Headline Finding</div>
+    <div class="hl-text">YouTube data tells the inverse of TV reality for Samsung.<br>
+    T-Mobile is the largest Samsung TV advertiser in the country — and completely invisible on YouTube.</div>
+    <div class="hl-sub">
+      AT&T leads iPhone co-op on both channels. T-Mobile runs 3,179 Samsung TV spots with zero official YouTube uploads.
+      Verizon buys Samsung, iPhone, and Google Pixel simultaneously — the only truly device-agnostic carrier.
+      Samsung's own YouTube channel (54M views on a single launch ad) dwarfs all carrier co-op combined.
+    </div>
+  </div>
+
+  <!-- ── Key Numbers ── -->
+  <div class="section">
+    <div class="section-label">Signal Numbers</div>
+    <div class="findings-grid">
+      <div class="finding">
+        <div class="finding-num">3,179</div>
+        <div class="finding-label">T-Mobile Samsung S26 "Scales" TV airings</div>
+        <div class="finding-sub">Their biggest campaign. Zero official YouTube uploads. Invisible to YouTube-only analysis.</div>
+      </div>
+      <div class="finding amber">
+        <div class="finding-num">70M</div>
+        <div class="finding-label">Verizon "A Better Deal" YouTube views</div>
+        <div class="finding-sub">Oct 2025 brand campaign. Not device-specific. 500× larger than any iPhone carrier co-op ad.</div>
+      </div>
+      <div class="finding green">
+        <div class="finding-num">54M</div>
+        <div class="finding-label">Samsung's own S26 Ultra YouTube views</div>
+        <div class="finding-sub">"Introducing Galaxy S26 Ultra" on Samsung's channel. Apple runs no equivalent direct campaign.</div>
+      </div>
+      <div class="finding red">
+        <div class="finding-num">21</div>
+        <div class="finding-label">T-Mobile iPhone 17 "Go Grande" TV airings</div>
+        <div class="finding-sub">Their only tracked iPhone co-op TV ad. 150× fewer airings than their Samsung S26 "Scales" campaign.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── The Two-Channel Picture ── -->
+  <div class="section">
+    <div class="section-label">Methodology · Why Two Channels</div>
+    <h2>YouTube and TV Tell Different Stories</h2>
+    <p>This analysis combines two data streams that carriers treat as distinct spend buckets.
+       YouTube view velocity (views/day) proxies for paid digital amplification — how much a carrier
+       invests in boosting a specific creative on YouTube. TV airing counts from iSpot.tv represent
+       traditional broadcast and cable placements. Neither channel alone gives the full picture.</p>
+
+    <div class="callout blue">
+      <strong>The core distortion:</strong> T-Mobile uploads almost no advertising content to YouTube.
+      Their TV campaigns — including their largest Samsung co-op — exist only as broadcast.
+      A YouTube-only analysis concludes T-Mobile barely advertises Samsung. The TV record shows
+      the opposite: they're the category's biggest Samsung spender.
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Channel</th>
+            <th>What it captures</th>
+            <th>What it misses</th>
+            <th>Best for</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label">YouTube (views/day)</td>
+            <td>Paid digital amplification; creative that carriers want viral</td>
+            <td>TV-only campaigns; carriers who don't upload to YouTube</td>
+            <td>AT&T, Verizon, Xfinity digital strategy</td>
+          </tr>
+          <tr>
+            <td class="label">iSpot.tv (airings)</td>
+            <td>Broadcast + cable + streaming TV placements; spend ranking</td>
+            <td>Digital-only; YouTube organic; social media</td>
+            <td>T-Mobile, cross-carrier TV spend comparison</td>
+          </tr>
+          <tr>
+            <td class="label">Combined</td>
+            <td>Full cross-channel picture; channel strategy by carrier</td>
+            <td>Paid search, OOH, print, radio</td>
+            <td>Competitive intelligence; strategy inference</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── TV Spend Comparison ── -->
+  <div class="section">
+    <div class="section-label">TV Airings · iSpot.tv · Current Period</div>
+    <h2>National TV Airing Counts by Carrier</h2>
+    <p>iSpot data captures national TV airings across broadcast, cable, and streaming services.
+       All figures reflect the most recent tracked period through May 2026.</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Carrier</th>
+            <th>TV Spend Rank</th>
+            <th class="num">National Airings</th>
+            <th>Top Creative</th>
+            <th class="num">Airings</th>
+            <th>Device</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label"><span class="cdot" style="background:var(--tmo)"></span>T-Mobile</td>
+            <td class="hi">#8</td>
+            <td class="num hi">14,519</td>
+            <td>Savings &amp; Benefits: Scales</td>
+            <td class="num">3,179</td>
+            <td><span class="pill tv">Samsung S26</span></td>
+          </tr>
+          <tr>
+            <td></td><td></td><td></td>
+            <td>Scales: Wireless Bills</td>
+            <td class="num">2,854</td>
+            <td><span class="pill tv">Samsung S26</span></td>
+          </tr>
+          <tr>
+            <td></td><td></td><td></td>
+            <td>Guarantee Switch and Save</td>
+            <td class="num">3,057</td>
+            <td><span class="pill tv">Brand</span></td>
+          </tr>
+          <tr>
+            <td></td><td></td><td></td>
+            <td>Go Grande: iPhone 17 Pro on Us</td>
+            <td class="num lo">21</td>
+            <td><span class="pill yt">iPhone</span></td>
+          </tr>
+          <tr style="border-top:1px solid var(--border)">
+            <td class="label"><span class="cdot" style="background:var(--vz)"></span>Verizon</td>
+            <td class="hi">#5</td>
+            <td class="num mid">6,253</td>
+            <td>Mother's Day: Hockey — iPhone 17</td>
+            <td class="num">1,498</td>
+            <td><span class="pill both">iPhone</span></td>
+          </tr>
+          <tr>
+            <td></td><td></td><td></td>
+            <td>Samsung Miracle: Swipe the Look (S26 Ultra)</td>
+            <td class="num">626</td>
+            <td><span class="pill tv">Samsung S26</span></td>
+          </tr>
+          <tr>
+            <td></td><td></td><td></td>
+            <td>Samsung Miracle: Life Saver</td>
+            <td class="num">278</td>
+            <td><span class="pill tv">Samsung S26</span></td>
+          </tr>
+          <tr>
+            <td></td><td></td><td></td>
+            <td>Best Value Guaranteed: Summer</td>
+            <td class="num">334</td>
+            <td><span class="pill new">Pixel 10 Pro</span></td>
+          </tr>
+          <tr style="border-top:1px solid var(--border)">
+            <td class="label"><span class="cdot" style="background:var(--att)"></span>AT&amp;T</td>
+            <td class="lo">#138</td>
+            <td class="num mid">6,192</td>
+            <td>Music Festival: iPhone 17 Pro</td>
+            <td class="num">1,500</td>
+            <td><span class="pill both">iPhone</span></td>
+          </tr>
+          <tr>
+            <td></td><td></td><td></td>
+            <td>First Dunk (Jayson Tatum)</td>
+            <td class="num">1,198</td>
+            <td><span class="pill tv">Brand</span></td>
+          </tr>
+          <tr>
+            <td></td><td></td><td></td>
+            <td>Ranger Ted (Jalen Brunson)</td>
+            <td class="num">955</td>
+            <td><span class="pill tv">Brand</span></td>
+          </tr>
+          <tr>
+            <td></td><td></td><td></td>
+            <td>Samsung Galaxy S26 Ultra: Floor Boy</td>
+            <td class="num lo">—</td>
+            <td><span class="pill tv">Samsung S26</span></td>
+          </tr>
+          <tr style="border-top:1px solid var(--border)">
+            <td class="label"><span class="cdot" style="background:var(--sam)"></span>Samsung Mobile</td>
+            <td class="lo">#101</td>
+            <td class="num lo">757</td>
+            <td>Privacy Display: No Offer</td>
+            <td class="num">347</td>
+            <td><span class="pill tv">S26 Ultra</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.70rem; color:var(--muted); margin-top:8px;">
+      Source: iSpot.tv brand pages. Airing counts reflect national placements; local/regional buys may differ.
+      T-Mobile spend rank #8 means 8th largest TV advertiser in the U.S. across all categories during the tracked period.
+    </p>
+  </div>
+
+  <!-- ── YouTube Velocity Table ── -->
+  <div class="section">
+    <div class="section-label">YouTube Data · YouTube Data API · Sep 2025 – May 2026</div>
+    <h2>YouTube Ad Velocity by Carrier</h2>
+    <p>Views/day since publish date, pulled via YouTube Data API v3. Used as a proxy for paid
+       digital amplification — higher velocity correlates with active media buying behind the creative.
+       T-Mobile figures are from archiver channels (not official); substantially understated.</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Carrier</th>
+            <th>Campaign</th>
+            <th>Month</th>
+            <th class="num">Total Views</th>
+            <th class="num">V/Day</th>
+            <th>Channel</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- iPhone ads -->
+          <tr><td colspan="6" style="background:#0f1318; color:var(--accent); font-size:0.65rem; font-weight:800; letter-spacing:.10em; text-transform:uppercase; padding:8px 12px;">iPhone 17 Campaign</td></tr>
+          <tr>
+            <td><span class="cdot" style="background:var(--att)"></span>AT&amp;T</td>
+            <td>Festival (NK8nmWqDMlE)</td><td>May '26</td>
+            <td class="num hi">141K</td><td class="num hi">17,564</td>
+            <td>Official</td>
+          </tr>
+          <tr>
+            <td><span class="cdot" style="background:var(--att)"></span>AT&amp;T</td>
+            <td>Launch Day (4oPBBg9vzRs)</td><td>Sep '25</td>
+            <td class="num hi">81K</td><td class="num hi">344</td>
+            <td>Official</td>
+          </tr>
+          <tr>
+            <td><span class="cdot" style="background:var(--att)"></span>AT&amp;T</td>
+            <td>iPhone 17e Launch (q-vA2bHhVw0)</td><td>Mar '26</td>
+            <td class="num mid">6.5K</td><td class="num mid">92</td>
+            <td>Official</td>
+          </tr>
+          <tr>
+            <td><span class="cdot" style="background:var(--xfn)"></span>Xfinity</td>
+            <td>Jan Campaign (cFYY0bOh8zQ)</td><td>Jan '26</td>
+            <td class="num hi">42K</td><td class="num hi">372</td>
+            <td>Official</td>
+          </tr>
+          <tr>
+            <td><span class="cdot" style="background:var(--tmo)"></span>T-Mobile</td>
+            <td>Super Bowl: Tell Me Why (whHB6_hP6xM)</td><td>Feb '26</td>
+            <td class="num lo">365</td><td class="num lo">4</td>
+            <td>Archiver †</td>
+          </tr>
+          <!-- Samsung ads -->
+          <tr><td colspan="6" style="background:#0f1318; color:#818cf8; font-size:0.65rem; font-weight:800; letter-spacing:.10em; text-transform:uppercase; padding:8px 12px;">Samsung Galaxy Campaign</td></tr>
+          <tr>
+            <td><span class="cdot" style="background:var(--vz)"></span>Verizon</td>
+            <td>A Better Deal (THSDY9n5BB8) ‡</td><td>Oct '25</td>
+            <td class="num hi">70M</td><td class="num hi">336,612</td>
+            <td>Official</td>
+          </tr>
+          <tr>
+            <td><span class="cdot" style="background:var(--tmo)"></span>T-Mobile</td>
+            <td>Better Over Here · Backstreet Boys (uXMJ3xI_WNs)</td><td>Feb '26</td>
+            <td class="num mid">197K</td><td class="num mid">2,028</td>
+            <td>Official</td>
+          </tr>
+          <tr>
+            <td><span class="cdot" style="background:var(--vz)"></span>Verizon</td>
+            <td>Ya Hear Us Now (iSo_xMhMz0Q)</td><td>Sep '25</td>
+            <td class="num mid">330K</td><td class="num mid">1,418</td>
+            <td>Official</td>
+          </tr>
+          <tr>
+            <td><span class="cdot" style="background:var(--xfn)"></span>Xfinity</td>
+            <td>Jurassic Park · Big Game (fnncIVKvJkg)</td><td>Feb '26</td>
+            <td class="num mid">598K</td><td class="num mid">5,752</td>
+            <td>Official</td>
+          </tr>
+          <tr>
+            <td><span class="cdot" style="background:var(--vz)"></span>Verizon</td>
+            <td>Galaxy S26 Ultra (4bZWkZPlvgU)</td><td>Mar '26</td>
+            <td class="num lo">4.7K</td><td class="num lo">78</td>
+            <td>Official</td>
+          </tr>
+          <tr>
+            <td><span class="cdot" style="background:var(--att)"></span>AT&amp;T</td>
+            <td>Floor Boy — S26 Ultra (vz71oMTKAZU)</td><td>Mar '26</td>
+            <td class="num lo">4K</td><td class="num lo">63</td>
+            <td>Archiver †</td>
+          </tr>
+          <tr>
+            <td><span class="cdot" style="background:var(--tmo)"></span>T-Mobile</td>
+            <td>Scales — S26 Ultra (ttSZAX2xbto)</td><td>Apr '26</td>
+            <td class="num lo">—</td><td class="num lo">3</td>
+            <td>Archiver †</td>
+          </tr>
+          <!-- Samsung direct -->
+          <tr><td colspan="6" style="background:#0f1318; color:#f59e0b; font-size:0.65rem; font-weight:800; letter-spacing:.10em; text-transform:uppercase; padding:8px 12px;">Samsung Direct (Own Channel — not carrier co-op)</td></tr>
+          <tr>
+            <td><span class="cdot" style="background:var(--sam)"></span>Samsung</td>
+            <td>Introducing Galaxy S26 Ultra (2gYqEi8-am4)</td><td>Feb '26</td>
+            <td class="num hi">54M</td><td class="num hi">669,913</td>
+            <td>Samsung</td>
+          </tr>
+          <tr>
+            <td><span class="cdot" style="background:var(--sam)"></span>Samsung</td>
+            <td>The Devil Wears Prada 2 (dHoVUajjwaM)</td><td>Feb '26</td>
+            <td class="num hi">30M</td><td class="num hi">1,171,202</td>
+            <td>Samsung</td>
+          </tr>
+          <tr>
+            <td><span class="cdot" style="background:var(--sam)"></span>Samsung</td>
+            <td>Privacy Display (VmY9nPrxEY8)</td><td>Feb '26</td>
+            <td class="num hi">24M</td><td class="num hi">298,252</td>
+            <td>Samsung</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.70rem;color:var(--muted);margin-top:8px;">
+      † Archiver channel: ad confirmed as aired on TV via iSpot but not uploaded to official carrier YouTube channel.
+      V/day is near-zero because archiver uploads receive no paid amplification.<br>
+      ‡ "A Better Deal" is a Verizon brand campaign, not a Samsung device co-op. Included for market context;
+      see carrier profiles below.
+    </p>
+  </div>
+
+  <!-- ── Carrier Profiles ── -->
+  <div class="section">
+    <div class="section-label">Carrier Strategy Profiles</div>
+    <h2>How Each Carrier Plays the Ad Game</h2>
+
+    <div class="profiles-grid" style="margin-bottom:20px">
+
+      <div class="profile-card">
+        <div class="profile-head" style="border-top:3px solid var(--att)">
+          <div class="profile-name"><span class="cdot" style="background:var(--att)"></span>AT&amp;T</div>
+          <div class="profile-ticker">T · Wireless + Fiber</div>
+        </div>
+        <div class="profile-body">
+          <div class="profile-row"><span class="pk">TV Spend Rank</span><span class="pv lo">#138</span></div>
+          <div class="profile-row"><span class="pk">TV Airings</span><span class="pv">6,192</span></div>
+          <div class="profile-row"><span class="pk">iPhone YouTube Peak</span><span class="pv green">17,564 v/d</span></div>
+          <div class="profile-row"><span class="pk">Samsung YouTube</span><span class="pv lo">63 v/d (archiver)</span></div>
+          <div class="profile-row"><span class="pk">Q1 2026 Phone Net Adds</span><span class="pv green">294K</span></div>
+          <div class="profile-row"><span class="pk">Strategy</span><span class="pv">iPhone-first, cross-channel</span></div>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-head" style="border-top:3px solid var(--tmo)">
+          <div class="profile-name"><span class="cdot" style="background:var(--tmo)"></span>T-Mobile</div>
+          <div class="profile-ticker">TMUS · Wireless + Fixed</div>
+        </div>
+        <div class="profile-body">
+          <div class="profile-row"><span class="pk">TV Spend Rank</span><span class="pv green">#8</span></div>
+          <div class="profile-row"><span class="pk">TV Airings</span><span class="pv green">14,519</span></div>
+          <div class="profile-row"><span class="pk">Samsung TV (Scales)</span><span class="pv green">3,179 airings</span></div>
+          <div class="profile-row"><span class="pk">iPhone TV (Go Grande)</span><span class="pv lo">21 airings</span></div>
+          <div class="profile-row"><span class="pk">Official YouTube</span><span class="pv lo">Near-zero both</span></div>
+          <div class="profile-row"><span class="pk">Q1 2026 Acct Net Adds</span><span class="pv">217K</span></div>
+          <div class="profile-row"><span class="pk">Strategy</span><span class="pv">TV-first, Samsung-heavy</span></div>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-head" style="border-top:3px solid var(--vz)">
+          <div class="profile-name"><span class="cdot" style="background:var(--vz)"></span>Verizon</div>
+          <div class="profile-ticker">VZ · Wireless + Fiber</div>
+        </div>
+        <div class="profile-body">
+          <div class="profile-row"><span class="pk">TV Spend Rank</span><span class="pv green">#5</span></div>
+          <div class="profile-row"><span class="pk">TV Airings</span><span class="pv">6,253</span></div>
+          <div class="profile-row"><span class="pk">Samsung TV Airings</span><span class="pv mid">1,095</span></div>
+          <div class="profile-row"><span class="pk">iPhone TV Airings</span><span class="pv mid">1,653</span></div>
+          <div class="profile-row"><span class="pk">Also Advertising</span><span class="pv amber">Google Pixel 10 Pro</span></div>
+          <div class="profile-row"><span class="pk">Q1 2026 Phone Net Adds</span><span class="pv mid">55K</span></div>
+          <div class="profile-row"><span class="pk">Strategy</span><span class="pv">Device-agnostic, TV brand</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout">
+      <strong>AT&T reads as the most disciplined:</strong> iPhone-first across both channels, consistent
+      creative cadence Sep–May, 294K Q1 phone net adds. Their Festival ad ran 1,500 TV airings
+      AND generated 141K YouTube views — the only carrier executing true cross-channel amplification
+      on a single creative.
+    </div>
+    <div class="callout amber" style="margin-top:12px">
+      <strong>T-Mobile's YouTube invisibility is a strategic choice, not an oversight:</strong>
+      They upload almost nothing to YouTube. Their 14,519 TV airings (Spend Rank #8) and
+      3,179 Samsung "Scales" spots are pure broadcast. YouTube analytics would never surface this.
+    </div>
+  </div>
+
+  <!-- ── The Samsung vs iPhone Split ── -->
+  <div class="section">
+    <div class="section-label">Device Strategy · Apple vs. Samsung by Carrier</div>
+    <h2>How Each Carrier Splits Spend Between Apple and Samsung</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Carrier</th>
+            <th>iPhone TV Airings</th>
+            <th>Samsung TV Airings</th>
+            <th>iPhone YouTube (peak v/d)</th>
+            <th>Samsung YouTube (peak v/d)</th>
+            <th>Device Lean</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label"><span class="cdot" style="background:var(--tmo)"></span>T-Mobile</td>
+            <td class="num lo">21</td>
+            <td class="num hi">6,033</td>
+            <td class="num lo">4 (archiver)</td>
+            <td class="num lo">3 (archiver)</td>
+            <td><strong style="color:#818cf8">Samsung TV</strong></td>
+          </tr>
+          <tr>
+            <td class="label"><span class="cdot" style="background:var(--att)"></span>AT&amp;T</td>
+            <td class="num hi">1,500+</td>
+            <td class="num lo">Not ranked</td>
+            <td class="num hi">17,564</td>
+            <td class="num lo">63 (archiver)</td>
+            <td><strong style="color:var(--att)">iPhone both channels</strong></td>
+          </tr>
+          <tr>
+            <td class="label"><span class="cdot" style="background:var(--vz)"></span>Verizon</td>
+            <td class="num mid">1,653</td>
+            <td class="num mid">1,095</td>
+            <td class="num mid">1,418</td>
+            <td class="num mid">336,612 ‡</td>
+            <td><strong style="color:var(--amber)">Device-agnostic</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.70rem;color:var(--muted);margin-top:8px;">
+      ‡ Verizon Samsung YouTube figure dominated by "A Better Deal" brand campaign (70M views), not a Samsung device co-op.
+      Adjusting for that, Verizon's Samsung YouTube co-op peak is ~1,418 v/d.
+    </p>
+  </div>
+
+  <!-- ── Q1 2026 Context ── -->
+  <div class="section">
+    <div class="section-label">Financial Context · Q1 2026 · Confirmed from SEC 8-K Filings</div>
+    <h2>Ad Intensity vs. Subscriber Outcome · Q1 2026</h2>
+    <p>AT&T led both iPhone YouTube velocity and TV airings in Q1 2026, and led net phone adds.
+       Correlation is not causation — pricing, network, promotions and churn all matter — but
+       the directional signal is consistent: AT&T's disciplined cross-channel iPhone campaign
+       coincided with the strongest subscriber quarter among the three.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Carrier</th>
+            <th>Q1 iPhone TV Airings</th>
+            <th>Q1 iPhone YouTube (v/d)</th>
+            <th>Q1 Postpaid Net Adds</th>
+            <th>YoY</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label"><span class="cdot" style="background:var(--att)"></span>AT&amp;T</td>
+            <td class="num hi">1,500 (Festival)</td>
+            <td class="num mid">~50 avg Jan–Mar</td>
+            <td class="num hi">294K phone adds</td>
+            <td class="hi">↑ Strong</td>
+          </tr>
+          <tr>
+            <td class="label"><span class="cdot" style="background:var(--tmo)"></span>T-Mobile</td>
+            <td class="num lo">21 (Go Grande)</td>
+            <td class="num lo">~4 (archiver)</td>
+            <td class="num mid">217K acct adds</td>
+            <td class="mid">↑ YoY</td>
+          </tr>
+          <tr>
+            <td class="label"><span class="cdot" style="background:var(--vz)"></span>Verizon</td>
+            <td class="num mid">1,498 (Mother's Day Hockey)</td>
+            <td class="num lo">~3 avg</td>
+            <td class="num lo">55K phone adds</td>
+            <td class="hi">↑ First positive Q1 since 2013</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.70rem;color:var(--muted);margin-top:8px;">
+      T-Mobile reports postpaid account adds; AT&T and Verizon report postpaid phone net adds.
+      Not directly comparable but directionally useful. Source: Q1 2026 8-K earnings releases filed April 2026.
+    </p>
+  </div>
+
+  <!-- ── Caveats ── -->
+  <div class="section">
+    <div class="section-label">Methodology &amp; Caveats</div>
+    <h2>What This Analysis Cannot Tell You</h2>
+    <ul class="caveat-list">
+      <li>YouTube view velocity is a proxy for paid amplification, not a direct spend measurement.
+          A high v/day suggests media buying behind the creative; it does not confirm a specific dollar figure.</li>
+      <li>T-Mobile's YouTube figures are from archiver channels, not official carrier uploads.
+          All T-Mobile YouTube velocity numbers should be treated as lower-bound estimates of true reach.</li>
+      <li>iSpot.tv airing counts reflect national placements tracked by iSpot's panel.
+          Local and regional buys may not be fully captured. The data window for each carrier may differ slightly.</li>
+      <li>Verizon "A Better Deal" (70M YouTube views) is a brand campaign, not a Samsung device co-op.
+          It is included in the Samsung tracker for market context but should not be cited as Samsung co-op spend.</li>
+      <li>Net subscriber adds are influenced by pricing, network quality, promotions, device launch timing,
+          and competitive actions — not advertising alone. Do not attribute subscriber outcomes to ad campaigns.</li>
+      <li>Xfinity Mobile and Spectrum Mobile do not report standalone phone net adds in their public filings.
+          Their iSpot data was not retrieved for this brief.</li>
+      <li>Samsung's own YouTube channel figures (54M, 30M, 24M views) represent Samsung's direct-to-consumer
+          media investment, not carrier co-op. Apple has no equivalent direct YouTube strategy.</li>
+    </ul>
+  </div>
+
+  <!-- ── Sources ── -->
+  <div class="section">
+    <div class="section-label">Data Sources</div>
+    <div class="source-chips">
+      <span class="schip">YouTube Data API v3</span>
+      <span class="schip">iSpot.tv brand pages</span>
+      <span class="schip">AT&T 8-K Q1 2026 (T-8K-Q1-2026-ex991)</span>
+      <span class="schip">T-Mobile 8-K Q1 2026 (TMUS-8K-Q1-2026-ex991)</span>
+      <span class="schip">Verizon 8-K Q1 2026 (VZ-8K-Q1-2026-ex99)</span>
+      <span class="schip">SIGINT iPhone Tracker (Sep 2025 – May 2026)</span>
+      <span class="schip">SIGINT Samsung Tracker (Sep 2025 – May 2026)</span>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  SIGINT Intelligence Platform &nbsp;·&nbsp; For institutional use; illustrative purposes only &nbsp;·&nbsp;
+  Data as of May 2026
+</footer>
+
+</body>
+</html>
