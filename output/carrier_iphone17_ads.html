@@ -177,7 +177,7 @@
 
 <header>
   <h1>Monthly iPhone Carrier TV Ad Tracker</h1>
-  <p>YouTube advertising · iPhone 17 (Sep 2025) → iPhone 17e (Mar 2026) · trusted channels only · click to watch</p>
+  <p>YouTube advertising · iPhone 17 lineup (Sep 2025 — ongoing; iPhone 17e adds-on Mar 2026) · click to watch</p>
   <div class="tickers">
     <span class="ticker" style="background:var(--tmo)">T-Mobile</span>
     <span class="ticker" style="background:var(--att)">AT&amp;T</span>
@@ -192,41 +192,71 @@
   <details class="explainer">
     <summary>What am I looking at?</summary>
     <div class="explainer-body">
-      <p>Each thumbnail is one YouTube ad. There are <strong>two numbers per ad</strong>, telling
-         <strong>two different stories</strong>:</p>
-      <p>
-        <strong>The badge</strong> (e.g., "2.3K", "70M") in the upper-left corner shows
-        <strong>total views since the ad was posted</strong>. Big number = lots of history; small number = new or unseen.
-        <br>
-        <strong>The bar below the thumbnail</strong> shows how fast the ad is <strong>still getting views per day right now</strong>
-        — our proxy for active paid amplification.
-      </p>
-      <p><strong>The bar uses a log scale</strong> because the range between ads is enormous — biggest is
-         <em>~300,000 views/day</em>, smallest is <em>~3 views/day</em>. That's a 100,000× spread. On a normal
-         (linear) bar chart, every ad except the biggest would look invisible. So instead, each step up in
-         bar height means <strong>10×</strong> more daily views — like a Richter scale.</p>
+      <p>Each cell in the matrix is one YouTube ad. Three visual elements per ad encode three different signals:</p>
+
+      <p><strong>1. The badge</strong> (upper-left corner of the thumbnail) — two things at once:</p>
+      <ul>
+        <li><strong>The badge text</strong> ("2.3K", "70M", "365") = <strong>total views</strong> the ad has accumulated since posted.</li>
+        <li><strong>The badge background color</strong> = <strong>velocity tier</strong>:
+          <span class="tier-hi">🟢 green</span> ≥100 v/day,
+          <span class="tier-mid">🟠 amber</span> 10–99 v/day,
+          <span class="tier-lo">⚫ slate</span> &lt;10 v/day.
+        </li>
+      </ul>
+
+      <p><strong>2. The bar</strong> (thin colored strip directly below the thumbnail) — also two things at once:</p>
+      <ul>
+        <li><strong>Bar color</strong> = <strong>which carrier owns the ad</strong>:
+          <span style="color:var(--tmo);font-weight:700">T-Mobile pink</span>,
+          <span style="color:var(--att);font-weight:700">AT&amp;T blue</span>,
+          <span style="color:var(--vz);font-weight:700">Verizon red</span>,
+          <span style="color:var(--xfn);font-weight:700">Xfinity purple</span>,
+          <span style="color:var(--spc);font-weight:700">Spectrum blue</span>.
+          The color matches the row label on the left.
+        </li>
+        <li><strong>Bar height</strong> = <strong>how fast the ad is still getting views per day right now</strong> — our proxy for active paid amplification.</li>
+      </ul>
+
+      <p><strong>3. The thumbnail image</strong> = the ad creative itself. Click to watch on YouTube.</p>
+
+      <p><strong>Why the bar height uses a log scale:</strong> the range between ads is enormous — biggest is
+         <em>~17,000 v/day</em> (AT&amp;T "Festival" at launch peak), smallest is <em>~3 v/day</em>.
+         That's a 5,000× spread. On a linear bar chart, every ad except the biggest would look invisible.
+         So each step up in bar height means <strong>10× more daily views</strong> — like a Richter scale.</p>
+
       <table>
-        <thead><tr><th>Bar size</th><th>Roughly means</th><th>Color tier</th></tr></thead>
+        <thead><tr><th>Bar height</th><th>Roughly means</th></tr></thead>
         <tbody>
-          <tr><td>tiny (~2px)</td><td>a few views/day · basically organic noise</td><td class="tier-lo">⚪ Gray (lo)</td></tr>
-          <tr><td>short (~3–4px)</td><td>~10 views/day</td><td class="tier-mid">🟠 Amber (mid)</td></tr>
-          <tr><td>medium (~5px)</td><td>~100 views/day</td><td class="tier-hi">🟢 Green (hi)</td></tr>
-          <tr><td>tall (~7px)</td><td>~1,000 views/day</td><td class="tier-hi">🟢 Green (hi)</td></tr>
-          <tr><td>maxed (~9px)</td><td>10,000+ views/day · heavy paid push</td><td class="tier-hi">🟢 Green (hi)</td></tr>
+          <tr><td>tiny (~2px)</td><td>a few views/day · basically organic noise</td></tr>
+          <tr><td>short (~3–4px)</td><td>~10 views/day</td></tr>
+          <tr><td>medium (~5px)</td><td>~100 views/day</td></tr>
+          <tr><td>tall (~7px)</td><td>~1,000 views/day</td></tr>
+          <tr><td>maxed (~9px)</td><td>10,000+ views/day · heavy paid push</td></tr>
         </tbody>
       </table>
+
       <p>A 5-pixel bar isn't "a bit more than" a 3-pixel bar — it's <strong>100× more daily activity</strong>.</p>
-      <p><strong>Example to read:</strong> a T-Mobile ad posted in October with "2.3K" badge and an amber-tier bar means
-         <em>2,300 total views since October</em> AND <em>~11 views/day right now</em> (because amber = 10–99 v/day).</p>
-      <p><strong>T-Mobile caveat:</strong> almost all T-Mobile iPhone YouTube data comes from <em>archiver channels</em>
-         (third-party uploaders), not T-Mobile's official channel. T-Mobile doesn't upload iPhone ads to YouTube —
-         their iPhone push is on TV only. So T-Mobile bars understate true reach.</p>
+
+      <p><strong>Example reading.</strong> A T-Mobile ad posted in October 2025 with a "2.3K" badge on an
+         <em>amber</em> background, and a short pink bar:
+         <em>pink bar</em> = T-Mobile carrier,
+         <em>"2.3K" text</em> = 2,300 total views since October,
+         <em>amber badge background</em> = currently getting 10–99 views/day (it's at ~11),
+         <em>short bar height</em> = reflects that low v/day on the log scale.</p>
+
+      <p><strong>Total views vs velocity tell different stories.</strong> Total views (badge text) = how big it got
+         over its lifetime. Velocity (bar height + badge color) = how fast it's still being pushed <em>right now</em>.
+         An old ad can have a huge total but a tiny bar (peak passed). A new ad can have a small total but a tall bar
+         (just launched, heavy spend).</p>
+
+      <p><strong>T-Mobile caveat:</strong> most T-Mobile iPhone YouTube data comes from <em>archiver channels</em>
+         (third-party uploaders), not T-Mobile's official channel. T-Mobile barely uploads iPhone ads to YouTube —
+         their iPhone push is TV-only. T-Mobile bars systematically understate true reach.</p>
     </div>
   </details>
 
   <div class="legend">
-    <div class="legend-item"><div class="legend-box" style="background:var(--hdr17)"></div>iPhone 17 era (Sep 2025–Feb 2026)</div>
-    <div class="legend-item"><div class="legend-box" style="background:#6d28d9"></div>iPhone 17e era (Mar 2026 onwards)</div>
+    <div class="legend-item"><div class="legend-box" style="background:var(--hdr17)"></div>iPhone 17 lineup era (Sep 2025 — ongoing; iPhone 17e launched as a budget sibling in Mar 2026)</div>
   </div>
 
   <div class="vel-legend">
@@ -247,9 +277,9 @@
   <div class="mh era17"><div class="mh-label">Dec 2025</div><div class="mh-sub">Holiday push</div></div>
   <div class="mh era17"><div class="mh-label">Jan 2026</div><div class="mh-sub">&nbsp;</div></div>
   <div class="mh era17"><div class="mh-label">Feb 2026</div><div class="mh-sub">Super Bowl</div></div>
-  <div class="mh era17e"><div class="mh-label">Mar 2026</div><div class="mh-sub">iPhone 17e launch</div></div>
-  <div class="mh era17e"><div class="mh-label">Apr 2026</div><div class="mh-sub">&nbsp;</div></div>
-  <div class="mh era17e"><div class="mh-label">May 2026</div><div class="mh-sub">&nbsp;</div></div>
+  <div class="mh era17"><div class="mh-label">Mar 2026</div><div class="mh-sub">+ iPhone 17e adds-on</div></div>
+  <div class="mh era17"><div class="mh-label">Apr 2026</div><div class="mh-sub">&nbsp;</div></div>
+  <div class="mh era17"><div class="mh-label">May 2026</div><div class="mh-sub">&nbsp;</div></div>
 
   <!-- ══════════ T-MOBILE ══════════ -->
   <div class="cl"><div class="cl-dot" style="background:var(--tmo)"></div><div class="cl-name">T-Mobile</div><div class="cl-count">9 ads</div></div>

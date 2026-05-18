@@ -29,8 +29,8 @@
   }
 
   /* ── Header ── */
-  header { background: var(--ink); padding: 40px 48px 38px; }
-  .header-inner { max-width: 1040px; margin: 0 auto; }
+  header { background: var(--ink); padding: 36px 48px 32px; }
+  .header-inner { max-width: 1380px; margin: 0 auto; padding: 0 32px; }
   header h1 {
     font-size: 1.7rem; font-weight: 800; color: #fff;
     letter-spacing: -0.02em;
@@ -45,8 +45,47 @@
     padding: 2px 9px; border-radius: 3px; letter-spacing: 0.05em;
   }
 
-  /* ── Main ── */
-  main { max-width: 1040px; margin: 0 auto; padding: 44px 32px 80px; }
+  /* ── Main layout: sidenav + content ── */
+  main {
+    max-width: 1380px; margin: 0 auto; padding: 36px 32px 80px;
+    display: grid; grid-template-columns: 230px 1fr; gap: 32px; align-items: start;
+  }
+  @media (max-width: 980px) {
+    main { grid-template-columns: 1fr; gap: 18px; }
+    .sidenav { position: static !important; }
+  }
+
+  /* ── Sidenav (left rail) ── */
+  .sidenav { position: sticky; top: 20px; align-self: start; }
+  .sidenav-h {
+    font-size: 0.58rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray3); padding: 0 14px 10px;
+  }
+  .snav-list { display: flex; flex-direction: column; gap: 2px; }
+  .snav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 8px;
+    text-decoration: none; color: var(--gray1);
+    border-left: 3px solid transparent;
+    transition: background 0.12s, border-color 0.12s, color 0.12s;
+  }
+  .snav-item:hover {
+    background: var(--card); border-left-color: var(--accent); color: var(--ink);
+    text-decoration: none;
+  }
+  .snav-item .sicon { font-size: 1.05rem; line-height: 1; flex-shrink: 0; }
+  .snav-item .sbody { flex: 1; min-width: 0; }
+  .snav-item .sname {
+    font-size: 0.76rem; font-weight: 700; color: var(--ink); line-height: 1.2;
+  }
+  .snav-item.is-soon .sname { color: var(--gray2); font-weight: 600; }
+  .snav-pill {
+    font-size: 0.48rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.08em; padding: 1px 5px; border-radius: 8px;
+    flex-shrink: 0;
+  }
+  .snav-pill.live { background: var(--green-light); color: var(--green); }
+  .snav-pill.soon { background: #edf2f7; color: var(--gray3); }
 
   /* ── Three-column grid (wraps to 2 rows for 6 panels) ── */
   .trio {
@@ -55,8 +94,10 @@
     gap: 22px;
     align-items: start;
   }
-  @media (max-width: 1000px) { .trio { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 1200px) { .trio { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 700px)  { .trio { grid-template-columns: 1fr; } }
+
+  .panel { scroll-margin-top: 24px; }
 
   /* ── Panel card ── */
   .panel {
@@ -188,10 +229,48 @@
 </header>
 
 <main>
+
+  <!-- ── Left sidenav ── -->
+  <aside class="sidenav">
+    <div class="sidenav-h">Trackers</div>
+    <nav class="snav-list">
+      <a class="snav-item" href="#promotion">
+        <span class="sicon">📊</span>
+        <div class="sbody"><div class="sname">Promotion Game</div></div>
+        <span class="snav-pill live">Live</span>
+      </a>
+      <a class="snav-item" href="#ads">
+        <span class="sicon">📱</span>
+        <div class="sbody"><div class="sname">Ad Tracker</div></div>
+        <span class="snav-pill live">Live</span>
+      </a>
+      <a class="snav-item" href="#mvno">
+        <span class="sicon">📶</span>
+        <div class="sbody"><div class="sname">MVNO &amp; Wholesale</div></div>
+        <span class="snav-pill live">Live</span>
+      </a>
+      <a class="snav-item" href="#ma">
+        <span class="sicon">🤝</span>
+        <div class="sbody"><div class="sname">M&amp;A &amp; Deals</div></div>
+        <span class="snav-pill live">Live</span>
+      </a>
+      <a class="snav-item is-soon" href="#fiber">
+        <span class="sicon">🌐</span>
+        <div class="sbody"><div class="sname">Fiber &amp; Convergence</div></div>
+        <span class="snav-pill soon">Soon</span>
+      </a>
+      <a class="snav-item is-soon" href="#spectrum">
+        <span class="sicon">📡</span>
+        <div class="sbody"><div class="sname">Spectrum Holdings</div></div>
+        <span class="snav-pill soon">Soon</span>
+      </a>
+    </nav>
+  </aside>
+
   <div class="trio">
 
     <!-- ── 1. The Promotion Game ── -->
-    <div class="panel">
+    <div class="panel" id="promotion">
       <div class="panel-head">
         <div class="panel-top">
           <div class="panel-eyebrow">Financial Intelligence</div>
@@ -244,7 +323,7 @@
     </div>
 
     <!-- ── 2. Monthly Carrier TV Ad Tracker ── -->
-    <div class="panel">
+    <div class="panel" id="ads">
       <div class="panel-head">
         <div class="panel-top">
           <div class="panel-eyebrow">Advertising Intelligence</div>
@@ -299,7 +378,7 @@
     </div>
 
     <!-- ── 3. MVNO & Wholesale Tracker ── -->
-    <div class="panel">
+    <div class="panel" id="mvno">
       <div class="panel-head">
         <div class="panel-top">
           <div class="panel-eyebrow">Distribution Intelligence</div>
@@ -347,7 +426,7 @@
     </div>
 
     <!-- ── 4. M&A & Strategic Deals Tracker ── -->
-    <div class="panel">
+    <div class="panel" id="ma">
       <div class="panel-head">
         <div class="panel-top">
           <div class="panel-eyebrow">Strategic Intelligence</div>
@@ -396,7 +475,7 @@
     </div>
 
     <!-- ── 5. Fiber & Convergence Tracker ── -->
-    <div class="panel dimmed">
+    <div class="panel dimmed" id="fiber">
       <div class="panel-head">
         <div class="panel-top">
           <div class="panel-eyebrow">Convergence Intelligence</div>
@@ -445,7 +524,7 @@
     </div>
 
     <!-- ── 6. Spectrum Holdings Tracker ── -->
-    <div class="panel dimmed">
+    <div class="panel dimmed" id="spectrum">
       <div class="panel-head">
         <div class="panel-top">
           <div class="panel-eyebrow">Spectrum Intelligence</div>

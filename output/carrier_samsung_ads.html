@@ -125,33 +125,55 @@
 <details class="explainer">
   <summary>What am I looking at?</summary>
   <div class="explainer-body">
-    <p>Each thumbnail is one YouTube ad. There are <strong>two numbers per ad</strong>, telling
-       <strong>two different stories</strong>:</p>
-    <p>
-      <strong>The badge</strong> (e.g., "330K", "70M") in the upper-left shows
-      <strong>total views since the ad was posted</strong>. Big number = lots of history; small number = new.
-      <br>
-      <strong>The bar below the thumbnail</strong> shows how fast the ad is <strong>still getting views per day right now</strong>
-      — our proxy for active paid amplification.
-    </p>
-    <p><strong>The bar uses a log scale</strong> because the range between ads is enormous —
-       biggest is <em>~336,000 views/day</em> (Verizon "A Better Deal"), smallest is <em>~3 views/day</em>.
-       That's a 100,000× spread. So each step up in bar height means <strong>10×</strong> more daily views —
-       like a Richter scale.</p>
+    <p>Each cell in the matrix is one YouTube ad. Three visual elements per ad encode three different signals:</p>
+
+    <p><strong>1. The badge</strong> (upper-left corner of the thumbnail) — two things at once:</p>
+    <ul>
+      <li><strong>The badge text</strong> ("330K", "70M", "3") = <strong>total views</strong> the ad has accumulated since posted.</li>
+      <li><strong>The badge background color</strong> = <strong>velocity tier</strong>:
+        <span class="tier-hi">🟢 green</span> ≥100 v/day,
+        <span class="tier-mid">🟠 amber</span> 10–99 v/day,
+        <span class="tier-lo">⚫ slate</span> &lt;10 v/day.
+      </li>
+    </ul>
+
+    <p><strong>2. The bar</strong> (thin colored strip directly below the thumbnail) — also two things at once:</p>
+    <ul>
+      <li><strong>Bar color</strong> = <strong>which carrier owns the ad</strong>:
+        <span style="color:var(--tmo);font-weight:700">T-Mobile pink</span>,
+        <span style="color:var(--att);font-weight:700">AT&amp;T blue</span>,
+        <span style="color:var(--vz);font-weight:700">Verizon red</span>,
+        <span style="color:var(--xfn);font-weight:700">Xfinity purple</span>,
+        <span style="color:var(--spc);font-weight:700">Spectrum blue</span>.
+        Matches the row label on the left.
+      </li>
+      <li><strong>Bar height</strong> = <strong>how fast the ad is still getting views per day right now</strong> — proxy for active paid amplification.</li>
+    </ul>
+
+    <p><strong>3. The thumbnail image</strong> = the ad creative itself. Click to watch on YouTube.</p>
+
+    <p><strong>Why the bar height uses a log scale:</strong> the range between ads is enormous —
+       biggest is <em>~336,000 v/day</em> (Verizon "A Better Deal"), smallest is <em>~3 v/day</em>.
+       That's a 100,000× spread. On a linear bar chart, every ad except the biggest would look invisible.
+       So each step up in bar height means <strong>10× more daily views</strong> — like a Richter scale.</p>
+
     <table>
-      <thead><tr><th>Bar size</th><th>Roughly means</th><th>Color tier</th></tr></thead>
+      <thead><tr><th>Bar height</th><th>Roughly means</th></tr></thead>
       <tbody>
-        <tr><td>tiny (~2px)</td><td>a few views/day · basically organic noise</td><td class="tier-lo">⚪ Gray (lo)</td></tr>
-        <tr><td>short (~3–4px)</td><td>~10 views/day</td><td class="tier-mid">🟠 Amber (mid)</td></tr>
-        <tr><td>medium (~5px)</td><td>~100 views/day</td><td class="tier-hi">🟢 Green (hi)</td></tr>
-        <tr><td>tall (~7px)</td><td>~1,000 views/day</td><td class="tier-hi">🟢 Green (hi)</td></tr>
-        <tr><td>maxed (~9px)</td><td>10,000+ views/day · heavy paid push</td><td class="tier-hi">🟢 Green (hi)</td></tr>
+        <tr><td>tiny (~2px)</td><td>a few views/day · basically organic noise</td></tr>
+        <tr><td>short (~3–4px)</td><td>~10 views/day</td></tr>
+        <tr><td>medium (~5px)</td><td>~100 views/day</td></tr>
+        <tr><td>tall (~7px)</td><td>~1,000 views/day</td></tr>
+        <tr><td>maxed (~9px)</td><td>10,000+ views/day · heavy paid push</td></tr>
       </tbody>
     </table>
+
     <p>A 5-pixel bar isn't "a bit more than" a 3-pixel bar — it's <strong>100× more daily activity</strong>.</p>
+
     <p><strong>Why Samsung is so sparse:</strong> T-Mobile runs huge Samsung TV campaigns (3,179 airings of "Scales")
        but uploads almost nothing to YouTube. Verizon and AT&amp;T have similar gaps. The empty cells are the
        intelligence finding — carrier Samsung co-op is structurally TV-first.</p>
+
     <p><strong>The Verizon "A Better Deal" anomaly:</strong> the 70M-view amber-outlined ad is a Verizon
        <em>brand</em> campaign, not a Samsung device co-op. It surfaced in our Samsung search because
        Samsung phones appear briefly in the spot. Included for market context, flagged with amber outline.</p>
