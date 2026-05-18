@@ -106,17 +106,18 @@
            border: 1px dashed #d0d7df; font-size: 0.46rem; color: #c0c8d4; }
 
   /* ── Carry-forward (ad started in prior month, still running) ── */
-  .th.carry-fwd { opacity: 0.62; border-style: dashed; border-color: #cbd5e0; }
-  .th.carry-fwd img { filter: saturate(0.55) brightness(0.95); }
+  .th.carry-fwd { opacity: 0.82; border: 1px dashed #94a3b8; }
+  .th.carry-fwd img { filter: saturate(0.75); }
   .th.carry-fwd::before {
-    content: '↪ cont.';
+    content: '↪ CONT.';
     position: absolute; top: 3px; right: 3px;
-    font-size: 0.50rem; font-weight: 800;
-    background: rgba(40,40,40,0.88); color: #fff;
+    font-size: 0.52rem; font-weight: 800;
+    background: #0f172a; color: #fbbf24;
     padding: 2px 6px; border-radius: 3px;
-    pointer-events: none; z-index: 2; letter-spacing: 0.05em;
+    pointer-events: none; z-index: 2; letter-spacing: 0.08em;
+    border: 1px solid #fbbf24;
   }
-  .th.carry-fwd .th-date { font-style: italic; color: var(--gray2); }
+  .th.carry-fwd .th-date { font-style: italic; color: var(--gray1); font-weight: 600; }
 
   /* ── TV-only (iSpot confirms airings, no YouTube upload) ── */
   .tv-only {
@@ -387,10 +388,14 @@
     <a class="th" href="https://youtube.com/watch?v=0H3Mw8_ggUM" target="_blank" rel="noopener" title="USA | MALUMA NEW IPHONE 17 PRO | VERIZON 2025 COMERCIAL LATINO">
       <div class="vbadge mid"><div class="v-top">8.5K</div><div class="v-bot">36/d</div></div><img src="https://i.ytimg.com/vi/0H3Mw8_ggUM/hqdefault.jpg" loading="lazy" alt=""><div class="th-date">Sep 21 · Maluma (Latino)</div></a>
   </div>
-  <!-- Oct (Sep launch ads continuing) -->
+  <!-- Oct (no new VZ iPhone YT upload — Sep launch ads continued on TV. VZ Oct YT push was 'A Better Deal' brand, no iPhone) -->
   <div class="mc">
-    <a class="th carry-fwd" href="https://youtube.com/watch?v=vapM_XL6Frw" target="_blank" rel="noopener" title="Sep launch ad continuing into Oct — Kevin Hart iPhone 17 Pro">
-      <div class="vbadge mid"><div class="v-top">14.9K</div><div class="v-bot">65/d</div></div><img src="https://i.ytimg.com/vi/vapM_XL6Frw/hqdefault.jpg" loading="lazy" alt=""><div class="th-date">↪ Sep · Kevin Hart cont.</div></a>
+    <a class="th carry-fwd" href="https://youtube.com/watch?v=KAxDHhkb4bw" target="_blank" rel="noopener" title="Sep ad still running on TV through Oct — Kevin Hart #1">
+      <div class="vbadge lo"><div class="v-top">436</div><div class="v-bot">2/d</div></div><img src="https://i.ytimg.com/vi/KAxDHhkb4bw/hqdefault.jpg" loading="lazy" alt=""><div class="th-date">↪ Sep · Kevin Hart #1</div></a>
+    <a class="th carry-fwd" href="https://youtube.com/watch?v=vapM_XL6Frw" target="_blank" rel="noopener" title="Sep ad still running on TV through Oct — Kevin Hart #2">
+      <div class="vbadge mid"><div class="v-top">14.9K</div><div class="v-bot">65/d</div></div><img src="https://i.ytimg.com/vi/vapM_XL6Frw/hqdefault.jpg" loading="lazy" alt=""><div class="th-date">↪ Sep · Kevin Hart #2</div></a>
+    <a class="th carry-fwd" href="https://youtube.com/watch?v=0H3Mw8_ggUM" target="_blank" rel="noopener" title="Sep ad still running on TV through Oct — Maluma Latino">
+      <div class="vbadge mid"><div class="v-top">8.5K</div><div class="v-bot">36/d</div></div><img src="https://i.ytimg.com/vi/0H3Mw8_ggUM/hqdefault.jpg" loading="lazy" alt=""><div class="th-date">↪ Sep · Maluma cont.</div></a>
   </div>
   <!-- Nov -->
   <div class="mc">
