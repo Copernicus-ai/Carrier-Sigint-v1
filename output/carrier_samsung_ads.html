@@ -57,10 +57,13 @@
   .th-date{font-size:0.52rem;color:var(--muted);padding:3px 5px;line-height:1.3;background:var(--card)}
   .archiver-note{font-size:0.48rem;color:#92400e;background:#451a03;padding:1px 4px;text-align:center}
 
-  .vbadge{position:absolute;top:3px;left:3px;font-size:0.44rem;font-weight:800;
-    letter-spacing:.03em;padding:1px 5px;border-radius:2px;line-height:1.5;pointer-events:none}
-  .hi{background:rgba(0,160,70,.92);color:#fff}
-  .mid{background:rgba(217,119,6,.92);color:#fff}
+  .vbadge{position:absolute;top:3px;left:3px;font-weight:800;letter-spacing:.02em;
+    padding:3px 6px;border-radius:3px;line-height:1.0;pointer-events:none;
+    display:flex;flex-direction:column;gap:2px;align-items:flex-start}
+  .vbadge .v-top{font-size:0.62rem}
+  .vbadge .v-bot{font-size:0.52rem;opacity:0.95;font-weight:700}
+  .hi{background:rgba(0,160,70,.94);color:#fff}
+  .mid{background:rgba(217,119,6,.94);color:#fff}
   .lo{background:rgba(100,116,139,.95);color:#fff}
 
   .brand-badge{position:absolute;bottom:22px;right:3px;font-size:0.42rem;font-weight:800;
@@ -125,50 +128,27 @@
 <details class="explainer">
   <summary>What am I looking at?</summary>
   <div class="explainer-body">
-    <p>Each cell in the matrix is one YouTube ad. Three visual elements per ad encode three different signals:</p>
+    <p>Each cell in the matrix is one YouTube ad. All the data lives in <strong>the corner badge</strong>
+       in the upper-left of each thumbnail. The badge encodes three things at once:</p>
 
-    <p><strong>1. The badge</strong> (upper-left corner of the thumbnail) — two things at once:</p>
-    <ul>
-      <li><strong>The badge text</strong> ("330K", "70M", "3") = <strong>total views</strong> the ad has accumulated since posted.</li>
-      <li><strong>The badge background color</strong> = <strong>velocity tier</strong>:
-        <span class="tier-hi">🟢 green</span> ≥100 v/day,
-        <span class="tier-mid">🟠 amber</span> 10–99 v/day,
-        <span class="tier-lo">⚫ slate</span> &lt;10 v/day.
+    <ol>
+      <li><strong>Top number</strong> ("330K", "70M", "365") = <strong>total views</strong> the ad has accumulated since posted.</li>
+      <li><strong>Bottom number</strong> ("336K/d", "11/d", "&lt;1/d") = <strong>current views per day right now</strong> — our proxy for active paid amplification.</li>
+      <li><strong>Background color</strong> = velocity tier:
+        <span class="tier-hi">🟢 green</span> ≥100 v/day (actively amplified),
+        <span class="tier-mid">🟠 amber</span> 10–99 v/day (moderate),
+        <span class="tier-lo">⚫ slate</span> &lt;10 v/day (essentially organic).
       </li>
-    </ul>
+    </ol>
 
-    <p><strong>2. The bar</strong> (thin colored strip directly below the thumbnail) — also two things at once:</p>
-    <ul>
-      <li><strong>Bar color</strong> = <strong>which carrier owns the ad</strong>:
-        <span style="color:var(--tmo);font-weight:700">T-Mobile pink</span>,
-        <span style="color:var(--att);font-weight:700">AT&amp;T blue</span>,
-        <span style="color:var(--vz);font-weight:700">Verizon red</span>,
-        <span style="color:var(--xfn);font-weight:700">Xfinity purple</span>,
-        <span style="color:var(--spc);font-weight:700">Spectrum blue</span>.
-        Matches the row label on the left.
-      </li>
-      <li><strong>Bar height</strong> = <strong>how fast the ad is still getting views per day right now</strong> — proxy for active paid amplification.</li>
-    </ul>
+    <p><strong>Which carrier?</strong> Check the row label on the left (T-Mobile, AT&amp;T, Verizon, Xfinity, Spectrum).
+       <strong>Click any thumbnail</strong> to watch on YouTube.</p>
 
-    <p><strong>3. The thumbnail image</strong> = the ad creative itself. Click to watch on YouTube.</p>
-
-    <p><strong>Why the bar height uses a log scale:</strong> the range between ads is enormous —
-       biggest is <em>~336,000 v/day</em> (Verizon "A Better Deal"), smallest is <em>~3 v/day</em>.
-       That's a 100,000× spread. On a linear bar chart, every ad except the biggest would look invisible.
-       So each step up in bar height means <strong>10× more daily views</strong> — like a Richter scale.</p>
-
-    <table>
-      <thead><tr><th>Bar height</th><th>Roughly means</th></tr></thead>
-      <tbody>
-        <tr><td>tiny (~2px)</td><td>a few views/day · basically organic noise</td></tr>
-        <tr><td>short (~3–4px)</td><td>~10 views/day</td></tr>
-        <tr><td>medium (~5px)</td><td>~100 views/day</td></tr>
-        <tr><td>tall (~7px)</td><td>~1,000 views/day</td></tr>
-        <tr><td>maxed (~9px)</td><td>10,000+ views/day · heavy paid push</td></tr>
-      </tbody>
-    </table>
-
-    <p>A 5-pixel bar isn't "a bit more than" a 3-pixel bar — it's <strong>100× more daily activity</strong>.</p>
+    <p><strong>What is "co-op"?</strong> Cooperative advertising — when a wireless carrier and a phone manufacturer
+       share the cost of an ad. The carrier runs the spot; the manufacturer (Samsung, Apple) co-funds part of the
+       media buy and provides product/talent assets. So "Samsung co-op" means a carrier ad that features Samsung
+       phones, typically with Samsung's marketing budget partially behind it. Distinct from a carrier
+       <em>brand</em> ad (like Verizon "A Better Deal") that doesn't feature any specific device.</p>
 
     <p><strong>Why Samsung is so sparse:</strong> T-Mobile runs huge Samsung TV campaigns (3,179 airings of "Scales")
        but uploads almost nothing to YouTube. Verizon and AT&amp;T have similar gaps. The empty cells are the
@@ -186,11 +166,11 @@
     <span class="era s26">&#9632; Galaxy S26 era · Jan–May 2026</span>
   </div>
   <div class="vel-legend">
-    <span class="lbl">Bar height = v/day (log):</span>
-    <span class="vel-swatch hi-s">&#9632; ≥100 v/d</span>
-    <span class="vel-swatch mid-s">&#9632; 10–99 v/d</span>
-    <span class="vel-swatch lo-s">&#9632; &lt;10 v/d</span>
-    <span class="vel-note">· Same scale as iPhone tracker · Compare side-by-side</span>
+    <span class="lbl">Badge color = v/day tier:</span>
+    <span class="vel-swatch hi-s">&#9632; ≥100 v/d (green)</span>
+    <span class="vel-swatch mid-s">&#9632; 10–99 v/d (amber)</span>
+    <span class="vel-swatch lo-s">&#9632; &lt;10 v/d (slate)</span>
+    <span class="vel-note">· Badge shows total views (top) + v/day (bottom) · Same tiers as iPhone tracker</span>
   </div>
   <div class="matrix">
     <div class="corner"></div>
@@ -201,9 +181,8 @@
 <div class="cell"><div class=th-empty></div></div>
 <div class="cell"><div class=th-empty></div></div>
 <div class="cell"><a class="th" href="https://youtube.com/watch?v=uXMJ3xI_WNs" target="_blank" rel="noopener" title="Better Over Here · Backstreet Boys">
-  <div class="vbadge hi">196.8K</div>
+  <div class="vbadge hi"><div class="v-top">196.8K</div><div class="v-bot">2K/d</div></div>
   <img src="https://i.ytimg.com/vi/uXMJ3xI_WNs/hqdefault.jpg" loading="lazy" alt="">
-  <div class="th-bar" style="background:var(--tmo); height:7.5px"></div>
   <div class="th-date">Better Over Here · Backstree</div>
 </a></div>
 <div class="cell"><div class=th-empty></div></div>
@@ -217,18 +196,16 @@
 <div class="cell"><div class=th-empty></div></div>
 <div class="cell"><div class=th-empty></div></div>
 <div class="cell"><a class="th" href="https://youtube.com/watch?v=vz71oMTKAZU" target="_blank" rel="noopener" title="Galaxy S26 Ultra · Floor Boy">
-  <div class="vbadge mid">4.0K</div>
+  <div class="vbadge mid"><div class="v-top">4K</div><div class="v-bot">63/d</div></div>
   <img src="https://i.ytimg.com/vi/vz71oMTKAZU/hqdefault.jpg" loading="lazy" alt="">
-  <div class="th-bar" style="background:var(--att); height:5.0px"></div>
   <div class="archiver-note">archiver ch.</div><div class="th-date">Galaxy S26 Ultra · Floor Boy</div>
 </a></div>
 <div class="cell"><div class=th-empty></div></div>
 <div class="cell"><div class=th-empty></div></div>
 </div>
 <div class="row"><div class="carrier-label" style="color:#CD040B">Verizon</div><div class="cell"><a class="th" href="https://youtube.com/watch?v=iSo_xMhMz0Q" target="_blank" rel="noopener" title="Ya Hear Us Now">
-  <div class="vbadge hi">330.4K</div>
+  <div class="vbadge hi"><div class="v-top">330.4K</div><div class="v-bot">1.4K/d</div></div>
   <img src="https://i.ytimg.com/vi/iSo_xMhMz0Q/hqdefault.jpg" loading="lazy" alt="">
-  <div class="th-bar" style="background:var(--vz); height:7.2px"></div>
   <div class="th-date">Ya Hear Us Now</div>
 </a></div>
 <div class="cell"><a class="th brand-ad" href="https://youtube.com/watch?v=THSDY9n5BB8" target="_blank" rel="noopener" title="A Better Deal ·  brand campaign">
@@ -238,18 +215,16 @@
   <div class="th-date">A Better Deal ·  brand campa</div>
 </a></div>
 <div class="cell"><a class="th" href="https://youtube.com/watch?v=vSELQ_GGK2w" target="_blank" rel="noopener" title="McCarthy · Holiday">
-  <div class="vbadge hi">22.4K</div>
+  <div class="vbadge hi"><div class="v-top">22.4K</div><div class="v-bot">118/d</div></div>
   <img src="https://i.ytimg.com/vi/vSELQ_GGK2w/hqdefault.jpg" loading="lazy" alt="">
-  <div class="th-bar" style="background:var(--vz); height:5.4px"></div>
   <div class="th-date">McCarthy · Holiday</div>
 </a></div>
 <div class="cell"><div class=th-empty></div></div>
 <div class="cell"><div class=th-empty></div></div>
 <div class="cell"><div class=th-empty></div></div>
 <div class="cell"><a class="th" href="https://youtube.com/watch?v=4bZWkZPlvgU" target="_blank" rel="noopener" title="Galaxy S26 Ultra · co-op">
-  <div class="vbadge mid">4.7K</div>
+  <div class="vbadge mid"><div class="v-top">4.8K</div><div class="v-bot">78/d</div></div>
   <img src="https://i.ytimg.com/vi/4bZWkZPlvgU/hqdefault.jpg" loading="lazy" alt="">
-  <div class="th-bar" style="background:var(--vz); height:5.1px"></div>
   <div class="th-date">Galaxy S26 Ultra · co-op</div>
 </a></div>
 <div class="cell"><div class=th-empty></div></div>
@@ -258,17 +233,15 @@
 <div class="row"><div class="carrier-label" style="color:#6B46C1">Xfinity Mobile</div><div class="cell"><div class=th-empty></div></div>
 <div class="cell"><div class=th-empty></div></div>
 <div class="cell"><a class="th" href="https://youtube.com/watch?v=HJcCfk7FWPg" target="_blank" rel="noopener" title="Rabbits :30">
-  <div class="vbadge hi">29.4K</div>
+  <div class="vbadge hi"><div class="v-top">29.4K</div><div class="v-bot">163/d</div></div>
   <img src="https://i.ytimg.com/vi/HJcCfk7FWPg/hqdefault.jpg" loading="lazy" alt="">
-  <div class="th-bar" style="background:var(--xfn); height:5.6px"></div>
   <div class="th-date">Rabbits :30</div>
 </a></div>
 <div class="cell"><div class=th-empty></div></div>
 <div class="cell"><div class=th-empty></div></div>
 <div class="cell"><a class="th" href="https://youtube.com/watch?v=fnncIVKvJkg" target="_blank" rel="noopener" title="Jurassic Park · Big Game">
-  <div class="vbadge hi">598.3K</div>
+  <div class="vbadge hi"><div class="v-top">598.4K</div><div class="v-bot">5.7K/d</div></div>
   <img src="https://i.ytimg.com/vi/fnncIVKvJkg/hqdefault.jpg" loading="lazy" alt="">
-  <div class="th-bar" style="background:var(--xfn); height:8.2px"></div>
   <div class="th-date">Jurassic Park · Big Game</div>
 </a></div>
 <div class="cell"><div class=th-empty></div></div>
@@ -282,9 +255,8 @@
 <div class="cell"><div class=th-empty></div></div>
 <div class="cell"><div class=th-empty></div></div>
 <div class="cell"><a class="th" href="https://youtube.com/watch?v=sN36gHVKc4o" target="_blank" rel="noopener" title="Galaxy S26 Ultra · Spectrum">
-  <div class="vbadge hi">13.3K</div>
+  <div class="vbadge hi"><div class="v-top">13.4K</div><div class="v-bot">197/d</div></div>
   <img src="https://i.ytimg.com/vi/sN36gHVKc4o/hqdefault.jpg" loading="lazy" alt="">
-  <div class="th-bar" style="background:var(--spc); height:5.8px"></div>
   <div class="th-date">Galaxy S26 Ultra · Spectrum</div>
 </a></div>
 <div class="cell"><div class=th-empty></div></div>
