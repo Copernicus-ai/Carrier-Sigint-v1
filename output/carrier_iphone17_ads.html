@@ -65,12 +65,12 @@
     border-right: 1px solid rgba(255,255,255,0.12) !important;
   }
   .mh.era17 { background: var(--hdr17); }
-  .mh.era17e { background: #3d1a6e; }
+  .mh.era17e { background: #6d28d9; }
   .mh-label { font-size: 0.60rem; font-weight: 800; color: #fff;
               text-transform: uppercase; letter-spacing: 0.08em; }
   .mh-sub   { font-size: 0.52rem; margin-top: 2px; }
   .mh.era17  .mh-sub  { color: var(--gray3); }
-  .mh.era17e .mh-sub  { color: #c4a0f0; }
+  .mh.era17e .mh-sub  { color: #e9d5ff; }
 
   /* carrier label */
   .cl {
@@ -114,9 +114,9 @@
     padding: 1px 5px; border-radius: 2px; line-height: 1.5;
     pointer-events: none;
   }
-  .vbadge.hi  { background: rgba(0,160,70,0.88);  color:#fff; }
-  .vbadge.mid { background: rgba(180,110,0,0.85); color:#fff; }
-  .vbadge.lo  { background: rgba(40,40,40,0.72);  color:#ccc; }
+  .vbadge.hi  { background: rgba(0,160,70,0.92);   color:#fff; }
+  .vbadge.mid { background: rgba(217,119,6,0.92);  color:#fff; }
+  .vbadge.lo  { background: rgba(100,116,139,0.95); color:#fff; }
 
   .vel-legend {
     display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
@@ -132,6 +132,43 @@
 
   footer { background: var(--ink); color: var(--gray2); text-align: center;
            padding: 18px; font-size: 0.72rem; margin-top: 0; }
+
+  /* ── Explainer panel ── */
+  details.explainer {
+    background: #f8fafc; border: 1px solid var(--border); border-radius: 8px;
+    margin-bottom: 18px; overflow: hidden;
+  }
+  details.explainer > summary {
+    list-style: none; cursor: pointer; padding: 12px 18px;
+    font-size: 0.78rem; font-weight: 700; color: var(--ink);
+    display: flex; align-items: center; gap: 8px;
+    background: linear-gradient(to right, #f1f5f9, #f8fafc);
+  }
+  details.explainer > summary::-webkit-details-marker { display: none; }
+  details.explainer > summary::before {
+    content: '▶'; font-size: 0.62rem; color: var(--accent);
+    transition: transform 0.15s;
+  }
+  details.explainer[open] > summary::before { transform: rotate(90deg); }
+  details.explainer > summary:hover { background: #eef2f7; }
+  .explainer-body { padding: 4px 22px 18px; font-size: 0.78rem;
+                    color: var(--gray1); line-height: 1.65; }
+  .explainer-body p { margin: 10px 0; }
+  .explainer-body strong { color: var(--ink); }
+  .explainer-body table { width: 100%; max-width: 560px; margin: 10px 0;
+                          border-collapse: collapse; font-size: 0.74rem; }
+  .explainer-body th, .explainer-body td {
+    padding: 5px 10px; text-align: left; border-bottom: 1px solid var(--border);
+  }
+  .explainer-body th { color: var(--gray2); font-weight: 700;
+                        font-size: 0.62rem; text-transform: uppercase;
+                        letter-spacing: 0.06em; }
+  .explainer-body td:first-child { font-weight: 700; color: var(--ink);
+                                    font-family: ui-monospace, Menlo, monospace;
+                                    white-space: nowrap; }
+  .explainer-body .tier-hi  { color: #00a046; font-weight: 700; }
+  .explainer-body .tier-mid { color: #d97706; font-weight: 700; }
+  .explainer-body .tier-lo  { color: #64748b; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -151,16 +188,52 @@
 </header>
 
 <main>
+
+  <details class="explainer">
+    <summary>What am I looking at?</summary>
+    <div class="explainer-body">
+      <p>Each thumbnail is one YouTube ad. There are <strong>two numbers per ad</strong>, telling
+         <strong>two different stories</strong>:</p>
+      <p>
+        <strong>The badge</strong> (e.g., "2.3K", "70M") in the upper-left corner shows
+        <strong>total views since the ad was posted</strong>. Big number = lots of history; small number = new or unseen.
+        <br>
+        <strong>The bar below the thumbnail</strong> shows how fast the ad is <strong>still getting views per day right now</strong>
+        — our proxy for active paid amplification.
+      </p>
+      <p><strong>The bar uses a log scale</strong> because the range between ads is enormous — biggest is
+         <em>~300,000 views/day</em>, smallest is <em>~3 views/day</em>. That's a 100,000× spread. On a normal
+         (linear) bar chart, every ad except the biggest would look invisible. So instead, each step up in
+         bar height means <strong>10×</strong> more daily views — like a Richter scale.</p>
+      <table>
+        <thead><tr><th>Bar size</th><th>Roughly means</th><th>Color tier</th></tr></thead>
+        <tbody>
+          <tr><td>tiny (~2px)</td><td>a few views/day · basically organic noise</td><td class="tier-lo">⚪ Gray (lo)</td></tr>
+          <tr><td>short (~3–4px)</td><td>~10 views/day</td><td class="tier-mid">🟠 Amber (mid)</td></tr>
+          <tr><td>medium (~5px)</td><td>~100 views/day</td><td class="tier-hi">🟢 Green (hi)</td></tr>
+          <tr><td>tall (~7px)</td><td>~1,000 views/day</td><td class="tier-hi">🟢 Green (hi)</td></tr>
+          <tr><td>maxed (~9px)</td><td>10,000+ views/day · heavy paid push</td><td class="tier-hi">🟢 Green (hi)</td></tr>
+        </tbody>
+      </table>
+      <p>A 5-pixel bar isn't "a bit more than" a 3-pixel bar — it's <strong>100× more daily activity</strong>.</p>
+      <p><strong>Example to read:</strong> a T-Mobile ad posted in October with "2.3K" badge and an amber-tier bar means
+         <em>2,300 total views since October</em> AND <em>~11 views/day right now</em> (because amber = 10–99 v/day).</p>
+      <p><strong>T-Mobile caveat:</strong> almost all T-Mobile iPhone YouTube data comes from <em>archiver channels</em>
+         (third-party uploaders), not T-Mobile's official channel. T-Mobile doesn't upload iPhone ads to YouTube —
+         their iPhone push is on TV only. So T-Mobile bars understate true reach.</p>
+    </div>
+  </details>
+
   <div class="legend">
     <div class="legend-item"><div class="legend-box" style="background:var(--hdr17)"></div>iPhone 17 era (Sep 2025–Feb 2026)</div>
-    <div class="legend-item"><div class="legend-box" style="background:#3d1a6e"></div>iPhone 17e era (Mar 2026+)</div>
+    <div class="legend-item"><div class="legend-box" style="background:#6d28d9"></div>iPhone 17e era (Mar 2026 onwards)</div>
   </div>
 
   <div class="vel-legend">
     <span class="lbl">Bar height = v/day (log):</span>
     <span class="vel-swatch"><div class="vel-pip" style="height:9px;background:#00a046"></div>≥100 v/d</span>
-    <span class="vel-swatch"><div class="vel-pip" style="height:5px;background:#b46e00"></div>10–99 v/d</span>
-    <span class="vel-swatch"><div class="vel-pip" style="height:2px;background:#888"></div>&lt;10 v/d</span>
+    <span class="vel-swatch"><div class="vel-pip" style="height:5px;background:#d97706"></div>10–99 v/d</span>
+    <span class="vel-swatch"><div class="vel-pip" style="height:2px;background:#64748b"></div>&lt;10 v/d</span>
     <span class="vel-note">· Badge = total views · T-Mobile figures from archiver channels, not official</span>
   </div>
 
@@ -175,8 +248,8 @@
   <div class="mh era17"><div class="mh-label">Jan 2026</div><div class="mh-sub">&nbsp;</div></div>
   <div class="mh era17"><div class="mh-label">Feb 2026</div><div class="mh-sub">Super Bowl</div></div>
   <div class="mh era17e"><div class="mh-label">Mar 2026</div><div class="mh-sub">iPhone 17e launch</div></div>
-  <div class="mh era17"><div class="mh-label">Apr 2026</div><div class="mh-sub">&nbsp;</div></div>
-  <div class="mh era17"><div class="mh-label">May 2026</div><div class="mh-sub">&nbsp;</div></div>
+  <div class="mh era17e"><div class="mh-label">Apr 2026</div><div class="mh-sub">&nbsp;</div></div>
+  <div class="mh era17e"><div class="mh-label">May 2026</div><div class="mh-sub">&nbsp;</div></div>
 
   <!-- ══════════ T-MOBILE ══════════ -->
   <div class="cl"><div class="cl-dot" style="background:var(--tmo)"></div><div class="cl-name">T-Mobile</div><div class="cl-count">9 ads</div></div>

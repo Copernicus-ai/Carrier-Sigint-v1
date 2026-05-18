@@ -59,9 +59,9 @@
 
   .vbadge{position:absolute;top:3px;left:3px;font-size:0.44rem;font-weight:800;
     letter-spacing:.03em;padding:1px 5px;border-radius:2px;line-height:1.5;pointer-events:none}
-  .hi{background:rgba(0,160,70,.88);color:#fff}
-  .mid{background:rgba(180,110,0,.85);color:#fff}
-  .lo{background:rgba(40,40,40,.72);color:#ccc}
+  .hi{background:rgba(0,160,70,.92);color:#fff}
+  .mid{background:rgba(217,119,6,.92);color:#fff}
+  .lo{background:rgba(100,116,139,.95);color:#fff}
 
   .brand-badge{position:absolute;bottom:22px;right:3px;font-size:0.42rem;font-weight:800;
     background:rgba(245,158,11,.85);color:#000;padding:1px 4px;border-radius:2px;pointer-events:none}
@@ -71,6 +71,32 @@
 
   footer{background:#0d1117;border-top:1px solid var(--border);color:var(--muted);
     text-align:center;padding:16px;font-size:0.68rem}
+
+  /* ── Explainer panel ── */
+  details.explainer { background: #12161f; border: 1px solid var(--border); border-radius: 8px;
+    margin: 10px 36px 0; overflow: hidden; }
+  details.explainer > summary { list-style: none; cursor: pointer; padding: 11px 18px;
+    font-size: 0.78rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px;
+    background: linear-gradient(to right, #131a24, #12161f); }
+  details.explainer > summary::-webkit-details-marker { display: none; }
+  details.explainer > summary::before { content: '▶'; font-size: 0.62rem; color: var(--accent);
+    transition: transform 0.15s; }
+  details.explainer[open] > summary::before { transform: rotate(90deg); }
+  details.explainer > summary:hover { background: #1a2330; }
+  .explainer-body { padding: 4px 22px 16px; font-size: 0.78rem; color: #94a3b8; line-height: 1.65; }
+  .explainer-body p { margin: 10px 0; }
+  .explainer-body strong { color: var(--ink); }
+  .explainer-body table { width: 100%; max-width: 560px; margin: 10px 0;
+    border-collapse: collapse; font-size: 0.74rem; }
+  .explainer-body th, .explainer-body td { padding: 5px 10px; text-align: left;
+    border-bottom: 1px solid #1e2433; }
+  .explainer-body th { color: var(--muted); font-weight: 700;
+    font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .explainer-body td:first-child { font-weight: 700; color: var(--ink);
+    font-family: ui-monospace, Menlo, monospace; white-space: nowrap; }
+  .explainer-body .tier-hi { color: #00c060; font-weight: 700; }
+  .explainer-body .tier-mid { color: #f59e0b; font-weight: 700; }
+  .explainer-body .tier-lo { color: #94a3b8; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -95,6 +121,42 @@
   "Introducing Galaxy S26 Ultra" · <strong>54M views · 670K v/day</strong> &nbsp;|&nbsp;
   "Privacy Display" · <strong>24M views · 298K v/day</strong> — Samsung invests directly in YouTube; Apple relies on carriers.
 </div>
+
+<details class="explainer">
+  <summary>What am I looking at?</summary>
+  <div class="explainer-body">
+    <p>Each thumbnail is one YouTube ad. There are <strong>two numbers per ad</strong>, telling
+       <strong>two different stories</strong>:</p>
+    <p>
+      <strong>The badge</strong> (e.g., "330K", "70M") in the upper-left shows
+      <strong>total views since the ad was posted</strong>. Big number = lots of history; small number = new.
+      <br>
+      <strong>The bar below the thumbnail</strong> shows how fast the ad is <strong>still getting views per day right now</strong>
+      — our proxy for active paid amplification.
+    </p>
+    <p><strong>The bar uses a log scale</strong> because the range between ads is enormous —
+       biggest is <em>~336,000 views/day</em> (Verizon "A Better Deal"), smallest is <em>~3 views/day</em>.
+       That's a 100,000× spread. So each step up in bar height means <strong>10×</strong> more daily views —
+       like a Richter scale.</p>
+    <table>
+      <thead><tr><th>Bar size</th><th>Roughly means</th><th>Color tier</th></tr></thead>
+      <tbody>
+        <tr><td>tiny (~2px)</td><td>a few views/day · basically organic noise</td><td class="tier-lo">⚪ Gray (lo)</td></tr>
+        <tr><td>short (~3–4px)</td><td>~10 views/day</td><td class="tier-mid">🟠 Amber (mid)</td></tr>
+        <tr><td>medium (~5px)</td><td>~100 views/day</td><td class="tier-hi">🟢 Green (hi)</td></tr>
+        <tr><td>tall (~7px)</td><td>~1,000 views/day</td><td class="tier-hi">🟢 Green (hi)</td></tr>
+        <tr><td>maxed (~9px)</td><td>10,000+ views/day · heavy paid push</td><td class="tier-hi">🟢 Green (hi)</td></tr>
+      </tbody>
+    </table>
+    <p>A 5-pixel bar isn't "a bit more than" a 3-pixel bar — it's <strong>100× more daily activity</strong>.</p>
+    <p><strong>Why Samsung is so sparse:</strong> T-Mobile runs huge Samsung TV campaigns (3,179 airings of "Scales")
+       but uploads almost nothing to YouTube. Verizon and AT&amp;T have similar gaps. The empty cells are the
+       intelligence finding — carrier Samsung co-op is structurally TV-first.</p>
+    <p><strong>The Verizon "A Better Deal" anomaly:</strong> the 70M-view amber-outlined ad is a Verizon
+       <em>brand</em> campaign, not a Samsung device co-op. It surfaced in our Samsung search because
+       Samsung phones appear briefly in the spot. Included for market context, flagged with amber outline.</p>
+  </div>
+</details>
 
 <main>
   <div class="era-legend">
