@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIGINT — Carrier M&amp;A and Strategic Deals Tracker</title>
+<style>
+  :root {
+    --ink:    #1a1a2e;
+    --gray1:  #4a5568;
+    --gray2:  #718096;
+    --gray3:  #a0aec0;
+    --gray4:  #cbd5e0;
+    --bg:     #eef1f6;
+    --card:   #ffffff;
+    --border: #e2e8f0;
+    --accent: #009FDB;
+    --green:  #276749;
+    --green-light: #d4edda;
+    --amber:  #b45309;
+    --amber-light: #fef3c7;
+    --red:    #c53030;
+    --red-light: #fed7d7;
+
+    --tmo:    #E20074;
+    --vz:     #CD040B;
+    --att:    #009FDB;
+    --xfn:    #6B46C1;
+    --spc:    #0082CA;
+    --echo:   #FF6B00;
+
+    /* theme colors for deal tabs */
+    --t-fiber:    #0e7c66;
+    --t-spectrum: #6d28d9;
+    --t-wireless: #1d4ed8;
+    --t-tower:    #b45309;
+    --t-mvno:     #be185d;
+    --t-corp:     #475569;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
+    background: var(--bg); color: var(--ink); line-height: 1.55;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── Header ── */
+  header { background: var(--ink); padding: 32px 48px 28px; }
+  .header-inner { max-width: 1040px; margin: 0 auto; }
+  .back-link { font-size: 0.72rem; color: #7dd3fc; display: inline-block; margin-bottom: 14px; }
+  header h1 { font-size: 1.55rem; font-weight: 800; color: #fff; letter-spacing: -.02em; }
+  header p  { font-size: 0.82rem; color: var(--gray3); margin-top: 6px; max-width: 720px; line-height: 1.65; }
+
+  /* ── Main ── */
+  main { max-width: 1040px; margin: 0 auto; padding: 36px 32px 80px; }
+
+  /* ── Stat bar ── */
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
+  @media (max-width: 800px) { .stat-grid { grid-template-columns: 1fr 1fr; } }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px 20px; border-left: 3px solid var(--accent);
+  }
+  .stat-card.green { border-left-color: var(--green); }
+  .stat-card.amber { border-left-color: var(--amber); }
+  .stat-card.gray  { border-left-color: var(--gray2); }
+  .stat-num   { font-size: 1.55rem; font-weight: 800; color: var(--ink); line-height: 1.1; }
+  .stat-num.green { color: var(--green); }
+  .stat-num.amber { color: var(--amber); }
+  .stat-label { font-size: 0.66rem; font-weight: 800; text-transform: uppercase;
+                letter-spacing: .10em; color: var(--gray2); margin-top: 5px; }
+  .stat-sub   { font-size: 0.68rem; color: var(--gray2); margin-top: 6px; line-height: 1.5; }
+
+  /* ── Theme legend ── */
+  .theme-legend {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    margin-bottom: 24px; font-size: 0.74rem; color: var(--gray2);
+  }
+  .theme-legend .lbl { font-size: 0.60rem; font-weight: 800; text-transform: uppercase;
+                       letter-spacing: .10em; color: var(--gray2); margin-right: 4px; }
+  .theme-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 20px;
+    padding: 3px 10px; font-size: 0.68rem; color: var(--gray1); font-weight: 600;
+  }
+  .theme-chip .swatch { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* ── Section heading ── */
+  .section-h {
+    font-size: 0.60rem; font-weight: 800; text-transform: uppercase; letter-spacing: .14em;
+    color: var(--gray2); margin: 28px 0 14px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── Year band ── */
+  .year-band {
+    display: flex; align-items: baseline; gap: 12px; padding: 8px 0 6px;
+    margin-top: 14px; margin-bottom: 10px;
+    border-bottom: 2px solid var(--gray4);
+  }
+  .year-band .y { font-size: 1.05rem; font-weight: 800; color: var(--ink); }
+  .year-band .yc { font-size: 0.70rem; color: var(--gray2); }
+
+  /* ── Deal card ── */
+  .deal {
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 0; margin-bottom: 12px; overflow: hidden;
+    display: grid; grid-template-columns: 4px 90px 1fr auto; gap: 16px; align-items: stretch;
+  }
+  @media (max-width: 700px) {
+    .deal { grid-template-columns: 4px 1fr; }
+    .deal .date-col, .deal .right-col { padding: 4px 18px 12px; }
+  }
+
+  .deal .tab { background: var(--gray2); }
+  .deal.fiber    .tab { background: var(--t-fiber); }
+  .deal.spectrum .tab { background: var(--t-spectrum); }
+  .deal.wireless .tab { background: var(--t-wireless); }
+  .deal.tower    .tab { background: var(--t-tower); }
+  .deal.mvno     .tab { background: var(--t-mvno); }
+  .deal.corp     .tab { background: var(--t-corp); }
+
+  .date-col {
+    padding: 14px 0 14px 12px; display: flex; flex-direction: column; gap: 4px; justify-content: center;
+    border-right: 1px solid var(--border);
+  }
+  .date-col .month { font-size: 0.60rem; font-weight: 800; text-transform: uppercase;
+                     letter-spacing: .10em; color: var(--gray2); }
+  .date-col .badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 0.56rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
+    padding: 2px 7px; border-radius: 10px; white-space: nowrap;
+    width: fit-content;
+  }
+  .badge.closed   { background: var(--green-light); color: var(--green); }
+  .badge.pending  { background: var(--amber-light); color: var(--amber); }
+  .badge.blocked  { background: var(--red-light); color: var(--red); }
+
+  .body-col {
+    padding: 14px 0; display: flex; flex-direction: column; gap: 4px; min-width: 0;
+  }
+  .deal-title { font-size: 0.92rem; font-weight: 800; color: var(--ink); line-height: 1.3; }
+  .deal-parties { font-size: 0.74rem; color: var(--gray1); display: flex; gap: 6px; flex-wrap: wrap;
+                  align-items: center; }
+  .deal-parties .pdot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; vertical-align: middle; }
+  .deal-rationale { font-size: 0.74rem; color: var(--gray1); margin-top: 4px; line-height: 1.55; }
+
+  .right-col {
+    padding: 14px 16px 14px 0; display: flex; flex-direction: column; align-items: flex-end;
+    justify-content: center; gap: 4px; text-align: right;
+  }
+  .deal-value { font-size: 1.15rem; font-weight: 800; color: var(--ink); }
+  .deal-theme {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 0.58rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--gray2);
+  }
+  .deal-theme .swatch { width: 8px; height: 8px; border-radius: 50%; }
+
+  /* ── Callout ── */
+  .callout {
+    background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--accent);
+    border-radius: 8px; padding: 16px 22px; margin: 24px 0; font-size: 0.82rem; line-height: 1.7;
+    color: var(--gray1);
+  }
+  .callout strong { color: var(--ink); }
+
+  footer { background: var(--ink); color: var(--gray3); text-align: center;
+           padding: 18px; font-size: 0.70rem; line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="back-link" href="../index.html">← SIGINT Home</a>
+    <h1>SIGINT — Carrier M&amp;A &amp; Strategic Deals Tracker</h1>
+    <p>$80B+ in announced U.S. telecom and infrastructure deals · 2024 – 2026 ·
+       Fiber convergence drives the wave · Spectrum reshuffling via EchoStar ·
+       T-Mobile is the most active strategic player.</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- ── Stat bar ── -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-num">$80B+</div>
+      <div class="stat-label">Announced Deal Value</div>
+      <div class="stat-sub">Across 11 tracked deals 2024 – 2026.</div>
+    </div>
+    <div class="stat-card green">
+      <div class="stat-num green">5</div>
+      <div class="stat-label">Closed</div>
+      <div class="stat-sub">TMUS/UScellular, Mint, Lumos, Metronet, Charter/LBRDA</div>
+    </div>
+    <div class="stat-card amber">
+      <div class="stat-num amber">6</div>
+      <div class="stat-label">Pending</div>
+      <div class="stat-sub">VZ/Frontier, AT&amp;T/Lumen, EchoStar/AT&amp;T, EchoStar/SpaceX, Crown Castle</div>
+    </div>
+    <div class="stat-card gray">
+      <div class="stat-num">$23B</div>
+      <div class="stat-label">Largest Single Deal</div>
+      <div class="stat-sub">EchoStar → AT&amp;T spectrum, Aug 2025.</div>
+    </div>
+  </div>
+
+  <!-- ── Theme legend ── -->
+  <div class="theme-legend">
+    <span class="lbl">Deal theme:</span>
+    <span class="theme-chip"><span class="swatch" style="background:var(--t-fiber)"></span>Fiber</span>
+    <span class="theme-chip"><span class="swatch" style="background:var(--t-spectrum)"></span>Spectrum</span>
+    <span class="theme-chip"><span class="swatch" style="background:var(--t-wireless)"></span>Wireless</span>
+    <span class="theme-chip"><span class="swatch" style="background:var(--t-tower)"></span>Tower / Infra</span>
+    <span class="theme-chip"><span class="swatch" style="background:var(--t-mvno)"></span>MVNO</span>
+    <span class="theme-chip"><span class="swatch" style="background:var(--t-corp)"></span>Corporate</span>
+  </div>
+
+  <!-- ── 2025 deals ── -->
+  <div class="year-band">
+    <div class="y">2025</div>
+    <div class="yc">Convergence wave + spectrum reshuffle</div>
+  </div>
+
+  <div class="deal spectrum">
+    <div class="tab"></div>
+    <div class="date-col">
+      <div class="month">Aug 2025</div>
+      <span class="badge pending">Pending</span>
+    </div>
+    <div class="body-col">
+      <div class="deal-title">EchoStar sells AWS-3/AWS-4/H-Block spectrum to AT&amp;T</div>
+      <div class="deal-parties">
+        <span><span class="pdot" style="background:var(--echo)"></span>EchoStar</span>
+        <span>→</span>
+        <span><span class="pdot" style="background:var(--att)"></span>AT&amp;T</span>
+      </div>
+      <div class="deal-rationale">
+        Largest U.S. spectrum transaction. AT&amp;T gains ~50 MHz of mid-band capacity for 5G densification.
+        EchoStar pivots away from wireless network ambitions; Boost continues as MVNO + own-network hybrid.
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="deal-value">$23.0B</div>
+      <div class="deal-theme"><span class="swatch" style="background:var(--t-spectrum)"></span>Spectrum</div>
+    </div>
+  </div>
+
+  <div class="deal spectrum">
+    <div class="tab"></div>
+    <div class="date-col">
+      <div class="month">Aug 2025</div>
+      <span class="badge pending">Pending</span>
+    </div>
+    <div class="body-col">
+      <div class="deal-title">EchoStar sells AWS-4 spectrum to SpaceX</div>
+      <div class="deal-parties">
+        <span><span class="pdot" style="background:var(--echo)"></span>EchoStar</span>
+        <span>→</span>
+        <span><span class="pdot" style="background:#000"></span>SpaceX</span>
+      </div>
+      <div class="deal-rationale">
+        Direct-to-cell satellite spectrum for Starlink. Signals satellite-cellular convergence as a real
+        spectrum-buyer category. EchoStar monetizes unused AWS-4 holdings.
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="deal-value">$17.0B</div>
+      <div class="deal-theme"><span class="swatch" style="background:var(--t-spectrum)"></span>Spectrum</div>
+    </div>
+  </div>
+
+  <div class="deal wireless">
+    <div class="tab"></div>
+    <div class="date-col">
+      <div class="month">Aug 2025</div>
+      <span class="badge closed">Closed</span>
+    </div>
+    <div class="body-col">
+      <div class="deal-title">T-Mobile acquires UScellular wireless ops + 30% of spectrum</div>
+      <div class="deal-parties">
+        <span><span class="pdot" style="background:var(--tmo)"></span>T-Mobile</span>
+        <span>←</span>
+        <span>UScellular</span>
+      </div>
+      <div class="deal-rationale">
+        Adds ~4M postpaid subs and meaningful 600 MHz / mid-band spectrum in rural markets.
+        Announced May 2024, closed August 2025 after DOJ review. TMUS retains UScellular tower portfolio.
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="deal-value">$4.4B</div>
+      <div class="deal-theme"><span class="swatch" style="background:var(--t-wireless)"></span>Wireless</div>
+    </div>
+  </div>
+
+  <div class="deal fiber">
+    <div class="tab"></div>
+    <div class="date-col">
+      <div class="month">May 2025</div>
+      <span class="badge pending">Pending</span>
+    </div>
+    <div class="body-col">
+      <div class="deal-title">AT&amp;T to acquire Lumen Mass Markets fiber (Quantum Fiber consumer)</div>
+      <div class="deal-parties">
+        <span><span class="pdot" style="background:var(--att)"></span>AT&amp;T</span>
+        <span>←</span>
+        <span>Lumen Technologies</span>
+      </div>
+      <div class="deal-rationale">
+        Adds ~4M fiber passings + ~1M consumer fiber subs to AT&amp;T's footprint. Closes the remaining geographic
+        gaps in AT&amp;T Fiber. Expected close 2026 pending regulatory review.
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="deal-value">$5.75B</div>
+      <div class="deal-theme"><span class="swatch" style="background:var(--t-fiber)"></span>Fiber</div>
+    </div>
+  </div>
+
+  <div class="deal tower">
+    <div class="tab"></div>
+    <div class="date-col">
+      <div class="month">Mar 2025</div>
+      <span class="badge pending">Pending</span>
+    </div>
+    <div class="body-col">
+      <div class="deal-title">Crown Castle divests fiber business to Zayo / EQT</div>
+      <div class="deal-parties">
+        <span>Crown Castle (CCI)</span>
+        <span>→</span>
+        <span>Zayo + EQT</span>
+      </div>
+      <div class="deal-rationale">
+        CCI exits fiber to focus on tower business. Zayo absorbs CCI's enterprise fiber; EQT takes small-cell.
+        Reshapes the tower / fiber operator landscape. Closing expected late 2025 / early 2026.
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="deal-value">$8.5B</div>
+      <div class="deal-theme"><span class="swatch" style="background:var(--t-tower)"></span>Tower / Infra</div>
+    </div>
+  </div>
+
+  <!-- ── 2024 deals ── -->
+  <div class="year-band">
+    <div class="y">2024</div>
+    <div class="yc">T-Mobile's strategic year + Verizon's biggest bet</div>
+  </div>
+
+  <div class="deal corp">
+    <div class="tab"></div>
+    <div class="date-col">
+      <div class="month">Nov 2024</div>
+      <span class="badge closed">Closed</span>
+    </div>
+    <div class="body-col">
+      <div class="deal-title">Charter / Liberty Broadband merger</div>
+      <div class="deal-parties">
+        <span><span class="pdot" style="background:var(--spc)"></span>Charter (CHTR)</span>
+        <span>+</span>
+        <span>Liberty Broadband (LBRDA)</span>
+      </div>
+      <div class="deal-rationale">
+        All-stock merger collapses Liberty's holding-company structure. Simplifies CHTR cap table and
+        removes the LBRDA NAV discount. No operational change.
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="deal-value">All-stock</div>
+      <div class="deal-theme"><span class="swatch" style="background:var(--t-corp)"></span>Corporate</div>
+    </div>
+  </div>
+
+  <div class="deal fiber">
+    <div class="tab"></div>
+    <div class="date-col">
+      <div class="month">Sep 2024</div>
+      <span class="badge pending">Pending</span>
+    </div>
+    <div class="body-col">
+      <div class="deal-title">Verizon to acquire Frontier Communications (largest pure-play fiber)</div>
+      <div class="deal-parties">
+        <span><span class="pdot" style="background:var(--vz)"></span>Verizon</span>
+        <span>←</span>
+        <span>Frontier (FYBR)</span>
+      </div>
+      <div class="deal-rationale">
+        All-cash. Adds ~7.2M fiber passings + ~2.2M fiber subs to Verizon's Fios footprint. Doubles VZ
+        consumer fiber presence and extends into 25 new states. Expected close Q1 2026 pending FCC + states.
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="deal-value">$20.0B</div>
+      <div class="deal-theme"><span class="swatch" style="background:var(--t-fiber)"></span>Fiber</div>
+    </div>
+  </div>
+
+  <div class="deal fiber">
+    <div class="tab"></div>
+    <div class="date-col">
+      <div class="month">Jul 2024</div>
+      <span class="badge closed">Closed</span>
+    </div>
+    <div class="body-col">
+      <div class="deal-title">T-Mobile + KKR JV to acquire Metronet</div>
+      <div class="deal-parties">
+        <span><span class="pdot" style="background:var(--tmo)"></span>T-Mobile</span>
+        <span>+</span>
+        <span>KKR</span>
+        <span>←</span>
+        <span>Metronet</span>
+      </div>
+      <div class="deal-rationale">
+        50/50 JV. Adds ~2M fiber passings under "Insight" brand. T-Mobile's entry into wireline / fiber
+        as the convergence hedge against VZ-Fios and AT&amp;T-Fiber.
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="deal-value">$4.9B</div>
+      <div class="deal-theme"><span class="swatch" style="background:var(--t-fiber)"></span>Fiber</div>
+    </div>
+  </div>
+
+  <div class="deal fiber">
+    <div class="tab"></div>
+    <div class="date-col">
+      <div class="month">Apr 2024</div>
+      <span class="badge closed">Closed</span>
+    </div>
+    <div class="body-col">
+      <div class="deal-title">T-Mobile + EQT JV to acquire Lumos</div>
+      <div class="deal-parties">
+        <span><span class="pdot" style="background:var(--tmo)"></span>T-Mobile</span>
+        <span>+</span>
+        <span>EQT</span>
+        <span>←</span>
+        <span>Lumos</span>
+      </div>
+      <div class="deal-rationale">
+        T-Mobile's first fiber JV. ~320K passings in NC/VA/SC. Co-funded with EQT. Sets the template for
+        the later Metronet deal. Small but symbolic.
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="deal-value">$950M</div>
+      <div class="deal-theme"><span class="swatch" style="background:var(--t-fiber)"></span>Fiber</div>
+    </div>
+  </div>
+
+  <div class="deal wireless">
+    <div class="tab"></div>
+    <div class="date-col">
+      <div class="month">May 2024</div>
+      <span class="badge closed">Announced</span>
+    </div>
+    <div class="body-col">
+      <div class="deal-title">T-Mobile to acquire UScellular wireless ops (announced)</div>
+      <div class="deal-parties">
+        <span><span class="pdot" style="background:var(--tmo)"></span>T-Mobile</span>
+        <span>←</span>
+        <span>UScellular</span>
+      </div>
+      <div class="deal-rationale">
+        Announced May 2024. Reviewed by DOJ. Closed August 2025 — see deal entry above.
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="deal-value">$4.4B</div>
+      <div class="deal-theme"><span class="swatch" style="background:var(--t-wireless)"></span>Wireless</div>
+    </div>
+  </div>
+
+  <div class="deal mvno">
+    <div class="tab"></div>
+    <div class="date-col">
+      <div class="month">Mar 2024</div>
+      <span class="badge closed">Closed</span>
+    </div>
+    <div class="body-col">
+      <div class="deal-title">T-Mobile acquires Ka'ena Corp (Mint Mobile + Ultra Mobile)</div>
+      <div class="deal-parties">
+        <span><span class="pdot" style="background:var(--tmo)"></span>T-Mobile</span>
+        <span>←</span>
+        <span>Ka'ena Corp</span>
+      </div>
+      <div class="deal-rationale">
+        Vertical-integration play. T-Mobile converts wholesale margin into retail margin on ~4M prepaid lines.
+        Mint's Ryan Reynolds brand campaign retained. Closed May 2024.
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="deal-value">$1.35B</div>
+      <div class="deal-theme"><span class="swatch" style="background:var(--t-mvno)"></span>MVNO</div>
+    </div>
+  </div>
+
+  <!-- ── Themes synthesis ── -->
+  <div class="section-h">Strategic Themes</div>
+
+  <div class="callout">
+    <strong>Fiber convergence dominates deal volume.</strong> Of $80B+ in tracked deals, ~$32B is fiber-related
+    (VZ/Frontier $20B + ATT/Lumen $5.75B + TMUS JVs $5.85B). Every Tier-1 wireless carrier is now buying
+    fiber to defend the household — the "convergence" thesis has moved from talking point to capital allocation.
+  </div>
+
+  <div class="callout">
+    <strong>EchoStar is the spectrum monetizer of the cycle.</strong> $40B+ in spectrum sales between the AT&amp;T
+    and SpaceX deals (Aug 2025). EchoStar pivots from "fourth carrier" ambitions to MVNO + asset-light model.
+    The AT&amp;T deal restocks AT&amp;T's mid-band; the SpaceX deal seeds direct-to-cell satellite cellular.
+  </div>
+
+  <div class="callout">
+    <strong>T-Mobile is the most active strategic player.</strong> 5 deals in 18 months: UScellular wireless,
+    UScellular spectrum, Lumos fiber JV, Metronet fiber JV, Mint MVNO acquisition. TMUS is executing the
+    "convergence + scale" playbook end-to-end while VZ executes one big bet (Frontier) and AT&amp;T plays defense.
+  </div>
+
+  <div class="callout">
+    <strong>Verizon's Frontier deal is the biggest single carrier bet of the cycle.</strong> $20B all-cash for
+    7.2M fiber passings. If it closes Q1 2026 as expected, VZ's consumer fiber base roughly doubles to
+    ~12M subs — restoring fiber parity with AT&amp;T and giving VZ the bundle ammo it needs against cable.
+  </div>
+
+</main>
+
+<footer>
+  SIGINT Intelligence Platform &nbsp;·&nbsp; Sources: SEC 8-K filings · FCC / DOJ dockets · IR press releases &nbsp;·&nbsp;
+  Deal values are announced; final values may differ at close.
+</footer>
+
+</body>
+</html>

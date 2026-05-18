@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIGINT — MVNO &amp; Wholesale Tracker</title>
+<style>
+  :root {
+    --bg:     #0a0c10;
+    --card:   #12161f;
+    --card2:  #0f1318;
+    --ink:    #e0e6ed;
+    --muted:  #6b7280;
+    --border: #1e2433;
+    --accent: #00d4ff;
+    --green:  #00ff88;
+    --amber:  #f59e0b;
+    --red:    #ff4757;
+    --tmo:    #E20074;
+    --att:    #009FDB;
+    --vz:     #CD040B;
+    --xfn:    #6B46C1;
+    --spc:    #0082CA;
+    --echo:   #FF6B00;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink);
+         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
+         line-height: 1.6; font-size: 0.92rem; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── Header ── */
+  header { background: #0d1117; border-bottom: 1px solid var(--border); padding: 28px 36px 24px; }
+  .back-link { font-size: 0.72rem; color: var(--accent); display: inline-block; margin-bottom: 14px; }
+  header h1 { font-size: 1.25rem; font-weight: 800; color: #fff; letter-spacing: -.01em; }
+  header p  { font-size: 0.78rem; color: var(--muted); margin-top: 5px; max-width: 700px; line-height: 1.6; }
+
+  /* ── Insight bar ── */
+  .insight-bar { background: #131a24; border: 1px solid #1e3a5f; border-radius: 6px;
+    padding: 12px 18px; margin: 20px 36px 0; font-size: 0.78rem; color: #7dd3fc; line-height: 1.65; }
+  .insight-bar strong { color: #38bdf8; }
+
+  /* ── Layout ── */
+  main { padding: 24px 36px 60px; }
+
+  /* ── Top stats ── */
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+  @media (max-width: 800px) { .stat-grid { grid-template-columns: 1fr 1fr; } }
+  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px 18px; border-left: 3px solid var(--accent); }
+  .stat-card.vz   { border-left-color: var(--vz); }
+  .stat-card.tmo  { border-left-color: var(--tmo); }
+  .stat-card.att  { border-left-color: var(--att); }
+  .stat-card.echo { border-left-color: var(--echo); }
+  .stat-num   { font-size: 1.45rem; font-weight: 800; color: #fff; line-height: 1.1; }
+  .stat-label { font-size: 0.66rem; font-weight: 700; text-transform: uppercase;
+                letter-spacing: .08em; color: var(--muted); margin-top: 4px; }
+  .stat-sub   { font-size: 0.68rem; color: #94a3b8; margin-top: 6px; line-height: 1.5; }
+
+  /* ── Host section ── */
+  .host-section { margin-bottom: 34px; }
+  .host-header {
+    display: flex; align-items: baseline; gap: 12px; padding: 10px 14px;
+    background: var(--card); border-radius: 6px 6px 0 0;
+    border: 1px solid var(--border); border-bottom: none;
+  }
+  .host-header.vz   { border-top: 3px solid var(--vz); }
+  .host-header.tmo  { border-top: 3px solid var(--tmo); }
+  .host-header.att  { border-top: 3px solid var(--att); }
+  .host-header.echo { border-top: 3px solid var(--echo); }
+
+  .host-name { font-size: 0.92rem; font-weight: 800; color: #fff; letter-spacing: -.01em; }
+  .host-meta { font-size: 0.70rem; color: var(--muted); margin-left: auto; }
+  .host-meta strong { color: #fff; font-weight: 800; }
+
+  .mvno-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--border); border: 1px solid var(--border); border-top: none;
+    border-radius: 0 0 6px 6px; overflow: hidden; }
+  @media (max-width: 900px) { .mvno-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 540px) { .mvno-grid { grid-template-columns: 1fr; } }
+
+  .mvno-card { background: var(--card); padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+  .mvno-card.owned { background: linear-gradient(135deg, #131a24 0%, #12161f 100%); }
+  .mvno-top { display: flex; justify-content: space-between; align-items: baseline; }
+  .mvno-name { font-size: 0.86rem; font-weight: 800; color: #fff; }
+  .owned-pill { font-size: 0.50rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
+    padding: 2px 6px; border-radius: 3px; background: rgba(0,212,255,.15); color: var(--accent); }
+  .mvno-owner { font-size: 0.65rem; color: var(--muted); }
+  .mvno-owner strong { color: #94a3b8; font-weight: 700; }
+  .mvno-stats { display: flex; gap: 12px; font-size: 0.66rem; margin-top: 2px; }
+  .mvno-stat { display: flex; flex-direction: column; }
+  .mvno-stat .k { color: var(--muted); font-size: 0.58rem; text-transform: uppercase; letter-spacing: .06em; }
+  .mvno-stat .v { color: #fff; font-weight: 700; font-size: 0.82rem; }
+  .mvno-stat .v.hi { color: var(--green); }
+  .mvno-stat .v.amber { color: var(--amber); }
+  .mvno-note { font-size: 0.66rem; color: #94a3b8; line-height: 1.5; margin-top: 2px; }
+
+  /* ── Callout ── */
+  .callout { background: #131a10; border: 1px solid #2a4020; border-radius: 8px;
+    padding: 14px 18px; margin: 24px 0 0 0; font-size: 0.78rem; color: #86efac; line-height: 1.65; }
+  .callout.amber { background: #1a1610; border-color: #4a3010; color: #fcd34d; }
+  .callout.blue  { background: #0f1a2e; border-color: #1e3a5f; color: #7dd3fc; }
+  .callout strong { color: #fff; }
+
+  /* ── Section heading ── */
+  .section-h { font-size: 0.60rem; font-weight: 800; text-transform: uppercase; letter-spacing: .14em;
+    color: var(--accent); margin: 32px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+  footer { background: #0d1117; border-top: 1px solid var(--border); color: var(--muted);
+    text-align: center; padding: 16px; font-size: 0.68rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="../index.html">← SIGINT Home</a>
+  <h1>SIGINT — MVNO &amp; Wholesale Tracker</h1>
+  <p>U.S. wireless wholesale ecosystem · ~80M subscribers riding on T-Mobile · AT&amp;T · Verizon networks ·
+     Cable MVNOs (Xfinity / Spectrum) are the fastest-growing prepaid threat.</p>
+</header>
+
+<div class="insight-bar">
+  <strong>Key finding:</strong> Verizon hosts the largest wholesale book (~45M subs across cable MVNOs, Visible, and TracFone family)
+  but captures the worst per-sub economics — cable MVNOs negotiated favorable wholesale rates in 2017.
+  T-Mobile is vertically integrating (acquired Mint/Ultra 2024) to recapture retail margin.
+  AT&amp;T owns Cricket (~12M, largest single prepaid brand) and hosts the fewest third-party MVNOs.
+</div>
+
+<main>
+
+  <!-- ── Top stat cards ── -->
+  <div class="stat-grid">
+    <div class="stat-card vz">
+      <div class="stat-num">~45M</div>
+      <div class="stat-label">Hosted on Verizon</div>
+      <div class="stat-sub">Cable MVNOs + Visible + TracFone family. Largest wholesale book.</div>
+    </div>
+    <div class="stat-card tmo">
+      <div class="stat-num">~26M</div>
+      <div class="stat-label">Hosted on T-Mobile</div>
+      <div class="stat-sub">Includes Metro (~21M owned prepaid) + Mint/Ultra/Google Fi.</div>
+    </div>
+    <div class="stat-card att">
+      <div class="stat-num">~14M</div>
+      <div class="stat-label">Hosted on AT&amp;T</div>
+      <div class="stat-sub">Cricket dominates (~12M owned). Fewest third-party MVNOs.</div>
+    </div>
+    <div class="stat-card echo">
+      <div class="stat-num">~7M</div>
+      <div class="stat-label">EchoStar / Boost</div>
+      <div class="stat-sub">Own 5G network + AT&amp;T/T-Mobile hybrid. Spectrum-rich wild card.</div>
+    </div>
+  </div>
+
+  <!-- ── Hosted on Verizon ── -->
+  <div class="section-h">Wholesale Hosting · By Network</div>
+
+  <div class="host-section">
+    <div class="host-header vz">
+      <div class="host-name">Hosted on Verizon Network</div>
+      <div class="host-meta">Total subs hosted: <strong>~45M</strong> &nbsp;·&nbsp; Wholesale book: largest in U.S.</div>
+    </div>
+    <div class="mvno-grid">
+
+      <div class="mvno-card">
+        <div class="mvno-top"><div class="mvno-name">Spectrum Mobile</div></div>
+        <div class="mvno-owner">Parent: <strong>Charter (CHTR)</strong></div>
+        <div class="mvno-stats">
+          <div class="mvno-stat"><div class="k">Subs (Q1'26)</div><div class="v hi">11.5M</div></div>
+          <div class="mvno-stat"><div class="k">Entry price</div><div class="v">$30/line</div></div>
+        </div>
+        <div class="mvno-note">Free Unlimited line with Spectrum internet. Fastest-growing MVNO by net adds — added ~500K in Q1 2026.</div>
+      </div>
+
+      <div class="mvno-card">
+        <div class="mvno-top"><div class="mvno-name">Xfinity Mobile</div></div>
+        <div class="mvno-owner">Parent: <strong>Comcast (CMCSA)</strong></div>
+        <div class="mvno-stats">
+          <div class="mvno-stat"><div class="k">Subs (Q1'26)</div><div class="v hi">8.5M</div></div>
+          <div class="mvno-stat"><div class="k">Entry price</div><div class="v">$25/line</div></div>
+        </div>
+        <div class="mvno-note">Bundled with Xfinity internet. Added ~450K Q1 2026. Comcast's wireless arm.</div>
+      </div>
+
+      <div class="mvno-card owned">
+        <div class="mvno-top"><div class="mvno-name">TracFone family</div><span class="owned-pill">VZ owned</span></div>
+        <div class="mvno-owner">Acquired by VZ 2021 ($6.9B). Brands: Total by Verizon, Straight Talk, Net10, Simple Mobile</div>
+        <div class="mvno-stats">
+          <div class="mvno-stat"><div class="k">Subs (est.)</div><div class="v amber">~20M</div></div>
+          <div class="mvno-stat"><div class="k">Trend</div><div class="v amber">Declining</div></div>
+        </div>
+        <div class="mvno-note">Verizon's prepaid base; net losses every quarter since acquisition.</div>
+      </div>
+
+      <div class="mvno-card owned">
+        <div class="mvno-top"><div class="mvno-name">Visible</div><span class="owned-pill">VZ owned</span></div>
+        <div class="mvno-owner">Verizon-owned digital-native brand (since 2018)</div>
+        <div class="mvno-stats">
+          <div class="mvno-stat"><div class="k">Subs (est.)</div><div class="v">~3.5M</div></div>
+          <div class="mvno-stat"><div class="k">Entry price</div><div class="v">$25/mo</div></div>
+        </div>
+        <div class="mvno-note">Single-line, app-only postpaid alternative. Designed to compete with Mint.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Hosted on T-Mobile ── -->
+  <div class="host-section">
+    <div class="host-header tmo">
+      <div class="host-name">Hosted on T-Mobile Network</div>
+      <div class="host-meta">Total subs hosted: <strong>~26M</strong> &nbsp;·&nbsp; Vertical integration play (Mint / Ultra acquired 2024)</div>
+    </div>
+    <div class="mvno-grid">
+
+      <div class="mvno-card owned">
+        <div class="mvno-top"><div class="mvno-name">Metro by T-Mobile</div><span class="owned-pill">TMUS owned</span></div>
+        <div class="mvno-owner">T-Mobile prepaid retail brand (formerly MetroPCS)</div>
+        <div class="mvno-stats">
+          <div class="mvno-stat"><div class="k">Subs (est.)</div><div class="v hi">~21M</div></div>
+          <div class="mvno-stat"><div class="k">Entry price</div><div class="v">$25/mo</div></div>
+        </div>
+        <div class="mvno-note">Brand prepaid — not a true MVNO but rides own T-Mo retail wholesale economics.</div>
+      </div>
+
+      <div class="mvno-card owned">
+        <div class="mvno-top"><div class="mvno-name">Mint Mobile</div><span class="owned-pill">TMUS owned</span></div>
+        <div class="mvno-owner">Acquired by T-Mobile 2024 ($1.35B). Ryan Reynolds brand.</div>
+        <div class="mvno-stats">
+          <div class="mvno-stat"><div class="k">Subs (est.)</div><div class="v hi">~3M</div></div>
+          <div class="mvno-stat"><div class="k">Entry price</div><div class="v">$15/mo</div></div>
+        </div>
+        <div class="mvno-note">Lowest entry price. Vertical-integration play to recapture margin from third-party MVNO.</div>
+      </div>
+
+      <div class="mvno-card owned">
+        <div class="mvno-top"><div class="mvno-name">Ultra Mobile</div><span class="owned-pill">TMUS owned</span></div>
+        <div class="mvno-owner">Acquired in same 2024 Ka'ena deal</div>
+        <div class="mvno-stats">
+          <div class="mvno-stat"><div class="k">Subs (est.)</div><div class="v">~1M</div></div>
+          <div class="mvno-stat"><div class="k">Entry price</div><div class="v">$19/mo</div></div>
+        </div>
+        <div class="mvno-note">International-calling-focused brand. Sister to Mint.</div>
+      </div>
+
+      <div class="mvno-card">
+        <div class="mvno-top"><div class="mvno-name">Google Fi</div></div>
+        <div class="mvno-owner">Parent: <strong>Google</strong></div>
+        <div class="mvno-stats">
+          <div class="mvno-stat"><div class="k">Subs (est.)</div><div class="v">~1.5M</div></div>
+          <div class="mvno-stat"><div class="k">Entry price</div><div class="v">$20/mo</div></div>
+        </div>
+        <div class="mvno-note">Multi-network historically; now primarily T-Mobile. Pixel-tied premium tier.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Hosted on AT&T ── -->
+  <div class="host-section">
+    <div class="host-header att">
+      <div class="host-name">Hosted on AT&amp;T Network</div>
+      <div class="host-meta">Total subs hosted: <strong>~14M</strong> &nbsp;·&nbsp; Cricket dominates; fewest third-party MVNOs</div>
+    </div>
+    <div class="mvno-grid">
+
+      <div class="mvno-card owned">
+        <div class="mvno-top"><div class="mvno-name">Cricket Wireless</div><span class="owned-pill">T owned</span></div>
+        <div class="mvno-owner">AT&amp;T-owned (acquired 2014 from Leap)</div>
+        <div class="mvno-stats">
+          <div class="mvno-stat"><div class="k">Subs (est.)</div><div class="v hi">~12M</div></div>
+          <div class="mvno-stat"><div class="k">Entry price</div><div class="v">$30/mo</div></div>
+        </div>
+        <div class="mvno-note">Largest single prepaid brand in U.S. AT&amp;T's main prepaid lever.</div>
+      </div>
+
+      <div class="mvno-card owned">
+        <div class="mvno-top"><div class="mvno-name">AT&amp;T Prepaid</div><span class="owned-pill">T owned</span></div>
+        <div class="mvno-owner">AT&amp;T direct prepaid brand</div>
+        <div class="mvno-stats">
+          <div class="mvno-stat"><div class="k">Subs (est.)</div><div class="v">~1.5M</div></div>
+          <div class="mvno-stat"><div class="k">Entry price</div><div class="v">$30/mo</div></div>
+        </div>
+        <div class="mvno-note">Direct-brand prepaid. Smaller than Cricket but uses AT&amp;T retail.</div>
+      </div>
+
+      <div class="mvno-card">
+        <div class="mvno-top"><div class="mvno-name">PureTalk</div></div>
+        <div class="mvno-owner">Parent: <strong>Telrite Holdings</strong> (independent)</div>
+        <div class="mvno-stats">
+          <div class="mvno-stat"><div class="k">Subs (est.)</div><div class="v">~500K</div></div>
+          <div class="mvno-stat"><div class="k">Entry price</div><div class="v">$20/mo</div></div>
+        </div>
+        <div class="mvno-note">Conservative-audience marketing positioning. Niche but growing.</div>
+      </div>
+
+      <div class="mvno-card">
+        <div class="mvno-top"><div class="mvno-name">H2O Wireless</div></div>
+        <div class="mvno-owner">Parent: <strong>Locus Telecom</strong> (independent)</div>
+        <div class="mvno-stats">
+          <div class="mvno-stat"><div class="k">Subs (est.)</div><div class="v">~250K</div></div>
+          <div class="mvno-stat"><div class="k">Entry price</div><div class="v">$20/mo</div></div>
+        </div>
+        <div class="mvno-note">International-calling tilt. Small but durable.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Multi-network / Special ── -->
+  <div class="host-section">
+    <div class="host-header echo">
+      <div class="host-name">Multi-Network &amp; Special Cases</div>
+      <div class="host-meta">Boost owns spectrum; US Mobile and Consumer Cellular toggle networks</div>
+    </div>
+    <div class="mvno-grid">
+
+      <div class="mvno-card">
+        <div class="mvno-top"><div class="mvno-name">Boost Mobile</div></div>
+        <div class="mvno-owner">Parent: <strong>EchoStar (SATS)</strong> · Own 5G + AT&amp;T/T-Mobile hybrid</div>
+        <div class="mvno-stats">
+          <div class="mvno-stat"><div class="k">Subs (est.)</div><div class="v hi">~7M</div></div>
+          <div class="mvno-stat"><div class="k">Entry price</div><div class="v">$25/mo</div></div>
+        </div>
+        <div class="mvno-note">Spectrum-rich wild card. Sold $23B in spectrum to AT&amp;T Aug 2025.</div>
+      </div>
+
+      <div class="mvno-card">
+        <div class="mvno-top"><div class="mvno-name">Consumer Cellular</div></div>
+        <div class="mvno-owner">Parent: <strong>GTCR</strong> (PE) · AT&amp;T + T-Mobile networks</div>
+        <div class="mvno-stats">
+          <div class="mvno-stat"><div class="k">Subs (est.)</div><div class="v hi">~6M</div></div>
+          <div class="mvno-stat"><div class="k">Entry price</div><div class="v">$20/mo</div></div>
+        </div>
+        <div class="mvno-note">55+ demographic focus. Largest independent MVNO. Multi-network.</div>
+      </div>
+
+      <div class="mvno-card">
+        <div class="mvno-top"><div class="mvno-name">US Mobile</div></div>
+        <div class="mvno-owner">Independent · All 3 networks (TMUS / VZ / ATT)</div>
+        <div class="mvno-stats">
+          <div class="mvno-stat"><div class="k">Subs (est.)</div><div class="v amber">~750K</div></div>
+          <div class="mvno-stat"><div class="k">Entry price</div><div class="v">$17.50/mo</div></div>
+        </div>
+        <div class="mvno-note">User-selects network. Growing rapidly via flexibility positioning.</div>
+      </div>
+
+      <div class="mvno-card">
+        <div class="mvno-top"><div class="mvno-name">Tello / Red Pocket / Ting</div></div>
+        <div class="mvno-owner">Independent value brands · Multi-network</div>
+        <div class="mvno-stats">
+          <div class="mvno-stat"><div class="k">Subs combined</div><div class="v">~1M</div></div>
+          <div class="mvno-stat"><div class="k">Entry price</div><div class="v">$10/mo</div></div>
+        </div>
+        <div class="mvno-note">Long-tail value brands. Tello (TMUS), Red Pocket (multi), Ting (TMUS/VZ).</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Strategic callouts ── -->
+  <div class="section-h">Strategic Implications</div>
+
+  <div class="callout blue">
+    <strong>Cable MVNOs are the structural threat:</strong> Spectrum Mobile (~11.5M) and Xfinity Mobile (~8.5M)
+    added a combined ~1M subs in Q1 2026 — faster than any postpaid carrier. They use Verizon's network at
+    favorable 2017-negotiated wholesale rates while undercutting Verizon retail by $30-50/line.
+    Verizon hosts its own competitors.
+  </div>
+
+  <div class="callout">
+    <strong>T-Mobile's vertical integration playbook:</strong> Acquired Mint/Ultra for $1.35B (2024) to convert
+    wholesale margin into retail margin. Combined with owned Metro (~21M subs), T-Mobile now captures the full
+    economics on ~25M prepaid/MVNO lines — versus Verizon's TracFone book that's net-declining.
+  </div>
+
+  <div class="callout amber">
+    <strong>EchoStar is the wild card:</strong> Boost has ~7M subs, own 5G spectrum, and just sold AT&amp;T $23B
+    in unused spectrum (Aug 2025). EchoStar is strategically optional — could be acquired, could pivot
+    to enterprise / satellite, or could continue as the only "4th carrier" attempt with its own retail brand.
+  </div>
+
+</main>
+
+<footer>
+  SIGINT Intelligence Platform &nbsp;·&nbsp; Subs estimates: SEC 10-Q wholesale disclosures, public statements, industry reports
+  &nbsp;·&nbsp; For research use only
+</footer>
+
+</body>
+</html>

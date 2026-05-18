@@ -48,14 +48,15 @@
   /* ── Main ── */
   main { max-width: 1040px; margin: 0 auto; padding: 44px 32px 80px; }
 
-  /* ── Three-column grid ── */
+  /* ── Three-column grid (wraps to 2 rows for 6 panels) ── */
   .trio {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 22px;
     align-items: start;
   }
-  @media (max-width: 860px) { .trio { grid-template-columns: 1fr; } }
+  @media (max-width: 1000px) { .trio { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 700px)  { .trio { grid-template-columns: 1fr; } }
 
   /* ── Panel card ── */
   .panel {
@@ -297,7 +298,153 @@
       </div>
     </div>
 
-    <!-- ── 3. Spectrum Holdings Tracker ── -->
+    <!-- ── 3. MVNO & Wholesale Tracker ── -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-top">
+          <div class="panel-eyebrow">Distribution Intelligence</div>
+          <span class="pill live"><span class="dot"></span>Live</span>
+        </div>
+        <h2>MVNO &amp; Wholesale Tracker</h2>
+        <p>U.S. wholesale ecosystem — ~80M subs riding TMUS / AT&amp;T / VZ
+           networks · cable MVNOs vs. owned brands.</p>
+      </div>
+      <div class="link-rows">
+
+        <a class="link-row" href="output/carrier_mvno_tracker.html">
+          <div class="row-icon">📶</div>
+          <div class="row-body">
+            <div class="row-title">Subscriber Map by Host Network</div>
+            <div class="row-sub">All major MVNOs grouped by carrier · Owners · Pricing</div>
+            <div class="cdots">
+              <span class="cdot" style="background:var(--tmo)"></span>
+              <span class="cdot" style="background:var(--att)"></span>
+              <span class="cdot" style="background:var(--vz)"></span>
+            </div>
+          </div>
+          <div class="row-right"><span class="row-arrow">›</span></div>
+        </a>
+
+        <div class="link-row inactive">
+          <div class="row-icon">📊</div>
+          <div class="row-body">
+            <div class="row-title">Cable MVNO Net Adds</div>
+            <div class="row-sub">Xfinity Mobile + Spectrum Mobile quarterly trend</div>
+          </div>
+          <div class="row-right"><span class="row-badge soon-badge">Soon</span></div>
+        </div>
+
+        <div class="link-row inactive">
+          <div class="row-icon">💵</div>
+          <div class="row-body">
+            <div class="row-title">Wholesale Economics Deep Dive</div>
+            <div class="row-sub">Per-sub revenue · Wholesale rates · Margin capture</div>
+          </div>
+          <div class="row-right"><span class="row-badge soon-badge">Soon</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── 4. M&A & Strategic Deals Tracker ── -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-top">
+          <div class="panel-eyebrow">Strategic Intelligence</div>
+          <span class="pill live"><span class="dot"></span>Live</span>
+        </div>
+        <h2>M&amp;A &amp; Strategic Deals</h2>
+        <p>Carrier and infrastructure deals 2024 – 2026 — $80B+ tracked
+           across fiber, spectrum, wireless, and tower assets.</p>
+      </div>
+      <div class="link-rows">
+
+        <a class="link-row" href="output/carrier_ma_tracker.html">
+          <div class="row-icon">🤝</div>
+          <div class="row-body">
+            <div class="row-title">Deals Timeline 2024 – 2026</div>
+            <div class="row-sub">Chronological deal log · Status badges · Strategic rationale</div>
+            <div class="bands">
+              <span class="band">Fiber</span>
+              <span class="band">Spectrum</span>
+              <span class="band">Wireless</span>
+              <span class="band">Tower</span>
+            </div>
+          </div>
+          <div class="row-right"><span class="row-arrow">›</span></div>
+        </a>
+
+        <div class="link-row inactive">
+          <div class="row-icon">🧭</div>
+          <div class="row-body">
+            <div class="row-title">Regulatory Watch</div>
+            <div class="row-sub">FCC + DOJ deal review status · Closing timelines</div>
+          </div>
+          <div class="row-right"><span class="row-badge soon-badge">Soon</span></div>
+        </div>
+
+        <div class="link-row inactive">
+          <div class="row-icon">📍</div>
+          <div class="row-body">
+            <div class="row-title">Deal Map by Geography</div>
+            <div class="row-sub">Fiber footprint changes · State-level deal impact</div>
+          </div>
+          <div class="row-right"><span class="row-badge soon-badge">Soon</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── 5. Fiber & Convergence Tracker ── -->
+    <div class="panel dimmed">
+      <div class="panel-head">
+        <div class="panel-top">
+          <div class="panel-eyebrow">Convergence Intelligence</div>
+          <span class="pill soon"><span class="dot"></span>Coming Soon</span>
+        </div>
+        <h2>Fiber &amp; Convergence Tracker</h2>
+        <p>Fiber footprints, FWA subscriber growth, and bundle economics
+           across carriers and cable operators.</p>
+      </div>
+      <div class="link-rows">
+
+        <div class="link-row inactive">
+          <div class="row-icon">🌐</div>
+          <div class="row-body">
+            <div class="row-title">Fiber Footprint by Carrier</div>
+            <div class="row-sub">Passings + subs · BEAD allocations</div>
+            <div class="bands">
+              <span class="band">AT&amp;T Fiber</span>
+              <span class="band">Verizon Fios</span>
+              <span class="band">Frontier</span>
+              <span class="band">T-Mo JVs</span>
+            </div>
+          </div>
+          <div class="row-right"><span class="row-badge soon-badge">Soon</span></div>
+        </div>
+
+        <div class="link-row inactive">
+          <div class="row-icon">📡</div>
+          <div class="row-body">
+            <div class="row-title">FWA Subscriber Tracker</div>
+            <div class="row-sub">T-Mo Home Internet · VZ 5G Home · AT&amp;T Internet Air</div>
+          </div>
+          <div class="row-right"><span class="row-badge soon-badge">Soon</span></div>
+        </div>
+
+        <div class="link-row inactive">
+          <div class="row-icon">🔗</div>
+          <div class="row-body">
+            <div class="row-title">Bundle Economics</div>
+            <div class="row-sub">ARPU lift · Churn reduction · Penetration by carrier</div>
+          </div>
+          <div class="row-right"><span class="row-badge soon-badge">Soon</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── 6. Spectrum Holdings Tracker ── -->
     <div class="panel dimmed">
       <div class="panel-head">
         <div class="panel-top">
