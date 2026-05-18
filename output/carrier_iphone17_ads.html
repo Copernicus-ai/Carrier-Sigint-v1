@@ -105,6 +105,31 @@
            aspect-ratio: 16/9; background: #f0f4f8; border-radius: 2px;
            border: 1px dashed #d0d7df; font-size: 0.46rem; color: #c0c8d4; }
 
+  /* ── Carry-forward (ad started in prior month, still running) ── */
+  .th.carry-fwd { opacity: 0.62; border-style: dashed; border-color: #cbd5e0; }
+  .th.carry-fwd img { filter: saturate(0.55) brightness(0.95); }
+  .th.carry-fwd::before {
+    content: '↪ cont.';
+    position: absolute; top: 3px; right: 3px;
+    font-size: 0.50rem; font-weight: 800;
+    background: rgba(40,40,40,0.88); color: #fff;
+    padding: 2px 6px; border-radius: 3px;
+    pointer-events: none; z-index: 2; letter-spacing: 0.05em;
+  }
+  .th.carry-fwd .th-date { font-style: italic; color: var(--gray2); }
+
+  /* ── TV-only (iSpot confirms airings, no YouTube upload) ── */
+  .tv-only {
+    background: #fef9e7; border: 1px dashed #d97706;
+    padding: 8px 6px; text-align: center;
+    font-size: 0.56rem; color: #92400e; font-weight: 700;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 3px; min-height: 68px; border-radius: 2px; line-height: 1.25;
+  }
+  .tv-only .tvo-icon { font-size: 0.85rem; }
+  .tv-only .tvo-title { font-weight: 700; }
+  .tv-only .tvo-meta { font-size: 0.50rem; color: #b45309; font-weight: 600; }
+
 
   /* ── View velocity overlay ── */
   .th { position: relative; }
@@ -222,6 +247,15 @@
       <p><strong>T-Mobile caveat:</strong> most T-Mobile iPhone YouTube data comes from <em>archiver channels</em>
          (third-party uploaders), not T-Mobile's official channel. T-Mobile barely uploads iPhone ads to YouTube —
          their iPhone push is TV-only. T-Mobile v/day numbers systematically understate true reach.</p>
+
+      <p><strong>Carry-forward cells</strong> (faded thumbnail with "↪ cont." badge) mark months where an ad from
+         the prior month was still running, even though it wasn't re-uploaded to YouTube that month. The matrix
+         shows YouTube <em>upload date</em>, but TV campaigns typically run for 1–3 months; carry-forwards make
+         that continuity visible. Click the carry-forward to jump to the source ad.</p>
+
+      <p><strong>TV-only cells</strong> (amber bordered "📺 TV-only" boxes) mark months where iSpot confirms the
+         carrier aired an ad but no YouTube upload exists for that creative. Example: Verizon's "Mother's Day Hockey"
+         iPhone 17 spot ran 1,498 times on TV in May 2026 per iSpot, but Verizon did not upload it to YouTube.</p>
     </div>
   </details>
 
@@ -353,8 +387,11 @@
     <a class="th" href="https://youtube.com/watch?v=0H3Mw8_ggUM" target="_blank" rel="noopener" title="USA | MALUMA NEW IPHONE 17 PRO | VERIZON 2025 COMERCIAL LATINO">
       <div class="vbadge mid"><div class="v-top">8.5K</div><div class="v-bot">36/d</div></div><img src="https://i.ytimg.com/vi/0H3Mw8_ggUM/hqdefault.jpg" loading="lazy" alt=""><div class="th-date">Sep 21 · Maluma (Latino)</div></a>
   </div>
-  <!-- Oct -->
-  <div class="mc empty"><div class="no-ad">—</div></div>
+  <!-- Oct (Sep launch ads continuing) -->
+  <div class="mc">
+    <a class="th carry-fwd" href="https://youtube.com/watch?v=vapM_XL6Frw" target="_blank" rel="noopener" title="Sep launch ad continuing into Oct — Kevin Hart iPhone 17 Pro">
+      <div class="vbadge mid"><div class="v-top">14.9K</div><div class="v-bot">65/d</div></div><img src="https://i.ytimg.com/vi/vapM_XL6Frw/hqdefault.jpg" loading="lazy" alt=""><div class="th-date">↪ Sep · Kevin Hart cont.</div></a>
+  </div>
   <!-- Nov -->
   <div class="mc">
     <a class="th" href="https://youtube.com/watch?v=r25ONbTAZs0" target="_blank" rel="noopener" title="Verizon Holidays Commercials — Kevin Hart, Melissa McCarthy">
@@ -383,10 +420,24 @@
     <a class="th" href="https://youtube.com/watch?v=vMxBaG5Xemk" target="_blank" rel="noopener" title="Get 4 iPhone 17 Pro On Us — Hockey Rink | Verizon">
       <div class="vbadge lo"><div class="v-top">242</div><div class="v-bot">3/d</div></div><img src="https://i.ytimg.com/vi/vMxBaG5Xemk/hqdefault.jpg" loading="lazy" alt=""><div class="th-date">Feb 26 · Hockey Rink</div></a>
   </div>
-  <!-- Mar–May -->
-  <div class="mc empty"><div class="no-ad">—</div></div>
-  <div class="mc empty"><div class="no-ad">—</div></div>
-  <div class="mc empty"><div class="no-ad">—</div></div>
+  <!-- Mar (Feb Hockey campaign continuing — Hockey is multi-month) -->
+  <div class="mc">
+    <a class="th carry-fwd" href="https://youtube.com/watch?v=GEgVdYP_UTc" target="_blank" rel="noopener" title="Feb Hockey campaign continuing into Mar">
+      <div class="vbadge mid"><div class="v-top">4.4K</div><div class="v-bot">42/d</div></div><img src="https://i.ytimg.com/vi/GEgVdYP_UTc/hqdefault.jpg" loading="lazy" alt=""><div class="th-date">↪ Feb · Hockey cont.</div></a>
+  </div>
+  <!-- Apr (Hockey continues, Mother's Day prep) -->
+  <div class="mc">
+    <a class="th carry-fwd" href="https://youtube.com/watch?v=DPxc70TcRww" target="_blank" rel="noopener" title="Hockey campaign continuing into Apr — Mother's Day prep">
+      <div class="vbadge mid"><div class="v-top">1.9K</div><div class="v-bot">23/d</div></div><img src="https://i.ytimg.com/vi/DPxc70TcRww/hqdefault.jpg" loading="lazy" alt=""><div class="th-date">↪ Feb · Hockey cont.</div></a>
+  </div>
+  <!-- May (Mother's Day Hockey TV-only — iSpot confirms 1,498 airings, no YT upload) -->
+  <div class="mc">
+    <div class="tv-only">
+      <span class="tvo-icon">📺</span>
+      <div class="tvo-title">Mother's Day<br>Hockey</div>
+      <div class="tvo-meta">TV-only · 1,498 airings (iSpot)</div>
+    </div>
+  </div>
 
   <!-- ══════════ XFINITY MOBILE ══════════ -->
   <div class="cl"><div class="cl-dot" style="background:var(--xfn)"></div><div class="cl-name">Xfinity Mobile</div><div class="cl-count">11 ads</div></div>
