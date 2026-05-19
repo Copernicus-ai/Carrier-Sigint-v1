@@ -93,7 +93,7 @@
     border-bottom: 1px solid var(--border);
   }
 
-  /* ── Year band ── */
+  /* ── Year band (legacy) ── */
   .year-band {
     display: flex; align-items: baseline; gap: 12px; padding: 8px 0 6px;
     margin-top: 14px; margin-bottom: 10px;
@@ -101,6 +101,32 @@
   }
   .year-band .y { font-size: 1.05rem; font-weight: 800; color: var(--ink); }
   .year-band .yc { font-size: 0.70rem; color: var(--gray2); }
+
+  /* ── Carrier band (group by acquirer/principal) ── */
+  .carrier-band {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; margin-top: 22px; margin-bottom: 12px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    border-left: 5px solid var(--gray2);
+  }
+  .carrier-band.tmo  { border-left-color: var(--tmo); }
+  .carrier-band.att  { border-left-color: var(--att); }
+  .carrier-band.vz   { border-left-color: var(--vz); }
+  .carrier-band.xfn  { border-left-color: var(--xfn); }
+  .carrier-band.spc  { border-left-color: var(--spc); }
+  .carrier-band.echo { border-left-color: var(--echo); }
+  .carrier-band.other { border-left-color: var(--gray2); }
+  .carrier-band .cb-name { font-size: 1.05rem; font-weight: 800; color: var(--ink); letter-spacing: -0.01em; }
+  .carrier-band .cb-tag  {
+    font-size: 0.58rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.10em; color: var(--gray2);
+    padding: 2px 8px; background: var(--bg); border-radius: 10px;
+  }
+  .carrier-band .cb-meta {
+    margin-left: auto; font-size: 0.74rem; color: var(--gray1);
+    font-weight: 600;
+  }
+  .carrier-band .cb-meta strong { color: var(--ink); }
 
   /* ── Deal card ── */
   .deal {
@@ -189,7 +215,7 @@
     <div class="stat-card">
       <div class="stat-num">$80B+</div>
       <div class="stat-label">Announced Deal Value</div>
-      <div class="stat-sub">Across 11 tracked deals 2024 – 2026.</div>
+      <div class="stat-sub">Across 10 tracked deals 2024 – 2026.</div>
     </div>
     <div class="stat-card green">
       <div class="stat-num green">9</div>
@@ -219,187 +245,15 @@
     <span class="theme-chip"><span class="swatch" style="background:var(--t-corp)"></span>Corporate</span>
   </div>
 
-  <!-- ── 2026 deals ── -->
-  <div class="year-band">
-    <div class="y">2026</div>
-    <div class="yc">Major closings clear regulatory — convergence wave consummated</div>
-  </div>
+  <p style="font-size:0.74rem;color:var(--gray2);margin-bottom:18px;font-style:italic">
+    Deals grouped by primary acquirer / principal. Within each carrier, sorted by most recent event first.
+  </p>
 
-  <div class="deal spectrum">
-    <div class="tab"></div>
-    <div class="date-col">
-      <div class="month">May 2026</div>
-      <span class="badge closed">Closed</span>
-    </div>
-    <div class="body-col">
-      <div class="deal-title">EchoStar / AT&amp;T spectrum sale closes</div>
-      <div class="deal-parties">
-        <span><span class="pdot" style="background:var(--echo)"></span>EchoStar</span>
-        <span>→</span>
-        <span><span class="pdot" style="background:var(--att)"></span>AT&amp;T</span>
-      </div>
-      <div class="deal-rationale">
-        Originally announced Aug 2025. FCC review and approval completed; spectrum transferred mid-May 2026.
-        AT&amp;T now owns the AWS-3 / AWS-4 / H-Block licenses, adding ~50 MHz of mid-band capacity for 5G densification.
-        Largest U.S. spectrum transaction on record.
-      </div>
-    </div>
-    <div class="right-col">
-      <div class="deal-value">$23.0B</div>
-      <div class="deal-theme"><span class="swatch" style="background:var(--t-spectrum)"></span>Spectrum</div>
-    </div>
-  </div>
-
-  <div class="deal spectrum">
-    <div class="tab"></div>
-    <div class="date-col">
-      <div class="month">May 2026</div>
-      <span class="badge closed">Closed</span>
-    </div>
-    <div class="body-col">
-      <div class="deal-title">EchoStar / SpaceX AWS-4 spectrum sale closes</div>
-      <div class="deal-parties">
-        <span><span class="pdot" style="background:var(--echo)"></span>EchoStar</span>
-        <span>→</span>
-        <span><span class="pdot" style="background:#000"></span>SpaceX</span>
-      </div>
-      <div class="deal-rationale">
-        Originally announced Aug 2025. FCC approval received and transfer completed mid-May 2026.
-        SpaceX gains AWS-4 for direct-to-cell Starlink service. Establishes satellite operators as a
-        legitimate carrier spectrum-buyer category for the first time.
-      </div>
-    </div>
-    <div class="right-col">
-      <div class="deal-value">$17.0B</div>
-      <div class="deal-theme"><span class="swatch" style="background:var(--t-spectrum)"></span>Spectrum</div>
-    </div>
-  </div>
-
-  <div class="deal fiber">
-    <div class="tab"></div>
-    <div class="date-col">
-      <div class="month">Q1 2026</div>
-      <span class="badge closed">Closed</span>
-    </div>
-    <div class="body-col">
-      <div class="deal-title">Verizon / Frontier acquisition closes</div>
-      <div class="deal-parties">
-        <span><span class="pdot" style="background:var(--vz)"></span>Verizon</span>
-        <span>←</span>
-        <span>Frontier (FYBR)</span>
-      </div>
-      <div class="deal-rationale">
-        Originally announced Sep 2024 for $20B all-cash. Closed Q1 2026 after FCC and state PUC approvals.
-        Verizon's consumer fiber base roughly doubles to ~12M subs across 25 new states. Largest single
-        carrier bet of the cycle; restores VZ fiber parity with AT&amp;T.
-      </div>
-    </div>
-    <div class="right-col">
-      <div class="deal-value">$20.0B</div>
-      <div class="deal-theme"><span class="swatch" style="background:var(--t-fiber)"></span>Fiber</div>
-    </div>
-  </div>
-
-  <div class="deal tower">
-    <div class="tab"></div>
-    <div class="date-col">
-      <div class="month">Q1 2026</div>
-      <span class="badge closed">Closed</span>
-    </div>
-    <div class="body-col">
-      <div class="deal-title">Crown Castle fiber divestiture closes</div>
-      <div class="deal-parties">
-        <span>Crown Castle (CCI)</span>
-        <span>→</span>
-        <span>Zayo + EQT</span>
-      </div>
-      <div class="deal-rationale">
-        Originally announced Mar 2025. Zayo absorbed CCI's enterprise fiber; EQT took small-cell.
-        Crown Castle now refocused on the tower business. Reshapes the tower / fiber operator landscape.
-      </div>
-    </div>
-    <div class="right-col">
-      <div class="deal-value">$8.5B</div>
-      <div class="deal-theme"><span class="swatch" style="background:var(--t-tower)"></span>Tower / Infra</div>
-    </div>
-  </div>
-
-  <div class="deal fiber">
-    <div class="tab"></div>
-    <div class="date-col">
-      <div class="month">In review</div>
-      <span class="badge pending">Pending</span>
-    </div>
-    <div class="body-col">
-      <div class="deal-title">AT&amp;T / Lumen Mass Markets fiber acquisition</div>
-      <div class="deal-parties">
-        <span><span class="pdot" style="background:var(--att)"></span>AT&amp;T</span>
-        <span>←</span>
-        <span>Lumen Technologies</span>
-      </div>
-      <div class="deal-rationale">
-        Originally announced May 2025. Still progressing through FCC and state-level review.
-        Adds ~4M fiber passings + ~1M consumer fiber subs to AT&amp;T's footprint. Expected close H2 2026.
-      </div>
-    </div>
-    <div class="right-col">
-      <div class="deal-value">$5.75B</div>
-      <div class="deal-theme"><span class="swatch" style="background:var(--t-fiber)"></span>Fiber</div>
-    </div>
-  </div>
-
-  <!-- ── 2025 deals ── -->
-  <div class="year-band">
-    <div class="y">2025</div>
-    <div class="yc">Convergence wave + spectrum reshuffle (announcements)</div>
-  </div>
-
-  <div class="deal spectrum">
-    <div class="tab"></div>
-    <div class="date-col">
-      <div class="month">Aug 2025</div>
-      <span class="badge closed">Announced</span>
-    </div>
-    <div class="body-col">
-      <div class="deal-title">EchoStar sells AWS-3/AWS-4/H-Block spectrum to AT&amp;T <em style="color:var(--gray2);font-weight:600">(closed May 2026 — see 2026 above)</em></div>
-      <div class="deal-parties">
-        <span><span class="pdot" style="background:var(--echo)"></span>EchoStar</span>
-        <span>→</span>
-        <span><span class="pdot" style="background:var(--att)"></span>AT&amp;T</span>
-      </div>
-      <div class="deal-rationale">
-        Largest U.S. spectrum transaction. AT&amp;T gains ~50 MHz of mid-band capacity for 5G densification.
-        EchoStar pivots away from wireless network ambitions; Boost continues as MVNO + own-network hybrid.
-      </div>
-    </div>
-    <div class="right-col">
-      <div class="deal-value">$23.0B</div>
-      <div class="deal-theme"><span class="swatch" style="background:var(--t-spectrum)"></span>Spectrum</div>
-    </div>
-  </div>
-
-  <div class="deal spectrum">
-    <div class="tab"></div>
-    <div class="date-col">
-      <div class="month">Aug 2025</div>
-      <span class="badge closed">Announced</span>
-    </div>
-    <div class="body-col">
-      <div class="deal-title">EchoStar sells AWS-4 spectrum to SpaceX <em style="color:var(--gray2);font-weight:600">(closed May 2026 — see 2026 above)</em></div>
-      <div class="deal-parties">
-        <span><span class="pdot" style="background:var(--echo)"></span>EchoStar</span>
-        <span>→</span>
-        <span><span class="pdot" style="background:#000"></span>SpaceX</span>
-      </div>
-      <div class="deal-rationale">
-        Direct-to-cell satellite spectrum for Starlink. Signals satellite-cellular convergence as a real
-        spectrum-buyer category. EchoStar monetizes unused AWS-4 holdings.
-      </div>
-    </div>
-    <div class="right-col">
-      <div class="deal-value">$17.0B</div>
-      <div class="deal-theme"><span class="swatch" style="background:var(--t-spectrum)"></span>Spectrum</div>
-    </div>
+  <!-- ══════════ T-MOBILE ══════════ -->
+  <div class="carrier-band tmo">
+    <div class="cb-name">T-Mobile</div>
+    <div class="cb-tag">TMUS · Most active</div>
+    <div class="cb-meta"><strong>4 deals</strong> · ~$11.6B · UScellular + 2 fiber JVs + Mint MVNO</div>
   </div>
 
   <div class="deal wireless">
@@ -416,115 +270,13 @@
         <span>UScellular</span>
       </div>
       <div class="deal-rationale">
-        Adds ~4M postpaid subs and meaningful 600 MHz / mid-band spectrum in rural markets.
-        Announced May 2024, closed August 2025 after DOJ review. TMUS retains UScellular tower portfolio.
+        Announced May 2024, closed Aug 2025 after DOJ review. Adds ~4M postpaid subs and 600 MHz / mid-band
+        spectrum in rural markets. TMUS retains UScellular tower portfolio.
       </div>
     </div>
     <div class="right-col">
       <div class="deal-value">$4.4B</div>
       <div class="deal-theme"><span class="swatch" style="background:var(--t-wireless)"></span>Wireless</div>
-    </div>
-  </div>
-
-  <div class="deal fiber">
-    <div class="tab"></div>
-    <div class="date-col">
-      <div class="month">May 2025</div>
-      <span class="badge pending">Pending</span>
-    </div>
-    <div class="body-col">
-      <div class="deal-title">AT&amp;T to acquire Lumen Mass Markets fiber (Quantum Fiber consumer)</div>
-      <div class="deal-parties">
-        <span><span class="pdot" style="background:var(--att)"></span>AT&amp;T</span>
-        <span>←</span>
-        <span>Lumen Technologies</span>
-      </div>
-      <div class="deal-rationale">
-        Adds ~4M fiber passings + ~1M consumer fiber subs to AT&amp;T's footprint. Closes the remaining geographic
-        gaps in AT&amp;T Fiber. Expected close 2026 pending regulatory review.
-      </div>
-    </div>
-    <div class="right-col">
-      <div class="deal-value">$5.75B</div>
-      <div class="deal-theme"><span class="swatch" style="background:var(--t-fiber)"></span>Fiber</div>
-    </div>
-  </div>
-
-  <div class="deal tower">
-    <div class="tab"></div>
-    <div class="date-col">
-      <div class="month">Mar 2025</div>
-      <span class="badge closed">Announced</span>
-    </div>
-    <div class="body-col">
-      <div class="deal-title">Crown Castle divests fiber business to Zayo / EQT <em style="color:var(--gray2);font-weight:600">(closed Q1 2026 — see 2026 above)</em></div>
-      <div class="deal-parties">
-        <span>Crown Castle (CCI)</span>
-        <span>→</span>
-        <span>Zayo + EQT</span>
-      </div>
-      <div class="deal-rationale">
-        CCI exits fiber to focus on tower business. Zayo absorbs CCI's enterprise fiber; EQT takes small-cell.
-        Reshapes the tower / fiber operator landscape. Closing expected late 2025 / early 2026.
-      </div>
-    </div>
-    <div class="right-col">
-      <div class="deal-value">$8.5B</div>
-      <div class="deal-theme"><span class="swatch" style="background:var(--t-tower)"></span>Tower / Infra</div>
-    </div>
-  </div>
-
-  <!-- ── 2024 deals ── -->
-  <div class="year-band">
-    <div class="y">2024</div>
-    <div class="yc">T-Mobile's strategic year + Verizon's biggest bet</div>
-  </div>
-
-  <div class="deal corp">
-    <div class="tab"></div>
-    <div class="date-col">
-      <div class="month">Nov 2024</div>
-      <span class="badge closed">Closed</span>
-    </div>
-    <div class="body-col">
-      <div class="deal-title">Charter / Liberty Broadband merger</div>
-      <div class="deal-parties">
-        <span><span class="pdot" style="background:var(--spc)"></span>Charter (CHTR)</span>
-        <span>+</span>
-        <span>Liberty Broadband (LBRDA)</span>
-      </div>
-      <div class="deal-rationale">
-        All-stock merger collapses Liberty's holding-company structure. Simplifies CHTR cap table and
-        removes the LBRDA NAV discount. No operational change.
-      </div>
-    </div>
-    <div class="right-col">
-      <div class="deal-value">All-stock</div>
-      <div class="deal-theme"><span class="swatch" style="background:var(--t-corp)"></span>Corporate</div>
-    </div>
-  </div>
-
-  <div class="deal fiber">
-    <div class="tab"></div>
-    <div class="date-col">
-      <div class="month">Sep 2024</div>
-      <span class="badge closed">Announced</span>
-    </div>
-    <div class="body-col">
-      <div class="deal-title">Verizon to acquire Frontier Communications (largest pure-play fiber) <em style="color:var(--gray2);font-weight:600">(closed Q1 2026 — see 2026 above)</em></div>
-      <div class="deal-parties">
-        <span><span class="pdot" style="background:var(--vz)"></span>Verizon</span>
-        <span>←</span>
-        <span>Frontier (FYBR)</span>
-      </div>
-      <div class="deal-rationale">
-        All-cash. Adds ~7.2M fiber passings + ~2.2M fiber subs to Verizon's Fios footprint. Doubles VZ
-        consumer fiber presence and extends into 25 new states. Expected close Q1 2026 pending FCC + states.
-      </div>
-    </div>
-    <div class="right-col">
-      <div class="deal-value">$20.0B</div>
-      <div class="deal-theme"><span class="swatch" style="background:var(--t-fiber)"></span>Fiber</div>
     </div>
   </div>
 
@@ -544,8 +296,8 @@
         <span>Metronet</span>
       </div>
       <div class="deal-rationale">
-        50/50 JV. Adds ~2M fiber passings under "Insight" brand. T-Mobile's entry into wireline / fiber
-        as the convergence hedge against VZ-Fios and AT&amp;T-Fiber.
+        50/50 JV. Adds ~2M fiber passings under "Insight" brand. T-Mobile's bigger fiber bet as a
+        convergence hedge against VZ-Fios and AT&amp;T-Fiber.
       </div>
     </div>
     <div class="right-col">
@@ -580,29 +332,6 @@
     </div>
   </div>
 
-  <div class="deal wireless">
-    <div class="tab"></div>
-    <div class="date-col">
-      <div class="month">May 2024</div>
-      <span class="badge closed">Announced</span>
-    </div>
-    <div class="body-col">
-      <div class="deal-title">T-Mobile to acquire UScellular wireless ops (announced)</div>
-      <div class="deal-parties">
-        <span><span class="pdot" style="background:var(--tmo)"></span>T-Mobile</span>
-        <span>←</span>
-        <span>UScellular</span>
-      </div>
-      <div class="deal-rationale">
-        Announced May 2024. Reviewed by DOJ. Closed August 2025 — see deal entry above.
-      </div>
-    </div>
-    <div class="right-col">
-      <div class="deal-value">$4.4B</div>
-      <div class="deal-theme"><span class="swatch" style="background:var(--t-wireless)"></span>Wireless</div>
-    </div>
-  </div>
-
   <div class="deal mvno">
     <div class="tab"></div>
     <div class="date-col">
@@ -624,6 +353,182 @@
     <div class="right-col">
       <div class="deal-value">$1.35B</div>
       <div class="deal-theme"><span class="swatch" style="background:var(--t-mvno)"></span>MVNO</div>
+    </div>
+  </div>
+
+  <!-- ══════════ AT&T ══════════ -->
+  <div class="carrier-band att">
+    <div class="cb-name">AT&amp;T</div>
+    <div class="cb-tag">T · Biggest single deal</div>
+    <div class="cb-meta"><strong>2 deals</strong> · $28.75B announced · $23B closed (EchoStar spectrum)</div>
+  </div>
+
+  <div class="deal spectrum">
+    <div class="tab"></div>
+    <div class="date-col">
+      <div class="month">May 2026</div>
+      <span class="badge closed">Closed</span>
+    </div>
+    <div class="body-col">
+      <div class="deal-title">EchoStar / AT&amp;T spectrum sale</div>
+      <div class="deal-parties">
+        <span><span class="pdot" style="background:var(--echo)"></span>EchoStar</span>
+        <span>→</span>
+        <span><span class="pdot" style="background:var(--att)"></span>AT&amp;T</span>
+      </div>
+      <div class="deal-rationale">
+        Announced Aug 2025, closed mid-May 2026 after FCC review. AT&amp;T gains AWS-3 / AWS-4 / H-Block
+        licenses — ~50 MHz of mid-band capacity for 5G densification.
+        <strong>Largest U.S. spectrum transaction on record.</strong>
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="deal-value">$23.0B</div>
+      <div class="deal-theme"><span class="swatch" style="background:var(--t-spectrum)"></span>Spectrum</div>
+    </div>
+  </div>
+
+  <div class="deal fiber">
+    <div class="tab"></div>
+    <div class="date-col">
+      <div class="month">In review</div>
+      <span class="badge pending">Pending</span>
+    </div>
+    <div class="body-col">
+      <div class="deal-title">AT&amp;T / Lumen Mass Markets fiber acquisition</div>
+      <div class="deal-parties">
+        <span><span class="pdot" style="background:var(--att)"></span>AT&amp;T</span>
+        <span>←</span>
+        <span>Lumen Technologies</span>
+      </div>
+      <div class="deal-rationale">
+        Announced May 2025. Still progressing through FCC and state-level review.
+        Adds ~4M fiber passings + ~1M consumer fiber subs to AT&amp;T's footprint, closing remaining
+        geographic gaps in AT&amp;T Fiber. Expected close H2 2026.
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="deal-value">$5.75B</div>
+      <div class="deal-theme"><span class="swatch" style="background:var(--t-fiber)"></span>Fiber</div>
+    </div>
+  </div>
+
+  <!-- ══════════ VERIZON ══════════ -->
+  <div class="carrier-band vz">
+    <div class="cb-name">Verizon</div>
+    <div class="cb-tag">VZ · Mega-bet</div>
+    <div class="cb-meta"><strong>1 deal</strong> · $20B · Frontier fiber (closed Q1 2026)</div>
+  </div>
+
+  <div class="deal fiber">
+    <div class="tab"></div>
+    <div class="date-col">
+      <div class="month">Q1 2026</div>
+      <span class="badge closed">Closed</span>
+    </div>
+    <div class="body-col">
+      <div class="deal-title">Verizon / Frontier Communications acquisition</div>
+      <div class="deal-parties">
+        <span><span class="pdot" style="background:var(--vz)"></span>Verizon</span>
+        <span>←</span>
+        <span>Frontier (FYBR)</span>
+      </div>
+      <div class="deal-rationale">
+        Announced Sep 2024 for $20B all-cash. Closed Q1 2026 after FCC and state PUC approvals.
+        Adds ~7.2M fiber passings + ~2.2M fiber subs to VZ's Fios footprint — consumer fiber base roughly
+        doubles to ~12M subs across 25 new states. <strong>Largest single carrier bet of the cycle;
+        restores VZ fiber parity with AT&amp;T.</strong>
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="deal-value">$20.0B</div>
+      <div class="deal-theme"><span class="swatch" style="background:var(--t-fiber)"></span>Fiber</div>
+    </div>
+  </div>
+
+  <!-- ══════════ CHARTER ══════════ -->
+  <div class="carrier-band spc">
+    <div class="cb-name">Charter</div>
+    <div class="cb-tag">CHTR · Corporate cleanup</div>
+    <div class="cb-meta"><strong>1 deal</strong> · Liberty Broadband collapse (all-stock)</div>
+  </div>
+
+  <div class="deal corp">
+    <div class="tab"></div>
+    <div class="date-col">
+      <div class="month">Nov 2024</div>
+      <span class="badge closed">Closed</span>
+    </div>
+    <div class="body-col">
+      <div class="deal-title">Charter / Liberty Broadband merger</div>
+      <div class="deal-parties">
+        <span><span class="pdot" style="background:var(--spc)"></span>Charter (CHTR)</span>
+        <span>+</span>
+        <span>Liberty Broadband (LBRDA)</span>
+      </div>
+      <div class="deal-rationale">
+        All-stock merger collapses Liberty's holding-company structure. Simplifies CHTR cap table and
+        removes the LBRDA NAV discount. No operational change.
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="deal-value">All-stock</div>
+      <div class="deal-theme"><span class="swatch" style="background:var(--t-corp)"></span>Corporate</div>
+    </div>
+  </div>
+
+  <!-- ══════════ ADJACENT / SPECTRUM MONETIZERS ══════════ -->
+  <div class="carrier-band echo">
+    <div class="cb-name">Adjacent &amp; Spectrum Monetizers</div>
+    <div class="cb-tag">Outside the 5</div>
+    <div class="cb-meta"><strong>2 deals</strong> · $25.5B · EchoStar→SpaceX · Crown Castle fiber divest</div>
+  </div>
+
+  <div class="deal spectrum">
+    <div class="tab"></div>
+    <div class="date-col">
+      <div class="month">May 2026</div>
+      <span class="badge closed">Closed</span>
+    </div>
+    <div class="body-col">
+      <div class="deal-title">EchoStar / SpaceX AWS-4 spectrum sale</div>
+      <div class="deal-parties">
+        <span><span class="pdot" style="background:var(--echo)"></span>EchoStar</span>
+        <span>→</span>
+        <span><span class="pdot" style="background:#000"></span>SpaceX</span>
+      </div>
+      <div class="deal-rationale">
+        Announced Aug 2025, closed mid-May 2026. SpaceX gains AWS-4 for direct-to-cell Starlink service.
+        <strong>Establishes satellite operators as a legitimate carrier spectrum-buyer category for the first time.</strong>
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="deal-value">$17.0B</div>
+      <div class="deal-theme"><span class="swatch" style="background:var(--t-spectrum)"></span>Spectrum</div>
+    </div>
+  </div>
+
+  <div class="deal tower">
+    <div class="tab"></div>
+    <div class="date-col">
+      <div class="month">Q1 2026</div>
+      <span class="badge closed">Closed</span>
+    </div>
+    <div class="body-col">
+      <div class="deal-title">Crown Castle fiber divestiture to Zayo / EQT</div>
+      <div class="deal-parties">
+        <span>Crown Castle (CCI)</span>
+        <span>→</span>
+        <span>Zayo + EQT</span>
+      </div>
+      <div class="deal-rationale">
+        Announced Mar 2025, closed Q1 2026. Zayo absorbed CCI's enterprise fiber; EQT took small-cell.
+        Crown Castle now refocused on the tower business. Reshapes the tower / fiber operator landscape.
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="deal-value">$8.5B</div>
+      <div class="deal-theme"><span class="swatch" style="background:var(--t-tower)"></span>Tower / Infra</div>
     </div>
   </div>
 
