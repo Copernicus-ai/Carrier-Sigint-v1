@@ -119,6 +119,13 @@
   }
   .th.carry-fwd .th-date { font-style: italic; color: var(--gray1); font-weight: 600; }
 
+  /* ── General/brand ad (real ad this month, but not iPhone-specific) ── */
+  .th.general-ad { border: 2px solid #7c3aed !important; }
+  .general-note {
+    font-size: 0.46rem; font-weight: 800; color: #fff; background: #7c3aed;
+    text-align: center; padding: 2px 3px; letter-spacing: 0.02em;
+  }
+
   /* ── TV-only (iSpot confirms airings, no YouTube upload) ── */
   .tv-only {
     background: #fef9e7; border: 1px dashed #d97706;
@@ -271,6 +278,9 @@
     <span class="vel-swatch"><div class="vel-pip" style="background:#64748b"></div>&lt;10 v/d (slate)</span>
     <span class="vel-note">· Badge shows total views (top) + v/day (bottom) · T-Mobile figures from archiver channels, not official</span>
   </div>
+  <div class="vel-legend" style="margin-top:-8px">
+    <span class="vel-swatch"><div class="vel-pip" style="background:#7c3aed"></div>Purple border = general/brand ad the carrier ran that month (plan pricing, loyalty perks, network claims) — not iPhone-specific, shown so the grid reflects real activity instead of a blank cell</span>
+  </div>
 
 <div class="matrix-outer"><div class="matrix">
 
@@ -333,10 +343,18 @@
     <a class="th" href="https://youtube.com/watch?v=en17Kk8aV4U" target="_blank" rel="noopener" title="T-Mobile Commercial (2026) Featuring Zoe Saldana">
       <div class="vbadge mid"><div class="v-top">5.8K</div><div class="v-bot">47/d</div></div><img src="https://i.ytimg.com/vi/en17Kk8aV4U/hqdefault.jpg" loading="lazy" alt=""><div class="th-date">May · Zoe Saldaña</div></a>
   </div>
-  <!-- Jun 2026: no new iPhone-specific YouTube upload (official channel ran Dylan Efron/Everglades, Delta perks, dining rewards — no iPhone creative; archiver-channel search also came up empty) -->
-  <div class="mc empty"><div class="no-ad">—</div></div>
-  <!-- Jul 2026: no iPhone-specific ad found (official + archiver search) -->
-  <div class="mc empty"><div class="no-ad">—</div></div>
+  <!-- Jun 2026: no iPhone-specific creative; general brand ad shown instead -->
+  <div class="mc">
+    <a class="th general-ad" href="https://youtube.com/watch?v=HH2lP1K8ej8" target="_blank" rel="noopener" title="You're free to wander with America's Best Network | T-Mobile (general brand ad, not iPhone-specific)">
+      <div class="vbadge mid"><div class="v-top">1.8K</div><div class="v-bot">40/d</div></div><img src="https://i.ytimg.com/vi/HH2lP1K8ej8/hqdefault.jpg" loading="lazy" alt="">
+      <div class="general-note">GENERAL AD</div><div class="th-date">Jun 8 · America's Best Network</div></a>
+  </div>
+  <!-- Jul 2026: no iPhone-specific creative; general brand ad shown instead -->
+  <div class="mc">
+    <a class="th general-ad" href="https://youtube.com/watch?v=AqKzsWGmng0" target="_blank" rel="noopener" title="T-Mobile Dining Rewards with Marcello (general brand ad, not iPhone-specific)">
+      <div class="vbadge hi"><div class="v-top">1.3K</div><div class="v-bot">208/d</div></div><img src="https://i.ytimg.com/vi/AqKzsWGmng0/hqdefault.jpg" loading="lazy" alt="">
+      <div class="general-note">GENERAL AD</div><div class="th-date">Jul 16 · Dining Rewards</div></a>
+  </div>
 
   <!-- ══════════ AT&T ══════════ -->
   <div class="cl"><div class="cl-dot" style="background:var(--att)"></div><div class="cl-name">AT&amp;T</div><div class="cl-count">8 ads</div></div>
@@ -382,10 +400,18 @@
     <a class="th" href="https://youtube.com/watch?v=NK8nmWqDMlE" target="_blank" rel="noopener" title="Festival | AT&T">
       <div class="vbadge hi"><div class="v-top">157.3K</div><div class="v-bot">13.1K/d</div></div><img src="https://i.ytimg.com/vi/NK8nmWqDMlE/hqdefault.jpg" loading="lazy" alt=""><div class="th-date">May 5 · Festival</div></a>
   </div>
-  <!-- Jun 2026: official channel shifted to summer/gaming/music-sponsorship content — no iPhone creative -->
-  <div class="mc empty"><div class="no-ad">—</div></div>
-  <!-- Jul 2026: "Summer" deal spots (Jul 22) are general promo, not iPhone-specific; no dedicated iPhone 17 ad -->
-  <div class="mc empty"><div class="no-ad">—</div></div>
+  <!-- Jun 2026: no iPhone-specific creative; general brand ad shown instead -->
+  <div class="mc">
+    <a class="th general-ad" href="https://youtube.com/watch?v=CSdnmQCRvxw" target="_blank" rel="noopener" title="She's Connected with Sarah Gorden | AT&T (general brand ad, not iPhone-specific)">
+      <div class="vbadge hi"><div class="v-top">3.0K</div><div class="v-bot">105/d</div></div><img src="https://i.ytimg.com/vi/CSdnmQCRvxw/hqdefault.jpg" loading="lazy" alt="">
+      <div class="general-note">GENERAL AD</div><div class="th-date">Jun 24 · She's Connected</div></a>
+  </div>
+  <!-- Jul 2026: no iPhone-specific creative; general brand ad shown instead (AT&T Guarantee is a major national campaign) -->
+  <div class="mc">
+    <a class="th general-ad" href="https://youtube.com/watch?v=URdf_rf2avA" target="_blank" rel="noopener" title="AT&T Guarantee | AT&T (general brand ad, not iPhone-specific)">
+      <div class="vbadge hi"><div class="v-top">22.1M</div><div class="v-bot">3.7M/d</div></div><img src="https://i.ytimg.com/vi/URdf_rf2avA/hqdefault.jpg" loading="lazy" alt="">
+      <div class="general-note">GENERAL AD</div><div class="th-date">Jul 16 · AT&T Guarantee</div></a>
+  </div>
 
   <!-- ══════════ VERIZON ══════════ -->
   <div class="cl"><div class="cl-dot" style="background:var(--vz)"></div><div class="cl-name">Verizon</div><div class="cl-count">12 ads</div></div>
@@ -453,10 +479,18 @@
       <div class="tvo-meta">TV-only · 1,498 airings (iSpot)</div>
     </div>
   </div>
-  <!-- Jun 2026: Simplicity Plan launch (Dr. Evil campaign) dominated the channel — plan-pricing focus, no iPhone creative -->
-  <div class="mc empty"><div class="no-ad">—</div></div>
-  <!-- Jul 2026: no iPhone 17 ad found -->
-  <div class="mc empty"><div class="no-ad">—</div></div>
+  <!-- Jun 2026: no iPhone-specific creative; Simplicity Plan launch (Dr. Evil) shown as general brand ad instead -->
+  <div class="mc">
+    <a class="th general-ad" href="https://youtube.com/watch?v=WS6iRne4KPQ" target="_blank" rel="noopener" title="Introducing Simplicity Plan | Dr Evil Returns! | Verizon (general brand ad, not iPhone-specific)">
+      <div class="vbadge hi"><div class="v-top">30.4K</div><div class="v-bot">844/d</div></div><img src="https://i.ytimg.com/vi/WS6iRne4KPQ/hqdefault.jpg" loading="lazy" alt="">
+      <div class="general-note">GENERAL AD</div><div class="th-date">Jun 16 · Simplicity/Dr. Evil</div></a>
+  </div>
+  <!-- Jul 2026: no iPhone-specific creative; Simplicity Plan (Spanish) shown as general brand ad instead -->
+  <div class="mc">
+    <a class="th general-ad" href="https://youtube.com/watch?v=afEFVNAIi14" target="_blank" rel="noopener" title="Presentamos Simplicity de Verizon (general brand ad, not iPhone-specific)">
+      <div class="vbadge hi"><div class="v-top">185</div><div class="v-bot">185/d</div></div><img src="https://i.ytimg.com/vi/afEFVNAIi14/hqdefault.jpg" loading="lazy" alt="">
+      <div class="general-note">GENERAL AD</div><div class="th-date">Jul 22 · Simplicity (ES)</div></a>
+  </div>
 
   <!-- ══════════ XFINITY MOBILE ══════════ -->
   <div class="cl"><div class="cl-dot" style="background:var(--xfn)"></div><div class="cl-name">Xfinity Mobile</div><div class="cl-count">11 ads</div></div>
@@ -508,9 +542,13 @@
   </div>
   <!-- May -->
   <div class="mc empty"><div class="no-ad">—</div></div>
-  <!-- Jun 2026: no iPhone 17 ad found on official channel -->
-  <div class="mc empty"><div class="no-ad">—</div></div>
-  <!-- Jul 2026: no iPhone 17 ad found -->
+  <!-- Jun 2026: no iPhone-specific creative; general brand ad shown instead -->
+  <div class="mc">
+    <a class="th general-ad" href="https://youtube.com/watch?v=hUG5t54gPKs" target="_blank" rel="noopener" title="Same-Day WiFi. Instant Online Magic. | Xfinity (general brand ad, not iPhone-specific)">
+      <div class="vbadge hi"><div class="v-top">15.1K</div><div class="v-bot">408/d</div></div><img src="https://i.ytimg.com/vi/hUG5t54gPKs/hqdefault.jpg" loading="lazy" alt="">
+      <div class="general-note">GENERAL AD</div><div class="th-date">Jun 15 · Same-Day WiFi</div></a>
+  </div>
+  <!-- Jul 2026: no ad of any kind found on official channel -->
   <div class="mc empty"><div class="no-ad">—</div></div>
 
   <!-- ══════════ SPECTRUM MOBILE ══════════ -->
