@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIGINT — Cable MVNO Net Adds Q2 2026</title>
+<style>
+  :root {
+    --bg:     #0a0c10;
+    --card:   #12161f;
+    --card2:  #0f1318;
+    --ink:    #e0e6ed;
+    --muted:  #6b7280;
+    --border: #1e2433;
+    --accent: #00d4ff;
+    --green:  #00ff88;
+    --amber:  #f59e0b;
+    --red:    #ff4757;
+    --xfn:    #6B46C1;
+    --spc:    #0082CA;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink);
+         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
+         line-height: 1.6; font-size: 0.92rem; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  header { background: #0d1117; border-bottom: 1px solid var(--border); padding: 28px 36px 24px; }
+  .back-link { font-size: 0.72rem; color: var(--accent); display: inline-block; margin-bottom: 14px; }
+  header h1 { font-size: 1.25rem; font-weight: 800; color: #fff; letter-spacing: -.01em; }
+  header p  { font-size: 0.78rem; color: var(--muted); margin-top: 5px; max-width: 720px; line-height: 1.6; }
+  .meta { font-size: 0.72rem; color: #6b7280; margin-top: 10px; }
+
+  .insight-bar { background: #131a24; border: 1px solid #1e3a5f; border-radius: 6px;
+    padding: 12px 18px; margin: 20px 36px 0; font-size: 0.78rem; color: #7dd3fc; line-height: 1.65; }
+  .insight-bar strong { color: #38bdf8; }
+
+  main { padding: 24px 36px 60px; }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+  @media (max-width: 800px) { .stat-grid { grid-template-columns: 1fr 1fr; } }
+  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px 18px; border-left: 3px solid var(--accent); }
+  .stat-card.xfn { border-left-color: var(--xfn); }
+  .stat-card.spc { border-left-color: var(--spc); }
+  .stat-num   { font-size: 1.45rem; font-weight: 800; color: #fff; line-height: 1.1; }
+  .stat-label { font-size: 0.66rem; font-weight: 700; text-transform: uppercase;
+                letter-spacing: .08em; color: var(--muted); margin-top: 4px; }
+  .stat-sub   { font-size: 0.68rem; color: #94a3b8; margin-top: 6px; line-height: 1.5; }
+
+  .host-section { margin-bottom: 34px; }
+  .host-header {
+    display: flex; align-items: baseline; gap: 12px; padding: 10px 14px;
+    background: var(--card); border-radius: 6px 6px 0 0;
+    border: 1px solid var(--border); border-bottom: none;
+  }
+  .host-header.xfn { border-top: 3px solid var(--xfn); }
+  .host-header.spc { border-top: 3px solid var(--spc); }
+  .host-name { font-size: 0.92rem; font-weight: 800; color: #fff; letter-spacing: -.01em; }
+  .host-meta { font-size: 0.70rem; color: var(--muted); margin-left: auto; }
+  .host-meta strong { color: #fff; font-weight: 800; }
+
+  .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--border); border: 1px solid var(--border); border-top: none;
+    border-radius: 0 0 6px 6px; overflow: hidden; }
+  @media (max-width: 900px) { .metric-grid { grid-template-columns: 1fr 1fr; } }
+
+  .metric-card { background: var(--card); padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+  .metric-k { font-size: 0.62rem; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); font-weight: 700; }
+  .metric-v { font-size: 1.15rem; font-weight: 800; color: #fff; }
+  .metric-delta { font-size: 0.70rem; font-weight: 700; }
+  .metric-delta.up { color: var(--green); }
+  .metric-delta.down { color: var(--red); }
+  .metric-note { font-size: 0.64rem; color: #6b7280; margin-top: 2px; }
+  .metric-prior { font-size: 0.66rem; color: #6b7280; }
+
+  .callout { background: #131a10; border: 1px solid #2a4020; border-radius: 8px;
+    padding: 14px 18px; margin: 24px 0 0 0; font-size: 0.78rem; color: #86efac; line-height: 1.65; }
+  .callout.amber { background: #1a1610; border-color: #4a3010; color: #fcd34d; }
+  .callout strong { color: #fff; }
+
+  .section-h { font-size: 0.60rem; font-weight: 800; text-transform: uppercase; letter-spacing: .14em;
+    color: var(--accent); margin: 32px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+  footer { background: #0d1117; border-top: 1px solid var(--border); color: var(--muted);
+    text-align: center; padding: 16px; font-size: 0.68rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="back-link" href="../index.html">&larr; SIGINT Home</a>
+  <h1>SIGINT — Cable MVNO Net Adds, Q2 2026</h1>
+  <p>Xfinity Mobile (Comcast) and Spectrum Mobile (Charter) quarterly wireless line trends,
+     Q2 2025 vs Q2 2026. Both ride Verizon&rsquo;s network as MVNOs — they don&rsquo;t disclose
+     device cost-of-sales the way facilities-based carriers do, so this tracks line growth and
+     wireless revenue rather than subsidy economics (see <a href="sigint_q2_2026.html">The Promotion Game</a>
+     for that view on AT&amp;T / T-Mobile / Verizon).</p>
+  <div class="meta">Source: SEC EDGAR 8-K Q2 2026 (Comcast filed Jul 23; Charter filed Jul 24, 2026)</div>
+</header>
+
+<div class="insight-bar">
+  <strong>Key finding:</strong> The two cable MVNOs are diverging. Comcast&rsquo;s Xfinity Mobile net adds
+  <em>accelerated</em> year-over-year (378K &rarr; 448K, +18.5%) even as its core broadband business keeps
+  shrinking — wireless is now the growth engine. Charter&rsquo;s Spectrum Mobile net adds <em>decelerated</em>
+  (491K &rarr; 406K, &minus;17.3%) despite still being the larger book by total lines, suggesting earlier
+  entry is running into saturation of its own broadband base.
+</div>
+
+<main>
+
+  <div class="stat-grid">
+    <div class="stat-card xfn">
+      <div class="stat-num">10.2M</div>
+      <div class="stat-label">Xfinity Mobile Total Lines</div>
+      <div class="stat-sub">+448K net adds in Q2 2026, best quarter on record. ~7% penetration of addressable footprint.</div>
+    </div>
+    <div class="stat-card xfn">
+      <div class="stat-num">+18.5%</div>
+      <div class="stat-label">Xfinity Net Add Growth (YoY)</div>
+      <div class="stat-sub">378K (Q2'25) &rarr; 448K (Q2'26). Accelerating.</div>
+    </div>
+    <div class="stat-card spc">
+      <div class="stat-num">12.5M</div>
+      <div class="stat-label">Spectrum Mobile Total Lines</div>
+      <div class="stat-sub">+406K net adds in Q2 2026 — still the larger book, still growing, but slower.</div>
+    </div>
+    <div class="stat-card spc">
+      <div class="stat-num">&minus;17.3%</div>
+      <div class="stat-label">Spectrum Net Add Growth (YoY)</div>
+      <div class="stat-sub">491K (Q2'25) &rarr; 406K (Q2'26). Decelerating.</div>
+    </div>
+  </div>
+
+  <div class="section-h">Quarterly Detail — Q2 2025 vs Q2 2026</div>
+
+  <div class="host-section">
+    <div class="host-header xfn">
+      <div class="host-name">Xfinity Mobile &middot; Comcast (CMCSA)</div>
+      <div class="host-meta">Domestic Wireless segment &nbsp;&middot;&nbsp; Q2 2026 8-K, filed Jul 23, 2026</div>
+    </div>
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-k">Total Wireless Lines</div>
+        <div class="metric-v">10.19M</div>
+        <div class="metric-prior">vs 8.53M Q2'25</div>
+        <div class="metric-delta up">+19.5% YoY</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-k">Net Line Additions</div>
+        <div class="metric-v">+448K</div>
+        <div class="metric-prior">vs +378K Q2'25</div>
+        <div class="metric-delta up">+18.5% YoY</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-k">Wireless Service Revenue</div>
+        <div class="metric-v">$1,007M</div>
+        <div class="metric-prior">vs $882M Q2'25</div>
+        <div class="metric-delta up">+14.2% YoY</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-k">Wireless Equipment Revenue</div>
+        <div class="metric-v">$404M</div>
+        <div class="metric-prior">vs $313M Q2'25</div>
+        <div class="metric-delta up">+28.8% YoY</div>
+        <div class="metric-note">No matching cost-of-equipment line disclosed — can't derive a subsidy loss figure.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="host-section">
+    <div class="host-header spc">
+      <div class="host-name">Spectrum Mobile &middot; Charter (CHTR)</div>
+      <div class="host-meta">Residential + Small Business Mobile &nbsp;&middot;&nbsp; Q2 2026 8-K, filed Jul 24, 2026</div>
+    </div>
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-k">Total Mobile Lines</div>
+        <div class="metric-v">12.54M</div>
+        <div class="metric-prior">vs 10.86M Q2'25</div>
+        <div class="metric-delta up">+15.5% YoY</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-k">Net Line Additions</div>
+        <div class="metric-v">+406K</div>
+        <div class="metric-prior">vs +491K Q2'25</div>
+        <div class="metric-delta down">&minus;17.3% YoY</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-k">Mobile Service Revenue</div>
+        <div class="metric-v">$1,095M</div>
+        <div class="metric-prior">vs $921M Q2'25</div>
+        <div class="metric-delta up">+18.9% YoY</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-k">Mobile Equipment Revenue</div>
+        <div class="metric-v">N/D</div>
+        <div class="metric-prior">Not broken out</div>
+        <div class="metric-note">Charter's release cites "higher mobile device revenue" as a cost driver but doesn't disclose a device revenue or cost dollar figure.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout amber">
+    <strong>Why no subsidy-economics panel:</strong> AT&amp;T, Verizon, and T-Mobile each disclose equipment
+    revenue <em>and</em> cost of equipment sold, letting us compute a device-subsidy loss and burn rate
+    (see The Promotion Game). Comcast discloses wireless equipment revenue but not its cost; Charter discloses
+    neither separately. Consolidated EBITDA/FCF for both companies also span their whole cable business
+    (video, broadband, and — for Comcast — NBCUniversal/Peacock), not wireless alone, so mixing those into
+    the carrier subsidy-burn-rate chart would compare fundamentally different things. This page instead
+    tracks the metrics both companies actually disclose for their wireless arms: line growth and service revenue.
+  </div>
+
+</main>
+
+<footer>
+  SIGINT Intelligence Platform &nbsp;&middot;&nbsp; Source: SEC EDGAR 8-K Q2 2026 (Comcast filed Jul 23; Charter filed Jul 24, 2026)
+  &nbsp;&middot;&nbsp; For institutional use; illustrative purposes only
+</footer>
+
+</body>
+</html>
