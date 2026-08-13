@@ -22,6 +22,7 @@
     --xfn:    #6B46C1;
     --spc:    #0082CA;
     --sam:    #1428A0;
+    --cri:    #78BE21;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--ink);
@@ -160,10 +161,11 @@
   <div class="header-eyebrow">Intelligence Brief · Advertising Strategy</div>
   <h1>Carrier Ad Intelligence:<br>iPhone vs. Samsung, TV vs. YouTube</h1>
   <div class="header-meta">
-    Coverage: <span>Sep 2025 – May 2026</span> &nbsp;·&nbsp;
-    Carriers: <span>T-Mobile · AT&T · Verizon · Xfinity Mobile · Spectrum Mobile</span> &nbsp;·&nbsp;
+    Coverage: <span>Sep 2025 – Aug 2026</span> &nbsp;·&nbsp;
+    Carriers: <span>T-Mobile · AT&T · Verizon · Xfinity Mobile · Spectrum Mobile · Cricket Wireless</span> &nbsp;·&nbsp;
     Sources: <span>YouTube Data API v3 · iSpot.tv brand pages · SEC 8-K filings · Carrier IR releases · YouTube archiver channels · abancommercials.com</span> &nbsp;·&nbsp;
-    Published: <span>May 2026</span>
+    Published: <span>May 2026</span> &nbsp;·&nbsp;
+    Updated: <span>Aug 2026 — added Cricket Wireless</span>
   </div>
 </header>
 
@@ -205,6 +207,11 @@
         <div class="finding-num">21 ¶</div>
         <div class="finding-label">T-Mobile "Go Grande iPhone 17 Pro" TV airings</div>
         <div class="finding-sub">¶ Single iSpot-tagged iPhone creative only. T-Mobile's brand/switch spots mention iPhone too; not all are surfaced as iPhone-specific on iSpot's brand-page view. Directional read: dedicated iPhone creative is ~150× thinner than dedicated Samsung creative (3,179 "Scales" airings).</div>
+      </div>
+      <div class="finding red" style="grid-column: 1 / -1; border-left-color: var(--cri)">
+        <div class="finding-num" style="color: var(--cri)">0</div>
+        <div class="finding-label">Cricket Wireless iPhone 17 ads — TV or YouTube, entire window</div>
+        <div class="finding-sub">AT&amp;T's prepaid sub-brand ran zero iPhone 17-lineup creative. iSpot's current 30-day snapshot (Jul 13 – Aug 12, 2026) shows Cricket's top 6 TV creatives are 100% Samsung (led by "Jaw-Dropping Deal: Free Samsung Galaxy A37 5G," 2,149 airings). iPhone shows up only as a discounted iPhone 16/16e trade-down — never the current-generation device.</div>
       </div>
     </div>
   </div>
@@ -389,6 +396,32 @@
             <td class="num">347</td>
             <td><span class="pill tv">S26 Ultra</span></td>
           </tr>
+          <tr style="border-top:1px solid var(--border)">
+            <td class="label"><span class="cdot" style="background:var(--cri)"></span>Cricket Wireless</td>
+            <td class="lo">#275 ‖</td>
+            <td class="num lo">6,727 ‖</td>
+            <td>Jaw-Dropping Deal: Free Samsung Galaxy A37 5G</td>
+            <td class="num">2,149</td>
+            <td><span class="pill tv">Samsung A37</span></td>
+          </tr>
+          <tr>
+            <td></td><td></td><td></td>
+            <td>Tell Your Friends: Samsung Galaxy A17</td>
+            <td class="num">990</td>
+            <td><span class="pill tv">Samsung A17</span></td>
+          </tr>
+          <tr>
+            <td></td><td></td><td></td>
+            <td>Ping Pong: $35 per Month</td>
+            <td class="num">1,066</td>
+            <td><span class="pill tv">Brand</span></td>
+          </tr>
+          <tr>
+            <td></td><td></td><td></td>
+            <td>iPhone 16E on Us</td>
+            <td class="num lo">not in top 6 ‖</td>
+            <td><span class="pill yt">iPhone 16e</span></td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -408,6 +441,14 @@
       than AT&amp;T's all-brands national rank. AT&amp;T Wireless is consistently a top-15-to-25 U.S. national TV advertiser
       across industry rankings (Kantar, iSpot all-category, Nielsen Ad Intel) — the original #138 reading has been replaced
       with a more accurate range and flagged for re-verification with paid iSpot access.
+      <br><br>
+      <strong>‖ Cricket Wireless capture-window caveat:</strong> Cricket's figures (<code style="background:#0f1318;padding:1px 5px;border-radius:3px;color:#94a3b8">ispot.tv/brands/obc/cricket-wireless</code>)
+      were captured Aug 2026 from iSpot's rolling 30-day window (Jul 13 – Aug 12, 2026) — a different, more recent
+      snapshot than the May 2026 capture used for T-Mobile/AT&amp;T/Verizon above, so the rank/airings totals are
+      <em>not</em> directly comparable across rows. The pattern that matters regardless of window: Cricket's top 6
+      TV creatives are all Samsung or brand/plan spots — no iPhone creative placed high enough to surface. The four
+      Cricket iPhone 16/16e TV creatives identified (via individual iSpot ad pages, not the brand-summary top list)
+      had their airing counts locked behind iSpot's registration wall at capture time.
     </p>
   </div>
 
@@ -487,6 +528,14 @@
             <td>Super Bowl: Tell Me Why (whHB6_hP6xM)</td><td>Feb '26</td>
             <td class="num lo">369</td><td class="num lo">4</td>
             <td>Archiver †</td>
+          </tr>
+          <!-- Cricket: iPhone 16e, not iPhone 17 — no iPhone 17 creative exists -->
+          <tr><td colspan="6" style="background:#0f1318; color:var(--cri); font-size:0.65rem; font-weight:800; letter-spacing:.10em; text-transform:uppercase; padding:8px 12px;">Cricket Wireless — iPhone 16e Only (No iPhone 17 Creative Found)</td></tr>
+          <tr>
+            <td><span class="cdot" style="background:var(--cri)"></span>Cricket</td>
+            <td>Everyone's Talkin' (PAYHC5Lh9W8) §</td><td>Jan '26</td>
+            <td class="num mid">25.4K</td><td class="num mid">116</td>
+            <td>Official</td>
           </tr>
           <!-- Samsung ads -->
           <tr><td colspan="6" style="background:#0f1318; color:#818cf8; font-size:0.65rem; font-weight:800; letter-spacing:.10em; text-transform:uppercase; padding:8px 12px;">Samsung Galaxy Campaign</td></tr>
@@ -592,7 +641,9 @@
       † Archiver channel: ad confirmed as aired on TV via iSpot but not uploaded to official carrier YouTube channel.
       V/day is near-zero because archiver uploads receive no paid amplification.<br>
       ‡ "A Better Deal" is a Verizon brand campaign, not a Samsung device co-op. Included for market context;
-      see carrier profiles below.
+      see carrier profiles below.<br>
+      § Cricket ran no iPhone 17-lineup creative on YouTube or TV. "Everyone's Talkin'" promotes the discounted
+      iPhone 16e, not iPhone 17 — included for market context on Cricket's iPhone strategy, not as an iPhone 17 data point.
     </p>
   </div>
 
@@ -666,6 +717,17 @@
       have <strong>zero official YouTube uploads</strong>. Every view on their iPhone ads comes from
       archiver channels (max 65 v/d Verizon, 47 v/d T-Mobile) — unamplifed, organic noise.
     </div>
+    <div class="callout blue" style="margin-top:12px">
+      <strong>Case study — Cricket Wireless (AT&amp;T's prepaid sub-brand, added Aug 2026):</strong>
+      Not a full profile card — Cricket doesn't report standalone subscriber/financial metrics (folded into
+      AT&amp;T's consolidated prepaid segment), so it isn't directly comparable to the three postpaid carriers above.
+      But its ad pattern is a clean data point for the brief's core theme: device marketing here is
+      overwhelmingly <strong>Samsung/Motorola</strong> (6,727 national TV airings in the current 30-day iSpot
+      window, led by Samsung Galaxy A-series deals), with iPhone appearing only as a <strong>discounted
+      iPhone 16/16e trade-down</strong> — never the current iPhone 17 generation. This is the inverse of AT&amp;T's
+      own postpaid strategy (iPhone-first) one tier up the same corporate family, and a starker version of the
+      Samsung-buys-distribution pattern seen at T-Mobile.
+    </div>
   </div>
 
   <!-- ── The Samsung vs iPhone Split ── -->
@@ -709,12 +771,23 @@
             <td class="num mid">336,612 ‡</td>
             <td><strong style="color:var(--amber)">Device-agnostic</strong></td>
           </tr>
+          <tr>
+            <td class="label"><span class="cdot" style="background:var(--cri)"></span>Cricket Wireless</td>
+            <td class="num lo">0</td>
+            <td class="num hi">6,727 total ‖</td>
+            <td class="num lo">116 (16e only) §</td>
+            <td class="num lo">— not pulled</td>
+            <td><strong style="color:var(--cri)">Samsung TV, no iPhone 17</strong></td>
+          </tr>
         </tbody>
       </table>
     </div>
     <p style="font-size:0.70rem;color:var(--muted);margin-top:8px;">
       ‡ Verizon Samsung YouTube figure dominated by "A Better Deal" brand campaign (70M views), not a Samsung device co-op.
-      Adjusting for that, Verizon's Samsung YouTube co-op peak is ~1,418 v/d.
+      Adjusting for that, Verizon's Samsung YouTube co-op peak is ~1,418 v/d.<br>
+      ‖ Cricket's 6,727 is brand-wide TV airings (mostly Samsung/plan spots), not an iPhone-specific count — its iPhone
+      TV airings are 0 because no iPhone 17 creative exists; its iPhone 16/16e TV spots exist but weren't in the
+      top-6 airings list. § Cricket's iPhone YouTube figure is for iPhone 16e, not iPhone 17 — no iPhone 17 co-op found.
     </p>
   </div>
 
@@ -798,6 +871,12 @@
           and competitive actions — not advertising alone. Do not attribute subscriber outcomes to ad campaigns.</li>
       <li>Xfinity Mobile and Spectrum Mobile do not report standalone phone net adds in their public filings.
           Their iSpot data was not retrieved for this brief.</li>
+      <li>Cricket Wireless is AT&amp;T's prepaid MVNO brand, not a standalone carrier — it reports no separate
+          subscriber/net-add figures, so it is excluded from the Q1 2026 financial-context table and profile-card
+          grid above. Its iSpot brand-page capture (Aug 2026) is a different, more recent snapshot window than the
+          May 2026 capture used for the other three carriers' TV tables, so raw totals should not be compared
+          carrier-to-carrier; only the creative-mix pattern (Samsung-heavy, zero iPhone 17) is the intended signal.
+          Cricket's Samsung YouTube velocity was not pulled for this update — only its iPhone 16e figure.</li>
       <li>Both manufacturer-direct YouTube figures (Apple Direct top: 80M / 30M / 24M views; Samsung Direct top:
           54M / 30M / 24M views) represent direct-to-consumer media investment, not carrier co-op. Apple's direct
           YouTube footprint is larger by content volume (25+ iPhone 17 videos since Sep 2025);
@@ -812,7 +891,8 @@
     <div class="source-chips">
       <span class="schip">YouTube Data API v3 (live)</span>
       <span class="schip">iSpot.tv carrier brand pages (captured May 2026)</span>
-      <span class="schip">Carrier official YouTube channels (AT&amp;T, T-Mobile, Verizon, Xfinity, Spectrum)</span>
+      <span class="schip">Carrier official YouTube channels (AT&amp;T, T-Mobile, Verizon, Xfinity, Spectrum, Cricket Wireless)</span>
+      <span class="schip">iSpot.tv Cricket Wireless brand page (captured Aug 2026)</span>
       <span class="schip">Samsung Mobile YouTube channel</span>
       <span class="schip">Apple YouTube channel</span>
       <span class="schip">Archiver channels (Commercial Archivist, ZHENG WEN, Keith P., SN®, AdSpotlight, Funny Commercials Review)</span>
